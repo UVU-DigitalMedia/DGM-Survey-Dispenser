@@ -5,12 +5,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "bower": "`npm bin`/bower",
+    "bower": "./node_modules/.bin/bower",
     "start": "node index",
-    "build": "`npm bin`/gulp build",
-    "watch": "`npm bin`/gulp watch",
-    "test": "`npm bin`/mocha",
-    "coverage": "`npm bin`/istanbul cover `npm bin`/_mocha"
+    "build": "./node_modules/.bin/gulp build",
+    "watch": "./node_modules/.bin/gulp watch",
+    "test": "./node_modules/.bin/mocha",
+    "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha"
   },
   "author": "",
   "license": "MIT",
