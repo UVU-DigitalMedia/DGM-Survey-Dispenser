@@ -5,7 +5,8 @@ DGM-Survey-Dispenser is a diverse framework to build out an API and SPA.
 # Installation
 
 ```bash
-npm i && npm run bower i
+npm i
+npm run bower i
 ```
 
 It is also required that you have `mongoDB` and `redis`. If you're using a mac
