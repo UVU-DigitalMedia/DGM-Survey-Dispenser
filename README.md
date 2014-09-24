@@ -4,9 +4,20 @@ DGM-Survey-Dispenser is a diverse framework to build out an API and SPA.
 
 # Installation
 
+Don't forget to put `sudo` before these commands if you still haven't changed
+the ownership of **your** CLIs to **your** user.
+
+Make sure you have `bower` installed. Install it with this:
+
+```bash
+npm install -g bower
+```
+
+Then run these commands:
+
 ```bash
 npm i
-npm run bower i
+bower i
 ```
 
 It is also required that you have `mongoDB` and `redis`. If you're using a mac
@@ -25,6 +36,29 @@ You can install redis on Mac or Linux from [here](http://redis.io/download).
 Redis currently isn't available for Windows... but the development environment
 doesn't use it by default, so you should be okay. Your sessions will expire
 if your app resets, though.
+
+# Starting the app
+
+Make sure that the `npm i` and `bower i` commands ran successfully without
+errors. You cannot begin development without this step.
+
+Make sure you have mongoDB running (on mac, use the `mongod` command). To do
+this on a Mac, open a new tab in the terminal and run `mongod`. Make sure it
+gets started up. If it's your first time running mongodb, it may say that it
+can't access the `/data/db` directory. You can create the folder with this
+command:
+
+```bash
+mkdir -p /data/db
+```
+
+If you are using redis, open up a new tab and run `redis-server`.
+
+Next, run `npm start`. And you're golden! Your app will have started on the port
+your environment is set up on.
+
+If you want your app to restart automatically when you make changes, run
+`npm run watch`.
 
 # Configuration
 
@@ -62,16 +96,6 @@ config.get('env.envVariable');
 Then, if you want to switch environments, start the app using
 `NODE_ENV=production` and it will load `config/env.production.js` instead of the
 development one.
-
-# Starting the app
-
-Make sure you have mongoDB running (on mac, use the `mongod` command).
-
-Next, run `npm start`. And you're golden! Your app will have started on the port
-your environment is set up on.
-
-If you want your app to restart automatically when you make changes, run
-`npm run watch`.
 
 # Build processes
 
