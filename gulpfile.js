@@ -3,7 +3,9 @@
 var path   = require('path');
 var gulp   = require('gulp');
 var p      = require('gulp-load-plugins')();
-var lib    = require('bower-files')();
+var lib    = require('bower-files')({
+  join: {fonts: ['eot', 'svg', 'ttf', 'woff']}
+});
 var pkg    = require('./package');
 
 // paths
@@ -106,8 +108,7 @@ gulp.task('static', function () {
     .pipe(gulp.dest(options.static.dest));
 });
 gulp.task('fonts', function () {
-  var fonts = [].concat(lib.eot, lib.svg, lib.ttf, lib.woff);
-  return gulp.src(fonts).pipe(gulp.dest('public/fonts'));
+  return gulp.src(lib.fonts || []).pipe(gulp.dest('public/fonts'));
 });
 gulp.task('watch.static', ['static', 'fonts'], function () {
   gulp.watch(options.static.src, ['static']);
