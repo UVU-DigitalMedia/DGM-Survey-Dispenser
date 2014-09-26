@@ -8,8 +8,8 @@
     "start": "node index",
     "build": "./node_modules/.bin/gulp build",
     "watch": "./node_modules/.bin/gulp watch",
-    "test": "./node_modules/.bin/mocha",
-    "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha"
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha",
+    "coverage": "NODE_ENV=test ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha"
   },
   "author": "",
   "license": "MIT",
@@ -54,6 +54,8 @@
     "gulp-uglify": "^1.0.1",
     "istanbul": "^0.3.2",
     "mocha": "^1.21.4",
-    "request": "^2.44.0"
+    "nodemailer-stub-transport": "^0.1.4",
+    "request": "^2.44.0",
+    "tough-cookie": "^0.12.1"
   }
 }
