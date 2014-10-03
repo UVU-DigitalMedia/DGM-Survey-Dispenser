@@ -4,3 +4,4 @@ bower_components
 dump.rdb
 npm-debug.log
 .idea # For those using WebStorm... silly heads
+coverage

@@ -19,6 +19,7 @@ router.post('/login', function (req, res, next) {
     // Login successful
     req.session.user = user.reduce();
     req.session.save(function (err) {
+      /* istanbul ignore if: session should always be saving */
       if (err) { return next(err); }
       res.json({success: true, user: req.session.user});
     });
@@ -28,6 +29,7 @@ router.post('/login', function (req, res, next) {
 // {ALL} /v1/auth/logout
 router.all('/logout', function (req, res, next) {
   req.session.destroy(function(err) {
+    /* istanbul ignore if: session should always be being destroyed */
     if (err) { return next(err); }
     res.json({success: true});
   });

@@ -13,6 +13,7 @@ glob.sync(PATTERN).map(function (modulePath) {
 
   // If the schema module isn't a mongoose Schema or the filename doesn't only
   // contain lowercase letters and dashes, then skip out
+  /* istanbul ignore if: All models should be named correctly */
   if (!(schemaModule instanceof mongoose.Schema) ||
       !LOWERCASE_DASHES.test(basename)) {
     return;

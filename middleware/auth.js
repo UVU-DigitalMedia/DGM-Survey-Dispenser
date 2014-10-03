@@ -31,7 +31,7 @@ function hasAccess(accessLevel) {
     // otherwise, return access denied
     res.status(403).json({
       success: false,
-      error: 'Unauthorized'
+      error: 'UNAUTHORIZED'
     });
   };
 }

@@ -43,6 +43,7 @@ app.use('/', require('../routes'));
 // need this callback to use the error handler for the server.
 function initServer(cb) {
   var server;
+  /* istanbul ignore if: we're using http */
   if (ssl) {
     server = require('https').createServer(ssl, app);
   } else {
