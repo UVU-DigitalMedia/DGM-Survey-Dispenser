@@ -44,7 +44,7 @@ describe('user tests', function () {
     User.defaultUser(defaultUser).then(function (theUser) {
       user = theUser;
       request.get(baseUrl, function (err, res, body) {
-        csrfToken = jar.getCookiesSync(baseUrl)[0].value;
+        csrfToken = jar.getCookies(baseUrl)[0].value;
         done();
       });
     });
@@ -226,7 +226,7 @@ describe('user tests', function () {
 
     it('should get unauthorized for protected endpoint', function (done) {
       request.get(baseUrl + '/v1/user', function (err, res, body) {
-        csrfToken = jar.getCookiesSync(baseUrl)[0].value;
+        csrfToken = jar.getCookies(baseUrl)[0].value;
         expect(err).to.be(null);
         body = JSON.parse(body);
         expect(res.statusCode).to.be(403);

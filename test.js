@@ -21,8 +21,8 @@ var regions = [
 
 webcamRegions(regions, function (err, images, main) {
   if (err) { return console.error(err); }
-  //fs.writeFile('all.jpg', main, function () {});
+  fs.writeFile('all.jpg', main, function () {});
   images.map(function (img, index) {
-    //fs.writeFile(index + '.jpg', img.content, function () {});
+    fs.writeFile(index + '.jpg', img.content, function () {});
   });
 });
