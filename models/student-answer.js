@@ -3,8 +3,7 @@
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 var config   = require('configly').config;
-var types    = config.get('student.types');
-var validate = config.get('student.validate');
+var types    = config.get('question.types');
 var Promise  = require('bluebird');
 
 // var types = {
@@ -39,10 +38,10 @@ StudentAnswerSchema.static('answer', function (student, question, value) {
   var Answer   = this;
   var Question = mongoose.model('StudentQuestionSchema');
   return Question.findById(question).exec().then(function (question) {
-    var type = question.type;
+    if (!types[question.type]) { return false; }
+    var type    = question.type;
     var choices = question.choices;
-    if (!validate[type]) { return false; }
-    var valid = validate[type](value, choices);
+    var valid   = types[type].validate(value, choices);
     if (!valid) { return false; }
     if (Array.isArray(value)) {
       value = value.map(function (val) {
@@ -63,10 +62,6 @@ StudentAnswerSchema.static('answer', function (student, question, value) {
     });
   });
 });
-
-
-
-StudentAnswerSchema.static('types', types);
 
 // Add createdAt property
 UserSchema.plugin(require('mongoose-created-at'));

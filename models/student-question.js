@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 var config   = require('configly').config;
-var types    = config.get('student.types');
+var types    = config.get('question.types');
 
 // var types = {
 //   multipleChoice: 'Multiple Choice',
@@ -28,7 +28,7 @@ var StudentQuestionSchema = new Schema({
   },
   type: {
     type: String,
-    enum: Object.keys(types)
+    enum: Object.keys(types);
   },
   choices: [{
     label: {
@@ -44,7 +44,12 @@ var StudentQuestionSchema = new Schema({
   }]
 });
 
-StudentQuestionSchema.static('types', types);
+var typesExport = {};
+Object.keys(types).map(function (type) {
+  typesExport[type] = types[type].label;
+});
+
+StudentQuestionSchema.static('types', typesExport);
 
 // Add createdAt property
 UserSchema.plugin(require('mongoose-created-at'));
