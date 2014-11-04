@@ -35,7 +35,7 @@ module.exports = {
       }
     },
     ordering: {
-      label: 'Ordering'
+      label: 'Ordering',
       validate: function (value, choices) {
         if (!Array.isArray(value) && value.length !== choices.length) {
           return false;

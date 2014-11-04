@@ -28,7 +28,7 @@ var StudentQuestionSchema = new Schema({
   },
   type: {
     type: String,
-    enum: Object.keys(types);
+    enum: Object.keys(types)
   },
   choices: [{
     label: {
@@ -52,8 +52,8 @@ Object.keys(types).map(function (type) {
 StudentQuestionSchema.static('types', typesExport);
 
 // Add createdAt property
-UserSchema.plugin(require('mongoose-created-at'));
+StudentQuestionSchema.plugin(require('mongoose-created-at'));
 // Add updatedAt property
-UserSchema.plugin(require('mongoose-updated-at'));
+StudentQuestionSchema.plugin(require('mongoose-updated-at'));
 
 module.exports = StudentQuestionSchema;

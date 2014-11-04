@@ -64,8 +64,8 @@ StudentAnswerSchema.static('answer', function (student, question, value) {
 });
 
 // Add createdAt property
-UserSchema.plugin(require('mongoose-created-at'));
+StudentAnswerSchema.plugin(require('mongoose-created-at'));
 // Add updatedAt property
-UserSchema.plugin(require('mongoose-updated-at'));
+StudentAnswerSchema.plugin(require('mongoose-updated-at'));
 
 module.exports = StudentAnswerSchema;

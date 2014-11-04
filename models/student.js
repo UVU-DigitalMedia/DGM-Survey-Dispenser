@@ -12,8 +12,8 @@ var StudentSchema = new Schema({
 });
 
 // Add createdAt property
-UserSchema.plugin(require('mongoose-created-at'));
+StudentSchema.plugin(require('mongoose-created-at'));
 // Add updatedAt property
-UserSchema.plugin(require('mongoose-updated-at'));
+StudentSchema.plugin(require('mongoose-updated-at'));
 
 module.exports = StudentSchema;
