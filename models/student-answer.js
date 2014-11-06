@@ -38,6 +38,7 @@ StudentAnswerSchema.static('answer', function (student, question, value) {
   var Answer   = this;
   var Question = mongoose.model('StudentQuestionSchema');
   return Question.findById(question).exec().then(function (question) {
+    if (!question) { return false; }
     if (!types[question.type]) { return false; }
     var type    = question.type;
     var choices = question.choices;
