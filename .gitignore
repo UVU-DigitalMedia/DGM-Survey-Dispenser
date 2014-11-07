@@ -3,5 +3,6 @@ bower_components
 *.DS_Store
 dump.rdb
 npm-debug.log
-.idea # For those using WebStorm... silly heads
+# For those using WebStorm... silly heads
+.idea
 coverage
