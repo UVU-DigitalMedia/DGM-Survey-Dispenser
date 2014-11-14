@@ -50,7 +50,7 @@ module.exports = {
 
 function validateMultipleChoice(value, choices) {
   if (!Array.isArray(choices) || !choices.length) { return false; }
-  if (!value || !value.key || !value.value) { return false; }
+  if (!value || !value.key || !(value.key !== 'other' || value.value)) { return false; }
   return choices.some(function (choice) {
     if (value.key === 'other' && choice.other === true) { return true; }
     return value.key === choice.key;

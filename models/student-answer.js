@@ -36,7 +36,7 @@ var StudentAnswerSchema = new Schema({
 
 StudentAnswerSchema.static('answer', function (student, question, value) {
   var Answer   = this;
-  var Question = mongoose.model('StudentQuestionSchema');
+  var Question = mongoose.model('StudentQuestion');
   return Question.findById(question).exec().then(function (question) {
     if (!question) { return false; }
     if (!types[question.type]) { return false; }

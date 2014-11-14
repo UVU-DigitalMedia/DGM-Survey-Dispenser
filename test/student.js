@@ -33,7 +33,7 @@ var testUvid = '10000000';
 //     PUT    /v1/user/:id
 //     DELETE /v1/user/:id
 
-describe('user tests', function () {
+describe('student tests', function () {
 
   before(function (done) {
     User = mongoose.model('User');
@@ -96,6 +96,72 @@ describe('user tests', function () {
         expect(body.success).to.be(true);
         expect(body.student).to.be.an(Object);
         expect(body.student.uvid).to.be(testUvid);
+        done();
+      });
+    });
+
+    var qid;
+    it('should create questions before answering them', function (done) {
+      request.post({
+        url: baseUrl + '/v1/question',
+        json: {
+          _csrf: csrfToken,
+          label: 'Student Preference',
+          question: 'What is your preference?',
+          type: 'multipleChoice',
+          choices: [
+            { key: 'angular', label: 'AngularJS' },
+            { key: 'react', label: 'React' },
+            { key: 'ember', label: 'Ember' },
+            { key: 'other', other: true, label: 'Other' }
+          ]
+        }
+      }, function (err, res, body) {
+        expect(err).to.be(null);
+        expect(body).to.be.an(Object);
+        expect(body.success).to.be(true);
+        expect(body.question).to.be.an(Object);
+        expect(body.question.label).to.be('Student Preference');
+        qid = body.question._id;
+        done();
+      });
+    });
+
+    it('should be able to answer questions', function (done) {
+      request.post({
+        url: baseUrl + '/v1/student/answer/' + qid,
+        json: {
+          _csrf: csrfToken,
+          value: {
+            key: 'angular'
+          }
+        }
+      }, function (err, res, body) {
+        expect(err).to.be(null);
+        expect(body).to.be.an(Object);
+        expect(body.success).to.be(true);
+        expect(body.answer).to.be.an(Object);
+        console.log(body);
+        done();
+      });
+    });
+
+    it('should be able to answer questions', function (done) {
+      request.post({
+        url: baseUrl + '/v1/student/answer/' + qid,
+        json: {
+          _csrf: csrfToken,
+          value: {
+            key: 'other',
+            value: 'None'
+          }
+        }
+      }, function (err, res, body) {
+        expect(err).to.be(null);
+        expect(body).to.be.an(Object);
+        expect(body.success).to.be(true);
+        expect(body.answer).to.be.an(Object);
+        console.log(body);
         done();
       });
     });

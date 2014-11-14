@@ -2,7 +2,7 @@
 
 var router  = require('express').Router();
 var Student = require('mongoose').model('Student');
-var Answer  = require('mongoose').model('Answer');
+var Answer  = require('mongoose').model('StudentAnswer');
 var auth   = require('rute')('middleware/auth');
 
 router.param('uvid', function (req, res, next, uvid) {
