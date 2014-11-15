@@ -246,6 +246,560 @@ define({ api: [
   },
   {
     "type": "delete",
+    "url": "/v1/question/:id",
+    "title": "Delete Question information",
+    "name": "DeleteQuestion",
+    "group": "Question",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "field": "id",
+            "optional": false,
+            "description": "<p>Question&#39;s unique ID.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "field": "success",
+            "optional": false,
+            "description": "<p>When the request is successful.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "Success-Response:\n   HTTP/1.1 200 OK\n   {\n     \"success\": true\n   }\n",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/v1/question.js"
+  },
+  {
+    "type": "get",
+    "url": "/v1/question/:id",
+    "title": "Request Question information",
+    "name": "GetQuestion",
+    "group": "Question",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "field": "id",
+            "optional": false,
+            "description": "<p>The question&#39;s unique id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "field": "success",
+            "optional": false,
+            "description": "<p>When the request is successful.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "field": "question",
+            "optional": false,
+            "description": "<p>The question object.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "question._id",
+            "optional": false,
+            "description": "<p>The question&#39;s unique id</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "question.label",
+            "optional": false,
+            "description": "<p>The internally used question label</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "question.question",
+            "optional": false,
+            "description": "<p>The question to be asked to the  student</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "question.type",
+            "optional": false,
+            "description": "<p>One of the question types referenced at  &quot;Get the question types&quot;</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "field": "question.createdAt",
+            "optional": false,
+            "description": "<p>The date the question was created</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "field": "question.updatedAt",
+            "optional": false,
+            "description": "<p>the date the question was updated</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "field": "question.choices",
+            "optional": false,
+            "description": "<p>The choices for the question if  applicable</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "question.choices.label",
+            "optional": false,
+            "description": "<p>The label for the choice, as  displayed to the student</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "question.choices.key",
+            "optional": false,
+            "description": "<p>The value of the choice. If an  &quot;other&quot; option is specified, this should be &#39;other&#39;</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "Success-Response:\n   HTTP/1.1 200 OK\n   {\n     \"success\": true,\n     \"question\": {\n       \"id\": \"the-unique-id\",\n       \"label\": \"The question label\",\n       \"question\": \"What is the question?\",\n       \"type\": \"multipleChoice\",\n       \"choices\": [\n         {\n           \"label\": \"There is no question\",\n           \"key\": \"noQuestion\"\n         },\n         {\n           \"label\": \"Other\",\n           \"key\": \"other\"\n         }\n       ],\n       \"createdAt\": Sat Nov 15 2014 08:23:19 GMT-0700 (MST),\n       \"updatedAt\": Sat Nov 15 2014 08:23:19 GMT-0700 (MST)\n     }\n   }\n",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/v1/question.js"
+  },
+  {
+    "type": "post",
+    "url": "/v1/question",
+    "title": "Create Question",
+    "name": "PostQuestion",
+    "group": "Question",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "Example usage:\n  POST /v1/question\n  {\n    \"label\": \"New Label\",\n    \"question\": \"New question?\",\n    \"type\": \"multpleChoice\",\n    \"choices\": [{\n      \"label\": \"Answer Label\",\n      \"key\": \"answerKey\"\n    }]\n  }\n",
+        "type": "json"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "field": "id",
+            "optional": false,
+            "description": "<p>The question&#39;s unique id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "field": "success",
+            "optional": false,
+            "description": "<p>When the request is successful.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "field": "question",
+            "optional": false,
+            "description": "<p>The question object.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "question._id",
+            "optional": false,
+            "description": "<p>The question&#39;s unique id</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "question.label",
+            "optional": false,
+            "description": "<p>The internally used question label</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "question.question",
+            "optional": false,
+            "description": "<p>The question to be asked to the  student</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "question.type",
+            "optional": false,
+            "description": "<p>One of the question types referenced at  &quot;Get the question types&quot;</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "field": "question.createdAt",
+            "optional": false,
+            "description": "<p>The date the question was created</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "field": "question.updatedAt",
+            "optional": false,
+            "description": "<p>the date the question was updated</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "field": "question.choices",
+            "optional": false,
+            "description": "<p>The choices for the question if  applicable</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "question.choices.label",
+            "optional": false,
+            "description": "<p>The label for the choice, as  displayed to the student</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "question.choices.key",
+            "optional": false,
+            "description": "<p>The value of the choice. If an  &quot;other&quot; option is specified, this should be &#39;other&#39;</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "Success-Response:\n   HTTP/1.1 200 OK\n   {\n     \"success\": true,\n     \"question\": {\n       \"id\": \"the-unique-id\",\n       \"label\": \"The question label\",\n       \"question\": \"What is the question?\",\n       \"type\": \"multipleChoice\",\n       \"choices\": [\n         {\n           \"label\": \"There is no question\",\n           \"key\": \"noQuestion\"\n         },\n         {\n           \"label\": \"Other\",\n           \"key\": \"other\"\n         }\n       ],\n       \"createdAt\": Sat Nov 15 2014 08:23:19 GMT-0700 (MST),\n       \"updatedAt\": Sat Nov 15 2014 08:23:19 GMT-0700 (MST)\n     }\n   }\n",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/v1/question.js"
+  },
+  {
+    "type": "put",
+    "url": "/v1/question/:id",
+    "title": "Update Question information",
+    "name": "PutQuestion",
+    "group": "Question",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "Example usage:\n  PUT /v1/question/the-questions-id\n  {\n    \"label\": \"New Label\",\n    \"question\": \"New question?\",\n    \"type\": \"multpleChoice\",\n    \"choices\": [{\n      \"label\": \"Answer Label\",\n      \"key\": \"answerKey\"\n    }]\n  }\n",
+        "type": "json"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "field": "id",
+            "optional": false,
+            "description": "<p>The question&#39;s unique id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "field": "success",
+            "optional": false,
+            "description": "<p>When the request is successful.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "field": "question",
+            "optional": false,
+            "description": "<p>The question object.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "question._id",
+            "optional": false,
+            "description": "<p>The question&#39;s unique id</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "question.label",
+            "optional": false,
+            "description": "<p>The internally used question label</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "question.question",
+            "optional": false,
+            "description": "<p>The question to be asked to the  student</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "question.type",
+            "optional": false,
+            "description": "<p>One of the question types referenced at  &quot;Get the question types&quot;</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "field": "question.createdAt",
+            "optional": false,
+            "description": "<p>The date the question was created</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "field": "question.updatedAt",
+            "optional": false,
+            "description": "<p>the date the question was updated</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "field": "question.choices",
+            "optional": false,
+            "description": "<p>The choices for the question if  applicable</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "question.choices.label",
+            "optional": false,
+            "description": "<p>The label for the choice, as  displayed to the student</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "question.choices.key",
+            "optional": false,
+            "description": "<p>The value of the choice. If an  &quot;other&quot; option is specified, this should be &#39;other&#39;</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "Success-Response:\n   HTTP/1.1 200 OK\n   {\n     \"success\": true,\n     \"question\": {\n       \"id\": \"the-unique-id\",\n       \"label\": \"The question label\",\n       \"question\": \"What is the question?\",\n       \"type\": \"multipleChoice\",\n       \"choices\": [\n         {\n           \"label\": \"There is no question\",\n           \"key\": \"noQuestion\"\n         },\n         {\n           \"label\": \"Other\",\n           \"key\": \"other\"\n         }\n       ],\n       \"createdAt\": Sat Nov 15 2014 08:23:19 GMT-0700 (MST),\n       \"updatedAt\": Sat Nov 15 2014 08:23:19 GMT-0700 (MST)\n     }\n   }\n",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/v1/question.js"
+  },
+  {
+    "type": "get",
+    "url": "/v1/question/types",
+    "title": "Get the question types",
+    "name": "QuestionTypes",
+    "group": "Question",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "Example usage:\n  GET /v1/question/types\n",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "field": "success",
+            "optional": false,
+            "description": "<p>When the request is successful.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "field": "types",
+            "optional": false,
+            "description": "<p>The possible question types</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "Success-Response:\n  HTTP/1.1 200 OK\n  {\n    \"success\": true,\n    \"types\": {\n      \"multipleChoice\": \"Multiple Choice\",\n      \"multipleCorrect\": \"Muliple Correct\",\n      \"trueFalse\": \"True/False\",\n      \"shortAnswer\": \"Short Answer\",\n      \"essay\": \"Essay\",\n      \"ordering\": \"Ordering\"\n    }\n  }\n",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/v1/question.js"
+  },
+  {
+    "type": "get",
+    "url": "/v1/question",
+    "title": "Get all of the questions",
+    "name": "Questions",
+    "group": "Question",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "Example usage:\n  GET /v1/question\n",
+        "type": "json"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "field": "id",
+            "optional": false,
+            "description": "<p>The question&#39;s unique id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "field": "success",
+            "optional": false,
+            "description": "<p>When the request is successful.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "field": "questions",
+            "optional": false,
+            "description": "<p>The questions array.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "questions._id",
+            "optional": false,
+            "description": "<p>The question&#39;s unique id</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "questions.label",
+            "optional": false,
+            "description": "<p>The internally used question label</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "questions.question",
+            "optional": false,
+            "description": "<p>The question to be asked to the  student</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "questions.type",
+            "optional": false,
+            "description": "<p>One of the question types referenced at  &quot;Get the question types&quot;</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "field": "questions.createdAt",
+            "optional": false,
+            "description": "<p>The date the question was created</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "field": "questions.updatedAt",
+            "optional": false,
+            "description": "<p>the date the question was updated</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "field": "questions.choices",
+            "optional": false,
+            "description": "<p>The choices for the question if  applicable</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "questions.choices.label",
+            "optional": false,
+            "description": "<p>The label for the choice, as  displayed to the student</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "questions.choices.key",
+            "optional": false,
+            "description": "<p>The value of the choice. If an  &quot;other&quot; option is specified, this should be &#39;other&#39;</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "Success-Response:\n   HTTP/1.1 200 OK\n   {\n     \"success\": true,\n     \"questions\": [{\n       \"id\": \"the-unique-id\",\n       \"label\": \"The question label\",\n       \"question\": \"What is the question?\",\n       \"type\": \"multipleChoice\",\n       \"choices\": [\n         {\n           \"label\": \"There is no question\",\n           \"key\": \"noQuestion\"\n         },\n         {\n           \"label\": \"Other\",\n           \"key\": \"other\"\n         }\n       ],\n       \"createdAt\": Sat Nov 15 2014 08:23:19 GMT-0700 (MST),\n       \"updatedAt\": Sat Nov 15 2014 08:23:19 GMT-0700 (MST)\n     }]\n   }\n",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/v1/question.js"
+  },
+  {
+    "type": "delete",
     "url": "/v1/student/:uvid",
     "title": "Delete at student",
     "name": "DeleteStudent",

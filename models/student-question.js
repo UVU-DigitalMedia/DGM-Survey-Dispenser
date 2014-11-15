@@ -38,9 +38,7 @@ var StudentQuestionSchema = new Schema({
     key: {
       type: String,
       required: true
-    },
-    value: String,
-    other: Boolean
+    }
   }]
 });
 
