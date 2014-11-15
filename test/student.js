@@ -141,7 +141,6 @@ describe('student tests', function () {
         expect(body).to.be.an(Object);
         expect(body.success).to.be(true);
         expect(body.answer).to.be.an(Object);
-        console.log(body);
         done();
       });
     });
@@ -161,7 +160,6 @@ describe('student tests', function () {
         expect(body).to.be.an(Object);
         expect(body.success).to.be(true);
         expect(body.answer).to.be.an(Object);
-        console.log(body);
         done();
       });
     });

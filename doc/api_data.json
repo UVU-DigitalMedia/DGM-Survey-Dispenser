@@ -246,6 +246,331 @@
   },
   {
     "type": "delete",
+    "url": "/v1/student/:uvid",
+    "title": "Delete at student",
+    "name": "DeleteStudent",
+    "group": "Student",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "field": "id",
+            "optional": false,
+            "description": "<p>The Student&#39;s UVID</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "field": "success",
+            "optional": false,
+            "description": "<p>When the request is successful.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "Success-Response:\n   HTTP/1.1 200 OK\n   {\n     \"success\": true\n   }\n",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/v1/student.js"
+  },
+  {
+    "type": "get",
+    "url": "/v1/student/current",
+    "title": "Get current logged in student",
+    "name": "GetCurrentStudent",
+    "group": "Student",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "field": "success",
+            "optional": false,
+            "description": "<p>When the request is successful.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "field": "student",
+            "optional": false,
+            "description": "<p>The student object.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "student.id",
+            "optional": false,
+            "description": "<p>The student&#39;s unique id.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "student.uvid",
+            "optional": false,
+            "description": "<p>The student&#39;s UVID</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "field": "student.createdAt",
+            "optional": false,
+            "description": "<p>The date the student was created.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "field": "student.updatedAt",
+            "optional": false,
+            "description": "<p>The date the student was updated.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "Success-Response:\n   HTTP/1.1 200 OK\n   {\n     \"success\": true,\n     \"student\": {\n       \"id\": \"the-unique-id\",\n       \"uvid\": \"10283774\",\n       \"createdAt\": Sat Nov 15 2014 08:23:19 GMT-0700 (MST),\n       \"updatedAt\": Sat Nov 15 2014 08:23:19 GMT-0700 (MST)\n     }\n   }\n",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/v1/student.js"
+  },
+  {
+    "type": "get",
+    "url": "/v1/student/",
+    "title": "Get list of all students",
+    "name": "GetStudents",
+    "group": "Student",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "field": "success",
+            "optional": false,
+            "description": "<p>When the request is successful.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "field": "students",
+            "optional": false,
+            "description": "<p>The students array.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "students.id",
+            "optional": false,
+            "description": "<p>The student&#39;s unique id.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "students.uvid",
+            "optional": false,
+            "description": "<p>The student&#39;s UVID</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "field": "students.createdAt",
+            "optional": false,
+            "description": "<p>The date the student was created.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "field": "students.updatedAt",
+            "optional": false,
+            "description": "<p>The date the students was updated.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "Success-Response:\n   HTTP/1.1 200 OK\n   {\n     \"success\": true,\n     \"students\": [{\n       \"id\": \"the-unique-id\",\n       \"uvid\": \"10283774\",\n       \"createdAt\": Sat Nov 15 2014 08:23:19 GMT-0700 (MST),\n       \"updatedAt\": Sat Nov 15 2014 08:23:19 GMT-0700 (MST)\n     }]\n   }\n",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/v1/student.js"
+  },
+  {
+    "type": "post",
+    "url": "/v1/student/answer/:qid",
+    "title": "Answer a question",
+    "name": "StudentAnswerQuestion",
+    "group": "Student",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "Example usage:\n  PUT /v1/user/the-users-unique-id\n  {\n    \"value\": \"The value\"\n  }\n",
+        "type": "json"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "field": "qid",
+            "optional": false,
+            "description": "<p>The id of the question being answered</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "field": "success",
+            "optional": false,
+            "description": "<p>When the request is successful.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "Success-Response:\n   HTTP/1.1 200 OK\n   {\n     \"success\": true,\n     \"answer\": {\n       \"student\": \"the-student-id\",\n       \"question\": \"the-question-id\",\n       \"value\": \"the-answer\"\n     }\n   }\n",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/v1/student.js"
+  },
+  {
+    "type": "post",
+    "url": "/v1/student/:uvid/login",
+    "title": "Log a student in",
+    "name": "StudentLogin",
+    "group": "Student",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "field": "id",
+            "optional": false,
+            "description": "<p>The Student&#39;s UVID</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "field": "success",
+            "optional": false,
+            "description": "<p>When the request is successful.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "field": "student",
+            "optional": false,
+            "description": "<p>The student object.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "student.id",
+            "optional": false,
+            "description": "<p>The student&#39;s unique id.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "student.uvid",
+            "optional": false,
+            "description": "<p>The student&#39;s UVID</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "field": "student.createdAt",
+            "optional": false,
+            "description": "<p>The date the student was created.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "field": "student.updatedAt",
+            "optional": false,
+            "description": "<p>The date the student was updated.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "Success-Response:\n   HTTP/1.1 200 OK\n   {\n     \"success\": true,\n     \"student\": {\n       \"id\": \"the-unique-id\",\n       \"uvid\": \"10283774\",\n       \"createdAt\": Sat Nov 15 2014 08:23:19 GMT-0700 (MST),\n       \"updatedAt\": Sat Nov 15 2014 08:23:19 GMT-0700 (MST)\n     }\n   }\n",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/v1/student.js"
+  },
+  {
+    "type": "post",
+    "url": "/v1/student/logout",
+    "title": "Log a student out",
+    "name": "StudentLogout",
+    "group": "Student",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "field": "success",
+            "optional": false,
+            "description": "<p>When the request is successful.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "Success-Response:\n   HTTP/1.1 200 OK\n   {\n     \"success\": true\n   }\n",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/v1/student.js"
+  },
+  {
+    "type": "delete",
     "url": "/v1/user/:id",
     "title": "Delete User information",
     "name": "DeleteUser",
