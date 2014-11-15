@@ -113,3 +113,13 @@ gulp.task('nodemon', function () {
     setTimeout(livereload.changed, 500);
   });
 });
+
+// gulp docs
+// =========
+gulp.task('docs', function () {
+  var app = require('express')();
+  app.use(require('express').static('doc'));
+  app.listen(8000, function () {
+    console.log('API docs served on http://localhost:8000');
+  });
+});
