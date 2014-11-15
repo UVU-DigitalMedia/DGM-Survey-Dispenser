@@ -5,6 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "doc": "apidoc -i routes/",
     "docs": "apidoc -i routes/; gulp docs",
     "start": "node index",
     "build": "gulp build",

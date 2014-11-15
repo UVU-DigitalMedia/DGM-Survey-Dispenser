@@ -58,9 +58,9 @@ router.route('/:id')
    * @apiExample Example usage:
    *    PUT /v1/user/the-users-unique-id
    *    {
-   *      email: "newemail@email.com",
-   *      role: "user",
-   *      password: "newPassword"
+   *      "email": "newemail@email.com",
+   *      "role": "user",
+   *      "password": "newPassword"
    *    }
    *
    * @apiParam {Number} id User's unique ID.
@@ -208,9 +208,9 @@ router.route('/')
    * @apiExample Example usage:
    *    POST /v1/user
    *    {
-   *      email: "newemail@email.com",
-   *      role: "user",
-   *      password: "newPassword"
+   *      "email": "newemail@email.com",
+   *      "role": "user",
+   *      "password": "newPassword"
    *    }
    *
    * @apiParam {Number} id User's unique ID.
