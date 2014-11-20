@@ -10,3 +10,89 @@
 2014-11-20 15:37:18.153 dgm-survey-dispenser[10440:399601] Unlimited access to network resources
 2014-11-20 15:37:18.388 dgm-survey-dispenser[10440:399601] Resetting plugins due to page load.
 2014-11-20 15:37:18.541 dgm-survey-dispenser[10440:399601] Finished load of: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/687185B1-5D8A-41B7-AE4D-0C3C32DCF0C6/data/Containers/Bundle/Application/4028C0C6-7135-4C34-959C-EC6CC908B978/dgm-survey-dispenser.app/www/index.html#/tab/test
+2014-11-20 15:56:00.260 dgm-survey-dispenser[11529:406586] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/687185B1-5D8A-41B7-AE4D-0C3C32DCF0C6/data/Containers/Data/Application/885ECE6F-FCCD-4C1F-9852-2F1576163FD1/Library/Cookies/Cookies.binarycookies
+2014-11-20 15:56:00.372 dgm-survey-dispenser[11529:406586] Apache Cordova native platform version 3.7.0 is starting.
+2014-11-20 15:56:00.373 dgm-survey-dispenser[11529:406586] Multi-tasking -> Device: YES, App: YES
+2014-11-20 15:56:00.374 dgm-survey-dispenser[11529:406586] Unlimited access to network resources
+2014-11-20 15:56:00.617 dgm-survey-dispenser[11529:406586] Resetting plugins due to page load.
+2014-11-20 15:56:00.756 dgm-survey-dispenser[11529:406586] Finished load of: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/687185B1-5D8A-41B7-AE4D-0C3C32DCF0C6/data/Containers/Bundle/Application/18546F48-12EE-4A3C-BB96-720B6D1F8D46/dgm-survey-dispenser.app/www/index.html#/tab/test
+2014-11-20 15:56:02.027 dgm-survey-dispenser[11529:406612] Terminating since there is no system app.
+2014-11-20 15:56:31.087 dgm-survey-dispenser[11760:407473] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/687185B1-5D8A-41B7-AE4D-0C3C32DCF0C6/data/Containers/Data/Application/AA078516-A5C2-4D44-AF75-EE5751D0018D/Library/Cookies/Cookies.binarycookies
+2014-11-20 15:56:31.227 dgm-survey-dispenser[11760:407473] Apache Cordova native platform version 3.7.0 is starting.
+2014-11-20 15:56:31.229 dgm-survey-dispenser[11760:407473] Multi-tasking -> Device: YES, App: YES
+2014-11-20 15:56:31.232 dgm-survey-dispenser[11760:407473] Unlimited access to network resources
+2014-11-20 15:56:31.484 dgm-survey-dispenser[11760:407473] Resetting plugins due to page load.
+2014-11-20 15:56:31.613 dgm-survey-dispenser[11760:407473] Finished load of: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/687185B1-5D8A-41B7-AE4D-0C3C32DCF0C6/data/Containers/Bundle/Application/7CE4D207-D826-410B-BA24-AC95EA74C220/dgm-survey-dispenser.app/www/index.html#/tab/test
+2014-11-20 15:59:14.875 dgm-survey-dispenser[12006:409193] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/D5A8D2FF-D86D-48DE-B5BA-9A0672B3CC99/data/Containers/Data/Application/C3208319-2DF9-4D41-AED5-BE868D451B75/Library/Cookies/Cookies.binarycookies
+2014-11-20 15:59:14.982 dgm-survey-dispenser[12006:409193] Apache Cordova native platform version 3.7.0 is starting.
+2014-11-20 15:59:14.983 dgm-survey-dispenser[12006:409193] Multi-tasking -> Device: YES, App: YES
+2014-11-20 15:59:14.986 dgm-survey-dispenser[12006:409193] Unlimited access to network resources
+2014-11-20 15:59:15.901 dgm-survey-dispenser[12006:409193] Resetting plugins due to page load.
+2014-11-20 15:59:16.055 dgm-survey-dispenser[12006:409193] Finished load of: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/D5A8D2FF-D86D-48DE-B5BA-9A0672B3CC99/data/Containers/Bundle/Application/6BAAF6F1-94FA-4D0B-82FA-73E683FB81F4/dgm-survey-dispenser.app/www/index.html#/tab/test
+2014-11-20 15:59:19.764 dgm-survey-dispenser[12006:409245] Terminating since there is no system app.
+2014-11-20 16:05:09.033 dgm-survey-dispenser[12255:411647] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/D5A8D2FF-D86D-48DE-B5BA-9A0672B3CC99/data/Containers/Data/Application/C0C26169-8A64-4512-875B-26484FA85580/Library/Cookies/Cookies.binarycookies
+2014-11-20 16:05:09.113 dgm-survey-dispenser[12255:411647] Apache Cordova native platform version 3.7.0 is starting.
+2014-11-20 16:05:09.114 dgm-survey-dispenser[12255:411647] Multi-tasking -> Device: YES, App: YES
+2014-11-20 16:05:09.115 dgm-survey-dispenser[12255:411647] Unlimited access to network resources
+2014-11-20 16:05:09.340 dgm-survey-dispenser[12255:411647] Resetting plugins due to page load.
+2014-11-20 16:05:09.480 dgm-survey-dispenser[12255:411647] Finished load of: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/D5A8D2FF-D86D-48DE-B5BA-9A0672B3CC99/data/Containers/Bundle/Application/F2ACEDF4-B074-4EBC-9285-92FEB0745C3A/dgm-survey-dispenser.app/www/index.html#/tab/test
+2014-11-20 16:05:10.346 dgm-survey-dispenser[12255:411672] Terminating since there is no system app.
+2014-11-20 16:05:26.375 dgm-survey-dispenser[12484:412381] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/D5A8D2FF-D86D-48DE-B5BA-9A0672B3CC99/data/Containers/Data/Application/17F4ACBC-2C5D-4011-B733-53EA6F90C30E/Library/Cookies/Cookies.binarycookies
+2014-11-20 16:05:26.485 dgm-survey-dispenser[12484:412381] Apache Cordova native platform version 3.7.0 is starting.
+2014-11-20 16:05:26.486 dgm-survey-dispenser[12484:412381] Multi-tasking -> Device: YES, App: YES
+2014-11-20 16:05:26.487 dgm-survey-dispenser[12484:412381] Unlimited access to network resources
+2014-11-20 16:05:26.748 dgm-survey-dispenser[12484:412381] Resetting plugins due to page load.
+2014-11-20 16:05:26.883 dgm-survey-dispenser[12484:412381] Finished load of: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/D5A8D2FF-D86D-48DE-B5BA-9A0672B3CC99/data/Containers/Bundle/Application/A8E32653-2FE1-4A4A-BEAD-09AE951B1180/dgm-survey-dispenser.app/www/index.html#/tab/test
+2014-11-20 16:06:05.931 dgm-survey-dispenser[12935:413963] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/687185B1-5D8A-41B7-AE4D-0C3C32DCF0C6/data/Containers/Data/Application/80ABB809-92F5-4C99-988C-9AE3313A2800/Library/Cookies/Cookies.binarycookies
+2014-11-20 16:06:06.038 dgm-survey-dispenser[12935:413963] Apache Cordova native platform version 3.7.0 is starting.
+2014-11-20 16:06:06.038 dgm-survey-dispenser[12935:413963] Multi-tasking -> Device: YES, App: YES
+2014-11-20 16:06:06.039 dgm-survey-dispenser[12935:413963] Unlimited access to network resources
+2014-11-20 16:06:06.272 dgm-survey-dispenser[12935:413963] Resetting plugins due to page load.
+2014-11-20 16:06:06.411 dgm-survey-dispenser[12935:413963] Finished load of: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/687185B1-5D8A-41B7-AE4D-0C3C32DCF0C6/data/Containers/Bundle/Application/4CE92CCA-B102-43F7-A1FF-CEBB8B9A55D9/dgm-survey-dispenser.app/www/index.html#/tab/test
+2014-11-20 16:07:36.958 dgm-survey-dispenser[13219:415658] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/D5A8D2FF-D86D-48DE-B5BA-9A0672B3CC99/data/Containers/Data/Application/727F8EAB-1622-4D20-8B93-CA2E8184D45F/Library/Cookies/Cookies.binarycookies
+2014-11-20 16:07:37.058 dgm-survey-dispenser[13219:415658] Apache Cordova native platform version 3.7.0 is starting.
+2014-11-20 16:07:37.059 dgm-survey-dispenser[13219:415658] Multi-tasking -> Device: YES, App: YES
+2014-11-20 16:07:37.060 dgm-survey-dispenser[13219:415658] Unlimited access to network resources
+2014-11-20 16:07:37.289 dgm-survey-dispenser[13219:415658] Resetting plugins due to page load.
+2014-11-20 16:07:37.458 dgm-survey-dispenser[13219:415658] Finished load of: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/D5A8D2FF-D86D-48DE-B5BA-9A0672B3CC99/data/Containers/Bundle/Application/E09EB78A-B137-4B0F-8083-0F77D90C2875/dgm-survey-dispenser.app/www/index.html#/tab/test
+2014-11-20 16:09:20.735 dgm-survey-dispenser[13810:417231] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/D5A8D2FF-D86D-48DE-B5BA-9A0672B3CC99/data/Containers/Data/Application/57C91DDD-5495-41D5-B981-6C9FCE77D192/Library/Cookies/Cookies.binarycookies
+2014-11-20 16:09:20.827 dgm-survey-dispenser[13810:417231] Apache Cordova native platform version 3.7.0 is starting.
+2014-11-20 16:09:20.827 dgm-survey-dispenser[13810:417231] Multi-tasking -> Device: YES, App: YES
+2014-11-20 16:09:20.828 dgm-survey-dispenser[13810:417231] Unlimited access to network resources
+2014-11-20 16:09:21.064 dgm-survey-dispenser[13810:417231] Resetting plugins due to page load.
+2014-11-20 16:09:21.205 dgm-survey-dispenser[13810:417231] Finished load of: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/D5A8D2FF-D86D-48DE-B5BA-9A0672B3CC99/data/Containers/Bundle/Application/FC32CD8A-CBF1-49E0-8AEF-2D73AE8B29C5/dgm-survey-dispenser.app/www/index.html#/tab/test
+2014-11-20 16:09:31.494 dgm-survey-dispenser[14039:417947] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/D5A8D2FF-D86D-48DE-B5BA-9A0672B3CC99/data/Containers/Data/Application/B4C24A37-4B84-4798-8218-548CFE008BCB/Library/Cookies/Cookies.binarycookies
+2014-11-20 16:09:31.588 dgm-survey-dispenser[14039:417947] Apache Cordova native platform version 3.7.0 is starting.
+2014-11-20 16:09:31.589 dgm-survey-dispenser[14039:417947] Multi-tasking -> Device: YES, App: YES
+2014-11-20 16:09:31.590 dgm-survey-dispenser[14039:417947] Unlimited access to network resources
+2014-11-20 16:09:31.814 dgm-survey-dispenser[14039:417947] Resetting plugins due to page load.
+2014-11-20 16:09:31.939 dgm-survey-dispenser[14039:417947] Finished load of: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/D5A8D2FF-D86D-48DE-B5BA-9A0672B3CC99/data/Containers/Bundle/Application/B9166CD2-E81A-40C4-8761-B16A71806163/dgm-survey-dispenser.app/www/index.html#/tab/test
+2014-11-20 16:09:43.058 dgm-survey-dispenser[14265:418632] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/D5A8D2FF-D86D-48DE-B5BA-9A0672B3CC99/data/Containers/Data/Application/536C6FEC-1786-438C-B9D6-6396CCECEE23/Library/Cookies/Cookies.binarycookies
+2014-11-20 16:09:43.162 dgm-survey-dispenser[14265:418632] Apache Cordova native platform version 3.7.0 is starting.
+2014-11-20 16:09:43.162 dgm-survey-dispenser[14265:418632] Multi-tasking -> Device: YES, App: YES
+2014-11-20 16:09:43.163 dgm-survey-dispenser[14265:418632] Unlimited access to network resources
+2014-11-20 16:09:58.265 dgm-survey-dispenser[14493:419376] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/D5A8D2FF-D86D-48DE-B5BA-9A0672B3CC99/data/Containers/Data/Application/F6A24448-CB54-4E24-906B-14161EDCE134/Library/Cookies/Cookies.binarycookies
+2014-11-20 16:09:58.345 dgm-survey-dispenser[14493:419376] Apache Cordova native platform version 3.7.0 is starting.
+2014-11-20 16:09:58.345 dgm-survey-dispenser[14493:419376] Multi-tasking -> Device: YES, App: YES
+2014-11-20 16:09:58.347 dgm-survey-dispenser[14493:419376] Unlimited access to network resources
+2014-11-20 16:09:58.570 dgm-survey-dispenser[14493:419376] Resetting plugins due to page load.
+2014-11-20 16:09:58.704 dgm-survey-dispenser[14493:419376] Finished load of: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/D5A8D2FF-D86D-48DE-B5BA-9A0672B3CC99/data/Containers/Bundle/Application/39993D68-FC86-41DD-84DE-94371CD7D1F3/dgm-survey-dispenser.app/www/index.html#/tab/test
+2014-11-20 16:10:19.348 dgm-survey-dispenser[14722:420195] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/D5A8D2FF-D86D-48DE-B5BA-9A0672B3CC99/data/Containers/Data/Application/AA89FDEE-89E1-4DF8-90F6-AE46ACB9AD23/Library/Cookies/Cookies.binarycookies
+2014-11-20 16:10:19.423 dgm-survey-dispenser[14722:420195] Apache Cordova native platform version 3.7.0 is starting.
+2014-11-20 16:10:19.424 dgm-survey-dispenser[14722:420195] Multi-tasking -> Device: YES, App: YES
+2014-11-20 16:10:19.425 dgm-survey-dispenser[14722:420195] Unlimited access to network resources
+2014-11-20 16:10:19.648 dgm-survey-dispenser[14722:420195] Resetting plugins due to page load.
+2014-11-20 16:10:19.783 dgm-survey-dispenser[14722:420195] Finished load of: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/D5A8D2FF-D86D-48DE-B5BA-9A0672B3CC99/data/Containers/Bundle/Application/51497C9B-C6E7-442D-BA90-40F5817FE68B/dgm-survey-dispenser.app/www/index.html#/tab/test
+2014-11-20 16:10:58.816 dgm-survey-dispenser[14958:421183] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/D3C0578F-FB29-410D-904A-C5E0231FAFFD/data/Containers/Data/Application/E9E12FED-541A-4CBD-9F83-7FC3317462AD/Library/Cookies/Cookies.binarycookies
+2014-11-20 16:10:58.905 dgm-survey-dispenser[14958:421183] Apache Cordova native platform version 3.7.0 is starting.
+2014-11-20 16:10:58.906 dgm-survey-dispenser[14958:421183] Multi-tasking -> Device: YES, App: YES
+2014-11-20 16:10:58.908 dgm-survey-dispenser[14958:421183] Unlimited access to network resources
+2014-11-20 16:10:59.864 dgm-survey-dispenser[14958:421183] Resetting plugins due to page load.
+2014-11-20 16:10:59.996 dgm-survey-dispenser[14958:421183] Finished load of: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/D3C0578F-FB29-410D-904A-C5E0231FAFFD/data/Containers/Bundle/Application/56353A67-A48E-43DA-89AC-A47F2FE744B8/dgm-survey-dispenser.app/www/index.html#/tab/test
+2014-11-20 16:12:47.491 dgm-survey-dispenser[15362:422782] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/5D25DE92-44C0-43EC-BE1C-5065E01CD60F/data/Containers/Data/Application/1806872E-086C-4955-A2CD-34727949EBAF/Library/Cookies/Cookies.binarycookies
+2014-11-20 16:12:47.627 dgm-survey-dispenser[15362:422782] Apache Cordova native platform version 3.7.0 is starting.
+2014-11-20 16:12:47.628 dgm-survey-dispenser[15362:422782] Multi-tasking -> Device: YES, App: YES
+2014-11-20 16:12:47.631 dgm-survey-dispenser[15362:422782] Unlimited access to network resources
+2014-11-20 16:12:48.630 dgm-survey-dispenser[15362:422782] Resetting plugins due to page load.
+2014-11-20 16:12:48.764 dgm-survey-dispenser[15362:422782] Finished load of: file:///Users/ksmith/Library/Developer/CoreSimulator/Devices/5D25DE92-44C0-43EC-BE1C-5065E01CD60F/data/Containers/Bundle/Application/AEBEF250-2336-41C4-8FBD-7C73614604F6/dgm-survey-dispenser.app/www/index.html#/tab/test
+2014-11-20 16:13:01.358 dgm-survey-dispenser[15362:423080] Terminating since there is no system app.
