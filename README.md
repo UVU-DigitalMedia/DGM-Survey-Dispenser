@@ -120,7 +120,7 @@ automatically included in your files.
 
 ## Static files
 
-All of the files that get processed into the public directory live in the `src/`
+All of the files that get processed into the www directory live in the `src/`
 directory. JavaScript files live in `src/scripts`, Less files live in
 `src/styles`, Static files live in `src/static`, and Jade files live in
 `src/views`.
@@ -136,7 +136,7 @@ between other apps should probably go into `modules/`, things like api services
 and reusable directives.
 
 All of the JavaScript files get concatenated and minified into 1 file and gets
-output into `public/js/app-x.x.x.min.js` (the 'x's are the version number of
+output into `www/js/app-x.x.x.min.js` (the 'x's are the version number of
 the app in `package.json`). This includes all of the bower packages that include
 JavaScript files. Don't worry, all of the files should be in the order that they
 need to be in, as long as their dependencies are set up correctly. Your custom
@@ -197,8 +197,8 @@ This project uses [`jade`](http://jade-lang.com/reference/) as it's HTML
 preprocessor. This can of course be modified to fit your needs.
 
 Everything in the `src/views` folder gets compiled into HTML and copied straight
-over to to `public`. So `src/views/index.jade` gets compiled into HTML and sent
-to `public/index.html`. Simple enough, right?
+over to to `www`. So `src/views/index.jade` gets compiled into HTML and sent
+to `www/index.html`. Simple enough, right?
 
 It's mainly being used to pass in the path to the js and css files that get
 compiled. The version can change, so we've automated that.
@@ -206,7 +206,7 @@ compiled. The version can change, so we've automated that.
 ### Static
 
 These are static files (such as images) that just get copied over as is to the
-public directory. Do what you wish here. You can even put in straight HTML files
+www directory. Do what you wish here. You can even put in straight HTML files
 into here.
 
 # Examples

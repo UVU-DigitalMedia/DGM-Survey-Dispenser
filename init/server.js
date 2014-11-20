@@ -32,7 +32,7 @@ app.disable('x-powered-by');
     res.cookie('XSRF-TOKEN', req.csrfToken());
     next();
   },
-  express.static(path.resolve(__dirname, '../', 'public'))
+  express.static(path.resolve(__dirname, '../', 'www'))
 ].map(function (middleware) {
   app.use(middleware);
 });
