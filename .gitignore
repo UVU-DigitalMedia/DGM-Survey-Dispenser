@@ -6,3 +6,4 @@ npm-debug.log
 # For those using WebStorm... silly heads
 .idea
 coverage
+platforms
