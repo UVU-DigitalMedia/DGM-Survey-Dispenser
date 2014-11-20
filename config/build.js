@@ -2,9 +2,10 @@
 
 var path = require('path');
 var pkg  = require('../package');
-var lib  = require('bower-files')({
+var lib  = {};
+/*require('bower-files')({
   join: {fonts: ['eot', 'woff', 'svg', 'ttf']}
-});
+});*/
 
 module.exports = {
   styles: {
@@ -15,23 +16,23 @@ module.exports = {
     ],
     inc: path.resolve(__dirname, '../', 'src/styles/inc'),
     file: 'app-' + pkg.version + '.min.css',
-    dest: 'public/css/'
+    dest: 'www/css/'
   },
   scripts: {
-    lib: lib.js || [],
+    lib: [],
     src: [
       'src/scripts/**/*.js'
     ],
     file: 'app-' + pkg.version + '.min.js',
-    dest: 'public/js/'
+    dest: 'www/js/'
   },
   static: {
     src: ['src/static/**'],
-    dest: 'public/'
+    dest: 'www/'
   },
   fonts: {
     src: lib.fonts || [],
-    dest: 'public/fonts/'
+    dest: 'www/fonts/'
   },
   views: {
     src: [
@@ -42,17 +43,17 @@ module.exports = {
       jsPath: '/js/app-' + pkg.version + '.min.js',
       cssPath: '/css/app-' + pkg.version + '.min.css'
     },
-    dest: 'public/'
+    dest: 'www/'
   },
   livereload: {
-    dest: 'public'
+    dest: 'www'
   },
   nodemon: {
     script: 'index.js',
     ext: 'js',
     ignore: [
       'bower_components/**',
-      'public/**',
+      'www/**',
       'src/**',
       'gulpfile.js'
     ]

@@ -35,6 +35,7 @@ gulp.task('watch', [
 // ===========
 var styles = config.get('build.styles');
 gulp.task('styles', function () {
+  styles.lib = ['www/lib/ionic/css/ionic.css'];
   return gulp.src(styles.lib.concat(styles.src))
     .pipe($.sourcemaps.init())
       .pipe($.less({ paths: styles.inc }))
@@ -87,7 +88,7 @@ gulp.task('static', function () {
     .pipe(gulp.dest(staticOpts.dest));
 });
 gulp.task('fonts', function () {
-  return gulp.src(fonts.src)
+  return gulp.src('www/lib/ionic/fonts/*')
     .pipe(gulp.dest(fonts.dest));
 });
 gulp.task('watch.static', ['static', 'fonts'], function () {
