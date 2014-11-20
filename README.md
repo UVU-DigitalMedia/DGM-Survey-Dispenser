@@ -2,6 +2,14 @@
 
 DGM-Survey-Dispenser is a diverse framework to build out an API and SPA.
 
+# Documentation
+
+```bash
+npm run docs
+```
+
+then visit [`http://localhost:3000`](http://localhost:3000).
+
 # Installation
 
 Don't forget to put `sudo` before these commands if you still haven't changed
