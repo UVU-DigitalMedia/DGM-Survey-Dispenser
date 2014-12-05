@@ -34,7 +34,16 @@ angular.module('dgmSurvey', [
     views: {
       'tab-test': {
         templateUrl: 'templates/tab-test.html',
-        controller: 'TestCtrl'
+        controller: 'SignInCtrl'
+      }
+    }
+  })
+  .state('tab.question', {
+    url: '/question',
+    views: {
+      'tab-test': {
+        templateUrl: 'templates/question.html',
+        controller: 'QuestionCtrl'
       }
     }
   });

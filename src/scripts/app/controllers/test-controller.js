@@ -1,9 +1,9 @@
 angular.module('dgmSurvey.controllers')
-.controller('TestCtrl', function ($scope) {
-  $scope.title = 'Dynamic Title!';
-  $scope.time = 0;
-  setInterval(function () {
-    $scope.time++;
-    $scope.$apply();
-  }, 1000);
+.controller('SignInCtrl', function($scope, $state) {
+
+  $scope.signIn = function(user) {
+    console.log('Sign-In', user);
+    $state.go('tab.question');
+  };
+
 });
