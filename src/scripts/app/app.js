@@ -34,7 +34,7 @@ angular.module('dgmSurvey', [
     views: {
       'tab-test': {
         templateUrl: 'templates/tab-test.html',
-        controller: 'SignInCtrl'
+        controller: 'loginCtrl'
       }
     }
   })
