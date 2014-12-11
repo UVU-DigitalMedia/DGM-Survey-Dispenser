@@ -1,10 +1,9 @@
 angular.module('dgmSurvey.controllers')
-    .controller('QuestionCtrl', function ($scope) {
+    .controller('QuestionCtrl', function ($scope, questionService) {
 
-        //  $scope.testData = [
-        //    { text: "Very Valueable" },
-        //    { text: "Somewhat Valuable"},
-        //    { text: "Not Very Valuable"},
-        //    { text: "Not Valuable at All"}
-        //  ];
+        $scope.questionTypes = function () {
+            return questionService.getQuestionTypes.types;
+        }
+        console.log(questionService.getQuestionTypes().then(response) {});
+        console.log($scope.questionTypes);
     });
