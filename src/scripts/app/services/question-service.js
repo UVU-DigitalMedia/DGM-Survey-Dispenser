@@ -7,16 +7,19 @@ angular.module('dgmSurvey.services')
             postQuestion: function (question) {
                 return $http.post('/v1/question', question);
             },
+            //            getQuestionTypes: function () {
+            //                return $http.get('/v1/question/types')
+            //                    .success(function (data, headers) {
+            //                        console.log(data);
+            //                        console.log(headers);
+            //                        return data;
+            //                    })
+            //                    .error(function (data, headers) {
+            //                        console.log(data.error);
+            //                    });
+            //            }
             getQuestionTypes: function () {
-                return $http.get('/v1/question/types')
-                    .success(function (data, headers) {
-                        console.log(data);
-                        console.log(headers);
-                        return data;
-                    })
-                    .error(function (data, headers) {
-                        console.log(data.error);
-                    });
+                return $http.get('/v1/question/types');
             }
         };
     });

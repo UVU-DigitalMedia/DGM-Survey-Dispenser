@@ -1,12 +1,17 @@
 ion-view(title='{{title}}')
   ion-content(padding='true')
     .list
+        .item.item-divider Question
         label(class='item item-input')
-            input(type='text' ng-model="user" placeholder="Question")
+            input(type='text' ng-model="question" placeholder="Question")
         .item.item-divider Type of Question
-        ion-radio(ng-repeat="type in questionTypes" ng-value="type" ng-model="test" name="") {{ type }}
+        ion-radio(ng-repeat="(key, type) in questionTypes" ng-value="key" ng-model="questionType" name="questionTypes" ng-change="typeChange(questionTypes)") {{ type }}
+        .item.item-divider Question Possible Answers
 
-
+        label(class='item item-input')
+            input(type='text' ng-model="choices" placeholder="Answer")
+        button(class="button button-block button-balanced" ng-click="addAnswer") Add another answer
+        button(class="button button-block button-assertive" ng-click="addQuestion(question,questionType)") Submit Question
 
 
 
@@ -14,3 +19,5 @@ ion-view(title='{{title}}')
 //    h2() How useful was DGM2250: {{ data.serverSide }}
 //        ion-radio(ng-repeat="item in testData" ng-value="item.text" ng-model="data.serverSide" ng-change="serverSideChange(item)" name="server-sidechad") {{ item.text }}
 //    button(class="button button-block button-positive" ng-click="signIn(user)" ng-disabled="!data.serverSide") Next
+ .buttons
+                button(class="button button-icon icon ion-plus-round" ng-click="")
