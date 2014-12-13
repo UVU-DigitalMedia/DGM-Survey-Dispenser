@@ -3,15 +3,17 @@ ion-view(title='{{title}}')
     .list
         .item.item-divider Question
         label(class='item item-input')
-            input(type='text' ng-model="question" placeholder="Question")
+            input(type='text' ng-model="question.label" placeholder="Label")
+        label(class='item item-input')
+            input(type='text' ng-model="question.question" placeholder="Question")
         .item.item-divider Type of Question
-        ion-radio(ng-repeat="(key, type) in questionTypes" ng-value="key" ng-model="questionType" name="questionTypes" ng-change="typeChange(questionTypes)") {{ type }}
+        ion-radio(ng-repeat="(key, type) in questionTypes" ng-value="key" ng-model="question.type" name="questionTypes") {{ type }}
         .item.item-divider Question Possible Answers
 
-        label(class='item item-input')
-            input(type='text' ng-model="choices" placeholder="Answer")
-        button(class="button button-block button-balanced" ng-click="addAnswer") Add another answer
-        button(class="button button-block button-assertive" ng-click="addQuestion(question,questionType)") Submit Question
+        label(class='item item-input', ng-repeat="choice in question.choices")
+            input(type='text' ng-model="choice.label" placeholder="Answer Label")
+        button(class="button button-block button-balanced" ng-click="addAnswer()") Add another answer
+        button(class="button button-block button-assertive" ng-click="addQuestion(question)") Submit Question
 
 
 

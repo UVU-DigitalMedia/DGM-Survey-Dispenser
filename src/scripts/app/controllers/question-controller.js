@@ -1,11 +1,9 @@
 angular.module('dgmSurvey.controllers')
     .controller('QuestionCtrl', function ($scope, questionService) {
+        $scope.question = {
+            choices: []
+        };
 
-        //        $scope.questionTypes = function () {
-        //            return questionService.getQuestionTypes.types;
-        //        }
-        //        console.log(questionService.getQuestionTypes().then(response) {});
-        //        console.log($scope.questionTypes);
         var promise =
             questionService.getQuestionTypes();
         promise.then(
@@ -15,20 +13,21 @@ angular.module('dgmSurvey.controllers')
             function (errorPayload) {
                 $log.error('failed to load question types', errorPayload);
             });
-        $scope.addQuestion = function (question, type, choices) {
-            console.log($scope.questionTypes);
-            var questionData = {
-                "label": "New Label",
-                "question": question,
-                "type": type,
-                "choices": [{
-                    "label": choices,
-                    "key": "answerKey"
-                }]
-            }
-            console.log(questionData);
+        $scope.addQuestion = function (question) {
+            //            console.log(arguments);
+            //            var questionData = {
+            //                "label": "New Label",
+            //                "question": question,
+            //                "type": type,
+            //                "choices": [{
+            //                    "label": choices,
+            //                    "key": "answerKey"
+            //                }]
+            //            }
+            //            console.log(questionData);
+            console.log(question);
         }
-        $scope.typeChange = function (type) {
-            console.log("Type:", type.value);
+        $scope.addAnswer = function () {
+            $scope.question.choices.push({});
         }
     });
