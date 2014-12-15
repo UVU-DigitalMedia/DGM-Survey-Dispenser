@@ -38,6 +38,24 @@ angular.module('dgmSurvey', [
                     }
                 }
             })
+            .state('tab.adminDashboard', {
+                url: '/adminDash',
+                views: {
+                    'tab-admin': {
+                        templateUrl: 'templates/admin-dashboard.html',
+                        controller: 'adminDashCtrl'
+                    }
+                }
+            })
+            .state('tab.adminViewQuestion', {
+                url: '/adminViewQuestion',
+                views: {
+                    'tab-admin': {
+                        templateUrl: 'templates/admin-view-question.html',
+                        controller: 'QuestionCtrl'
+                    }
+                }
+            })
             .state('tab.question', {
                 url: '/question',
                 views: {

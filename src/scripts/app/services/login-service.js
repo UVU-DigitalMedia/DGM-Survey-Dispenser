@@ -5,7 +5,7 @@ angular.module('dgmSurvey.services')
                 return $http.post('/v1/auth/login', data)
                     .success(function (data, headers) {
                         if (data.success === true) {
-                            $state.go('tab.question');
+                            $state.go('tab.adminDashboard');
                             console.log(data);
                             console.log(headers);
                         } else {

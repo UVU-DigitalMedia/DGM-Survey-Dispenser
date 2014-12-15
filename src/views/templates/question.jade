@@ -12,6 +12,8 @@ ion-view(title='{{title}}')
 
         label(class='item item-input', ng-repeat="choice in question.choices")
             input(type='text' ng-model="choice.label" placeholder="Answer Label")
+        label(class='item item-input', ng-repeat="choice in question.choices")
+            input(type='text' ng-model="choice.key" placeholder="Answer Key")
         button(class="button button-block button-balanced" ng-click="addAnswer()") Add another answer
         button(class="button button-block button-assertive" ng-click="addQuestion(question)") Submit Question
 

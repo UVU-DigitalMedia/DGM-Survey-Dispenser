@@ -4,9 +4,8 @@ angular.module('dgmSurvey.controllers')
             choices: []
         };
 
-        var promise =
-            questionService.getQuestionTypes();
-        promise.then(
+        var questionTypePromise = questionService.getQuestionTypes();
+        questionTypePromise.then(
             function (payload) {
                 $scope.questionTypes = payload.data.types;
             },
@@ -26,8 +25,23 @@ angular.module('dgmSurvey.controllers')
             //            }
             //            console.log(questionData);
             console.log(question);
+            questionService.postQuestion(question);
         }
         $scope.addAnswer = function () {
             $scope.question.choices.push({});
         }
+        var questionPromise = questionService.getAllQuestions();
+        questionPromise.then(
+            function (payload) {
+                $scope.questionViews = payload.data.questions;
+                console.log($scope.questionViews);
+            },
+            function (errorPayload) {
+                $log.error('failed to load questions', errorPayload);
+            });
+
+        $scope.deleteQuestion = function (id) {
+            questionService.deleteAQuestionMethod(id);
+        }
+
     });

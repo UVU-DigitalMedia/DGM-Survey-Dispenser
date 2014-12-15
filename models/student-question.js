@@ -33,12 +33,16 @@ var StudentQuestionSchema = new Schema({
         enum: Object.keys(types),
         required: true
     },
-    choices: [{
+    choices: [
         label: {
             type: String,
             required: true
+        },
+        key: {
+            type: String,
+            required: true
         }
-  }]
+  ]
 });
 
 var typesExport = {};
