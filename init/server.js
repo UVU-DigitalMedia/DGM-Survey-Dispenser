@@ -21,17 +21,18 @@ app.disable('x-powered-by');
 
 // set up the middleware chain
 [
+  require('cors')(),
   require('compression')(),
   require('body-parser').urlencoded({extended: true}),
   require('body-parser').json(),
   require('method-override')(),
   require('cookie-parser')(),
   require('express-session')(config.get('env.session')),
-  require('csurf')(),
-  function (req, res, next) {
-    res.cookie('XSRF-TOKEN', req.csrfToken());
-    next();
-  },
+  // require('csurf')(),
+  // function (req, res, next) {
+  //   res.cookie('XSRF-TOKEN', req.csrfToken());
+  //   next();
+  // },
   express.static(path.resolve(__dirname, '../', 'www'))
 ].map(function (middleware) {
   app.use(middleware);

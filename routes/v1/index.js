@@ -2,6 +2,10 @@
 
 var router = require('express').Router();
 
+router.get('/', function (req, res, next) {
+  res.json({success: true});
+});
+
 router.use('/auth', require('./auth'));
 router.use('/user', require('./user'));
 router.use('/student', require('./student'));
