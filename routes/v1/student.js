@@ -1,9 +1,11 @@
 'use strict';
 
-var router  = require('express').Router();
-var Student = require('mongoose').model('Student');
-var Answer  = require('mongoose').model('StudentAnswer');
-var auth   = require('rute')('middleware/auth');
+var router   = require('express').Router();
+var mongoose = require('mongoose');
+var Student  = mongoose.model('Student');
+var Question = mongoose.model('StudentQuestion');
+var Answer   = mongoose.model('StudentAnswer');
+var auth     = require('rute')('middleware/auth');
 
 router.param('uvid', function (req, res, next, uvid) {
   Student.findOne({uvid: uvid}).exec()
@@ -159,7 +161,7 @@ router.route('/').get(
  * @apiGroup Student
  *
  * @apiExample Example usage:
- *    PUT /v1/user/the-users-unique-id
+ *    POST /v1/student/answer/question-id
  *    {
  *      "value": "The value"
  *    }
@@ -191,6 +193,75 @@ router.route('/answer/:qid').post(function (req, res, next) {
     return res.json({ success: true, answer: answer });
   });
 });
+
+/**
+ * @api {get} /v1/student/question Get a random unanswered question to answer
+ * @apiName StudentGetRandomQuestion
+ * @apiGroup Student
+ *
+ * @apiExample Example usage:
+ *    GET /v1/student/question
+ *
+ * @apiSuccess {Boolean} success When the request is successful.
+ * @apiSuccess {Object} question The question object.
+ * @apiSuccess {String} question._id The question's unique id
+ * @apiSuccess {String} question.label The internally used question label
+ * @apiSuccess {String} question.question The question to be asked to the
+ *   student
+ * @apiSuccess {String} question.type One of the question types referenced at
+ *   "Get the question types"
+ * @apiSuccess {Date} question.createdAt The date the question was created
+ * @apiSuccess {Date} question.updatedAt the date the question was updated
+ * @apiSuccess {Object[]} question.choices The choices for the question if
+ *   applicable
+ * @apiSuccess {String} question.choices.label The label for the choice, as
+ *   displayed to the student
+ * @apiSuccess {String} question.choices.key The value of the choice. If an
+ *   "other" option is specified, this should be 'other'
+ */
+router.route('/question').get(
+  function (req, res, next) {
+    if (req.session.student) { return next(); }
+    res.status(404).json({
+      success: false,
+      error: 'STUDENT NOT LOGGED IN'
+    });
+  },
+  function (req, res, next) {
+    var questions;
+    Question.find({}).exec()
+      // Get all of the answers that the student has a
+      .then(function (allQuestions) {
+        questions = allQuestions;
+        return Answer.find({student: req.session.student.id}).exec();
+      })
+      // Flatten the array of answers to just the questions that have been
+      // answered
+      .then(function (studentAnswers) {
+        return studentAnswers.map(function (answer) {
+          return answer.question;
+        });
+      })
+      // Filter through the list of questions and remove the ones that have
+      // already been answered.
+      .then(function (answeredQuestions) {
+        return questions.filter(function (question) {
+          return answeredQuestions.indexOf(questions.id) === -1;
+        });
+      })
+      // Choose a random one and return it
+      .then(function (unansweredQuestions) {
+        var index = Math.floor(Math.random() * unansweredQuestions.length);
+        return unansweredQuestions[index];
+      })
+      .then(function (randomQuestion) {
+        res.json({
+          success: true,
+          question: randomQuestion
+        });
+      }, next);
+  }
+);
 
 /**
  * @api {delete} /v1/student/:uvid Delete at student

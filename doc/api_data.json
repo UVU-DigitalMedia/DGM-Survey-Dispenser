@@ -977,7 +977,7 @@
     "examples": [
       {
         "title": "Example usage:",
-        "content": "Example usage:\n  PUT /v1/user/the-users-unique-id\n  {\n    \"value\": \"The value\"\n  }\n",
+        "content": "Example usage:\n  POST /v1/student/answer/question-id\n  {\n    \"value\": \"The value\"\n  }\n",
         "type": "json"
       }
     ],
@@ -1013,6 +1013,105 @@
           "type": "json"
         }
       ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/v1/student.js"
+  },
+  {
+    "type": "get",
+    "url": "/v1/student/question",
+    "title": "Get a random unanswered question to answer",
+    "name": "StudentGetRandomQuestion",
+    "group": "Student",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "Example usage:\n  GET /v1/student/question\n",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "field": "success",
+            "optional": false,
+            "description": "<p>When the request is successful.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "field": "question",
+            "optional": false,
+            "description": "<p>The question object.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "question._id",
+            "optional": false,
+            "description": "<p>The question&#39;s unique id</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "question.label",
+            "optional": false,
+            "description": "<p>The internally used question label</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "question.question",
+            "optional": false,
+            "description": "<p>The question to be asked to the  student</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "question.type",
+            "optional": false,
+            "description": "<p>One of the question types referenced at  &quot;Get the question types&quot;</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "field": "question.createdAt",
+            "optional": false,
+            "description": "<p>The date the question was created</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "field": "question.updatedAt",
+            "optional": false,
+            "description": "<p>the date the question was updated</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "field": "question.choices",
+            "optional": false,
+            "description": "<p>The choices for the question if  applicable</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "question.choices.label",
+            "optional": false,
+            "description": "<p>The label for the choice, as  displayed to the student</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "question.choices.key",
+            "optional": false,
+            "description": "<p>The value of the choice. If an  &quot;other&quot; option is specified, this should be &#39;other&#39;</p>"
+          }
+        ]
+      }
     },
     "version": "0.0.0",
     "filename": "routes/v1/student.js"
