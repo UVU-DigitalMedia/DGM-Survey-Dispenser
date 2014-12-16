@@ -11,6 +11,12 @@ require('./init/db')(function (err) {
   /* istanbul ignore if: we shouldn't count on database errors */
   if (err) { throw err; }
   console.log('Connected to database');
+
+require('mongoose').model('User').defaultUser({
+    email: 'chadwtkns@gmail.com',
+    password: 'testpassword',
+    role: 'admin'
+  });
 });
 
 // Server and Routes

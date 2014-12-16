@@ -1,0 +1,12 @@
+
+ion-view(title='{{title}}')
+  ion-content(padding='true')
+    h2 Welcome
+    .list
+        label(class='item item-input')
+            span(class='input-label' ) Admin Username
+            input(type='text' ng-model="user.username")
+        label(class='item item-input')
+            span(class='input-label' ) Admin Password
+            input(type='password' ng-model="user.password")
+        button(class="button button-block button-positive" ng-click="signIn(user.username, user.password)") Sign-In
