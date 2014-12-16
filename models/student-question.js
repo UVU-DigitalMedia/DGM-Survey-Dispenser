@@ -17,37 +17,30 @@ var types = config.get('question.types');
 // };
 
 var StudentQuestionSchema = new Schema({
-    label: {
-        type: String,
-        index: {
-            unique: true
-        },
-        required: true
+  label: {
+    type: String,
+    index: {
+      unique: true
     },
-    question: {
-        type: String,
-        required: true
-    },
-    type: {
-        type: String,
-        enum: Object.keys(types),
-        required: true
-    },
-    choices: [
-        label: {
-            type: String,
-            required: true
-        },
-        key: {
-            type: String,
-            required: true
-        }
-  ]
+    required: true
+  },
+  question: {
+    type: String,
+    required: true
+  },
+  type: {
+    type: String,
+    enum: Object.keys(types),
+    required: true
+  },
+  choices: {
+    type: [String]
+  }
 });
 
 var typesExport = {};
 Object.keys(types).map(function (type) {
-    typesExport[type] = types[type].label;
+  typesExport[type] = types[type].label;
 });
 
 StudentQuestionSchema.static('types', typesExport);

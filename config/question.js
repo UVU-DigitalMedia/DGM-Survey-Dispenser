@@ -9,7 +9,7 @@ module.exports = {
     multipleCorrect: {
       label: 'Multiple Correct',
       validate: function (values, choices) {
-        if (!Array.isArray(value)) { return false; }
+        if (!Array.isArray(values)) { return false; }
         if (!values.length) { return true; }
         return values.some(function (value) {
           return validateMultipleChoice(value, choices);
@@ -40,7 +40,7 @@ module.exports = {
         if (!Array.isArray(value) && value.length !== choices.length) {
           return false;
         }
-        return values.every(function (value) {
+        return value.every(function (value) {
           return validateMultipleChoice(value, choices);
         });
       }
@@ -49,10 +49,8 @@ module.exports = {
 };
 
 function validateMultipleChoice(value, choices) {
-  if (!Array.isArray(choices) || !choices.length) { return false; }
-  if (!value || !value.key || !(value.key !== 'other' || value.value)) { return false; }
-  return choices.some(function (choice) {
-    if (value.key === 'other' && choice.other === true) { return true; }
-    return value.key === choice.key;
-  });
+  var hasDirectChoice = choices.indexOf(value) !== -1;
+  var isOtherChoice = choices.indexOf('Other') !== -1 &&
+      value.indexOf('Other:') === 0;
+  return hasDirectChoice || isOtherChoice;
 }

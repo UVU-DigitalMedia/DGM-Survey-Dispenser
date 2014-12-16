@@ -110,10 +110,10 @@ describe('student tests', function () {
           question: 'What is your preference?',
           type: 'multipleChoice',
           choices: [
-            { key: 'angular', label: 'AngularJS' },
-            { key: 'react', label: 'React' },
-            { key: 'ember', label: 'Ember' },
-            { key: 'other', other: true, label: 'Other' }
+            'AngularJS',
+            'React',
+            'Ember',
+            'Other'
           ]
         }
       }, function (err, res, body) {
@@ -132,9 +132,7 @@ describe('student tests', function () {
         url: baseUrl + '/v1/student/answer/' + qid,
         json: {
           _csrf: csrfToken,
-          value: {
-            key: 'angular'
-          }
+          value: 'AngularJS'
         }
       }, function (err, res, body) {
         expect(err).to.be(null);
@@ -145,15 +143,12 @@ describe('student tests', function () {
       });
     });
 
-    it('should be able to answer questions', function (done) {
+    it('should be able to answer questions with other value', function (done) {
       request.post({
         url: baseUrl + '/v1/student/answer/' + qid,
         json: {
           _csrf: csrfToken,
-          value: {
-            key: 'other',
-            value: 'None'
-          }
+          value: 'Other: None'
         }
       }, function (err, res, body) {
         expect(err).to.be(null);

@@ -79,8 +79,8 @@ describe('question tests', function () {
           question: 'What is a test question?',
           type: 'multipleChoice',
           choices: [
-            { label: 'Simply put, a test question.', key: 'simply' },
-            { label: 'It\'s complicated...', key: 'complicated' }
+            'Simply put, a test question.',
+            'It\'s complicated...'
           ],
           _csrf: csrfToken
         }
