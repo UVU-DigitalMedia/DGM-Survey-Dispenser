@@ -23,7 +23,7 @@ gulp.task('build', [
 // gulp watch
 // ==========
 gulp.task('watch', [
-  'watch.styles',
+  //'watch.styles',
   'watch.scripts',
   'watch.views',
   'watch.static',

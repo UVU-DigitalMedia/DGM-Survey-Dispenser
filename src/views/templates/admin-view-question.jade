@@ -6,6 +6,6 @@ ion-view(title='{{title}}')
        .item.item-divider Question Type
        .item {{questionView.type}}
        .item.item-divider Choices
-       .item(ng-repeat="answers in questionView.choices") {{answers.label}}
+       .item(ng-repeat="answer in questionView.choices") {{answer}}
        button(class="button button-block button-assertive" ng-click="deleteQuestion(questionView._id)") Delete Question
 

@@ -1,5 +1,5 @@
 angular.module('dgmSurvey.controllers')
-    .controller('QuestionCtrl', function ($scope, questionService) {
+    .controller('QuestionCtrl', function ($scope, questionService, $log) {
         $scope.question = {
             choices: []
         };
@@ -26,10 +26,10 @@ angular.module('dgmSurvey.controllers')
             //            console.log(questionData);
             console.log(question);
             questionService.postQuestion(question);
-        }
+        };
         $scope.addAnswer = function () {
-            $scope.question.choices.push({});
-        }
+            $scope.question.choices.push('');
+        };
         var questionPromise = questionService.getAllQuestions();
         questionPromise.then(
             function (payload) {
@@ -42,6 +42,6 @@ angular.module('dgmSurvey.controllers')
 
         $scope.deleteQuestion = function (id) {
             questionService.deleteAQuestionMethod(id);
-        }
+        };
 
     });
