@@ -6,69 +6,57 @@ angular.module('d3', [])
   return {
     restrict: 'EA',
     scope: {
-      data: '='
+      values: '='
     },
     link: function (scope, elem, attrs) {
-      var svg = d3.select(elem[0])
-        .append('svg')
-        .style('width', '100%');
+      scope.$watch('values', function(values) {
+				if (!values) { return; }
 
-      var margin     = parseInt(attrs.margin) || 20;
-      var barHeight  = parseInt(attrs.barHeight) || 20;
-      var barPadding = parseInt(attrs.barPadding) || 5;
+        console.log(values);
 
-      var prevResize = window.onresize;
-      window.onresize = function () {
-        prevResize();
-        scope.$apply();
-      };
+				var height = 300;
+				var radius = height / 2;
 
-      scope.$watch(function() {
-        return angular.element($window)[0].innerWidth;
-      }, function() {
-        scope.render(scope.data);
-      });
+				var color = d3.scale.category20();
 
-      scope.render = function (data) {
-        // remove all previous items before render
-        svg.selectAll('*').remove();
+				var arc = d3.svg.arc()
+					.outerRadius(radius - 10)
+					.innerRadius(0);
 
-        // If we don't pass any data, return out of the element
-        if (!data) { return };
+				var pie = d3.layout.pie()
+					.sort(null)
+					.value(function(d) {
+						return d.value;
+					});
 
-        // setup variables
-        var width = d3.select(elem[0]).node().offsetWidth - margin;
-        // calculate the height
-        var height = scope.data.length * (barHeight + barPadding);
-        // Use the category20() scale function for multicolor support
-        var color = d3.scale.category20();
-        // our xScale
-        var xScale = d3.scale.linear()
-          .domain([0, d3.max(data, function(d) {
-            return d.score;
-          })])
-          .range([0, width]);
+				var svg = d3.select(elem[0]).append('svg')
+					.attr('width', '100%')
+					.attr('height', height)
+					.append('g')
+					.attr('transform', 'translate(' + radius + ',' + radius + ')');
 
-        // set the height based on the calculations above
-        svg.attr('height', height);
+				values.forEach(function(d) {
+					d.value = +d.value;
+				});
 
-        //create the rectangles for the bar chart
-        svg.selectAll('rect')
-          .data(data).enter()
-          .append('rect')
-          .attr('height', barHeight)
-          .attr('width', 140)
-          .attr('x', Math.round(margin/2))
-          .attr('y', function(d,i) {
-            return i * (barHeight + barPadding);
+				var g = svg.selectAll('.arc')
+					.data(pie(values))
+					.enter().append('g')
+					.attr('class', 'arc');
+
+				g.append('path')
+					.attr('d', arc)
+					.style('fill', function(d, i) { return color(i); });
+
+				g.append('text')
+					.attr('transform', function(d) {
+            return 'translate(' + arc.centroid(d) + ')';
           })
-          .attr('fill', function(d) { return color(d.score); })
-          .transition()
-          .duration(1000)
-          .attr('width', function(d) {
-            return xScale(d.score);
-          });
-      };
+					.attr('dy', '.35em')
+					.style('text-anchor', 'middle')
+					.text(function(d) { return d.data.label; });
+
+			}, true);
     }
   };
 });

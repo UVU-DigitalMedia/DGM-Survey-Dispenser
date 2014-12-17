@@ -37,6 +37,9 @@ angular.module('dgmSurvey.services')
                         }
                     });
 
+            },
+            getQuestionAnswers: function (id) {
+                return $http.get('/v1/question/' + id + '/answers');
             }
         };
     });

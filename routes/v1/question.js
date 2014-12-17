@@ -2,6 +2,7 @@
 
 var router   = require('express').Router();
 var Question = require('mongoose').model('StudentQuestion');
+var Answer   = require('mongoose').model('StudentAnswer');
 var auth     = require('rute')('middleware/auth');
 
 /**
@@ -311,5 +312,38 @@ router.route('/')
       res.json({ success: false, err: err.message });
     });
   });
+
+/**
+ * @api {get} /v1/question/:id/answers Gets a question's answers.
+ * @apiName GetQuestionAnswers
+ * @apiGroup Question
+ *
+ * @apiExample Example usage:
+ *    GET /v1/question/question-id/answers
+ *
+ * @apiParam {String} id The question's unique id
+ * @apiSuccess {Boolean} success When the request is successful.
+ * @apiSuccess {Object[]} answers The answers associated with this question.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *      "success": true,
+ *      "answers": [{
+ *        "question": "the-question-id",
+ *        "student": {"uvid": "10000000"},
+ *        "value": "Black Bears"
+ *      }]
+ *    }
+ */
+router.route('/:id/answers').get(function (req, res, next) {
+  Answer
+    .find({question: req.question.id})
+    //.populate('student')
+    .exec()
+    .then(function (answers) {
+      res.json({ success: true, answers: answers });
+    }, next);
+});
 
 module.exports = router;

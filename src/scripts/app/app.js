@@ -1,6 +1,7 @@
 angular.module('dgmSurvey', [
   'ionic',
   'd3',
+  'loading',
   'dgmSurvey.controllers',
   'dgmSurvey.services'
 ])

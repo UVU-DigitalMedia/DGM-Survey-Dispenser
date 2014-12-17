@@ -44,12 +44,6 @@ StudentAnswerSchema.static('answer', function (student, question, value) {
     var choices = question.choices;
     var valid   = types[type].validate(value, choices);
     if (!valid) { return false; }
-    if (Array.isArray(value)) {
-      value = value.map(function (val) {
-        if (val.key === 'other') { return val.value; }
-        return val.key;
-      });
-    }
     var answer = new Answer({
       student: student,
       question: question,

@@ -1,3 +1,9 @@
-ion-view(title='Reports'): ion-content(padding='true')
-  h1 Reports
+ion-view(title='Reports'): ion-content
+  .list
+    div(ng-repeat='question in questions track by $index')
+      .item.item-button-right {{question.label}}
+        div(ng-show='question.answerData')
+          pie-chart(values='question.answerData')
+        button.button.button-positive(ng-click='getAnswerData($index)')
+          i.icon.ion-pie-graph
   
