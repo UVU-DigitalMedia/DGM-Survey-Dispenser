@@ -239,14 +239,14 @@ router.route('/question').get(
       // answered
       .then(function (studentAnswers) {
         return studentAnswers.map(function (answer) {
-          return answer.question;
+          return String(answer.question);
         });
       })
       // Filter through the list of questions and remove the ones that have
       // already been answered.
       .then(function (answeredQuestions) {
         return questions.filter(function (question) {
-          return answeredQuestions.indexOf(questions.id) === -1;
+          return answeredQuestions.indexOf(String(question.id)) === -1;
         });
       })
       // Choose a random one and return it
