@@ -1,5 +1,6 @@
 angular.module('dgmSurvey', [
   'ionic',
+  'd3',
   'dgmSurvey.controllers',
   'dgmSurvey.services'
 ])
@@ -44,6 +45,15 @@ angular.module('dgmSurvey', [
                     'tab-admin': {
                         templateUrl: 'templates/admin-dashboard.html',
                         controller: 'adminDashCtrl'
+                    }
+                }
+            })
+            .state('tab.adminReports', {
+                url: '/adminReports',
+                views: {
+                    'tab-admin': {
+                       templateUrl: 'templates/admin-reports.html',
+                       controller: 'adminReportsCtrl'
                     }
                 }
             })
