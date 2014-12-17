@@ -29,6 +29,8 @@ angular.module('d3', [])
 						return d.value;
 					});
 
+        d3.select(elem[0]).selectAll('*').remove();
+
 				var svg = d3.select(elem[0]).append('svg')
 					.attr('width', '100%')
 					.attr('height', height)
@@ -54,7 +56,9 @@ angular.module('d3', [])
           })
 					.attr('dy', '.35em')
 					.style('text-anchor', 'middle')
-					.text(function(d) { return d.data.label; });
+					.text(function(d) {
+            return d.data.label + ' (' + d.data.value + ')';
+          });
 
 			}, true);
     }
