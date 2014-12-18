@@ -13,7 +13,7 @@ gulp.task('default', ['watch']);
 // gulp build
 // ==========
 gulp.task('build', [
-  'styles',
+  //'styles',
   'scripts',
   'views',
   'static',
