@@ -12,7 +12,7 @@ router.use(function (req, res, next) {
 });
 
 router.use(function (err, req, res, next) {
-  if (!err || !err.name || !err.errors) { return next(err); }
+  if (!err || !err.name) { return next(err); }
 
   switch (err.name) {
     case 'SequelizeValidationError':
@@ -21,6 +21,13 @@ router.use(function (err, req, res, next) {
         error: 'Invalid Data',
         message: 'The data that was sent does not pass data validation',
         errors: err.errors
+      });
+      break;
+    case 'Unauthorized':
+      res.status(401);
+      res.json({
+        error: err.name,
+        message: err.message
       });
       break;
     default:
