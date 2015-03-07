@@ -22,12 +22,14 @@ var hash      = require('../lib/hash');
 var PASSWORD_MIN_LENGTH = 8;
 var PASSWORD_MAX_LENGTH = 255;
 var SALT_WORK_FACTOR    = 10;
+var ROLES               = ['admin', 'user'];
 
 var User = db.define('User', {
   /** @member {String} User#email - The user's email */
   email: {
     type: Sequelize.STRING,
     unique: true,
+    allowNull: false,
     validate: {
       isEmail: { msg: 'Must be a valid email' }
     }
@@ -35,6 +37,7 @@ var User = db.define('User', {
   /** @member {String} User#password - The user's hashed password */
   password: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
       len: {
         args: [PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH],
@@ -45,6 +48,11 @@ var User = db.define('User', {
         )
       }
     }
+  },
+  /** @member {String} User#role - The user's account level, or role */
+  role: {
+    type: Sequelize.ENUM(ROLES),
+    allowNull: false
   }
 }, {
   hooks: {
@@ -113,9 +121,15 @@ User.errors = {
     this.message = util.format('User has entered the wrong password');
   }
 };
-
+// Make them all Error prototype
 Object.keys(User.errors).forEach(function (errorName) {
   User.errors[errorName].prototype = Object.create(Error.prototype);
 });
+
+/**
+ * @member User.roles
+ * @description an array of the different roles
+ */
+User.roles = ROLES;
 
 module.exports = User;

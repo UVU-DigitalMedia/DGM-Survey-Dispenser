@@ -13,7 +13,8 @@ describe('User', function () {
 
   var userInfo = {
     email: 'test@email.com',
-    password: 'testpassword'
+    password: 'testpassword',
+    role: 'admin'
   };
 
   it('should hash given password', function () {
@@ -61,7 +62,6 @@ describe('User', function () {
   it('should throw error if user wasn\'t found', function () {
     return User.authenticate('1' + userInfo.email, userInfo.password)
       .then(function (user) {
-        console.log(user);
         throw new Error('User should not have been found');
       })
       .catch(User.errors.NotFound, function (err) {
@@ -91,7 +91,7 @@ describe('User', function () {
       password += String(i);
     }
     return User
-      .create({email: 'test1@email.com', password: password})
+      .create({email: 'test1@email.com', password: password, role: 'admin'})
       .catch(function (err) {
         expect(err.name).to.eql('SequelizeValidationError');
         expect(err.errors[0].message).to.eql(
@@ -107,7 +107,7 @@ describe('User', function () {
 
   it('should fail with invalid email', function () {
     return User
-      .create({email: 'test1', password: '1234567890'})
+      .create({email: 'test1', password: '1234567890', role: 'admin'})
       .catch(function (err) {
         expect(err.name).to.eql('SequelizeValidationError');
         expect(err.errors[0].message).to.eql('Must be a valid email');
