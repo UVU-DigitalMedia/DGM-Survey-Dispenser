@@ -32,19 +32,19 @@ var config = convict({
     arg: 'env'
   },
   /**
-   * @member {String} [db='postgres://127.0.0.1/flux_boilerplate'] - The
+   * @member {String} [db='postgres://127.0.0.1/dgm_survey_dispenser'] - The
    * database connection url
    * @example
    * config.get('db');
    * @example
-   * $ DB=postgres://127.0.0.1/flux_boilerplate npm start
+   * $ DB=postgres://127.0.0.1/dgm_survey_dispenser npm start
    * @example
-   * $ node app --db postgres://127.0.0.1/flux_boilerplate
+   * $ node app --db postgres://127.0.0.1/dgm_survey_dispenser
    * @todo TODO make db name match package name
    */
   db: {
     doc: 'The database connection url',
-    default: 'postgres://127.0.0.1/flux_boilerplate',
+    default: 'postgres://127.0.0.1/dgm_survey_dispenser',
     env: 'DB',
     arg: 'db'
   },
