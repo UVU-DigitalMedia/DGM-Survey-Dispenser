@@ -41,6 +41,34 @@ describe('User', function () {
       });
   });
 
+  it('should authenticate with given email and password', function () {
+    return User.authenticate(userInfo.email, userInfo.password)
+      .then(function (user) {
+        expect(user.email).to.eql(userInfo.email);
+      });
+  });
+
+  it('should throw error if user authentication didn\'t work', function () {
+    return User.authenticate(userInfo.email, userInfo.password + '1')
+      .then(function (user) {
+        throw new Error('User should not have been found');
+      })
+      .catch(User.errors.WrongPassword, function (err) {
+        expect(err).to.be.an.instanceof(User.errors.WrongPassword);
+      });
+  });
+
+  it('should throw error if user wasn\'t found', function () {
+    return User.authenticate('1' + userInfo.email, userInfo.password)
+      .then(function (user) {
+        console.log(user);
+        throw new Error('User should not have been found');
+      })
+      .catch(User.errors.NotFound, function (err) {
+        expect(err).to.be.an.instanceof(User.errors.NotFound);
+      });
+  });
+
   it('should not rehash unedited password', function () {
     var password;
     return User
