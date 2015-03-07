@@ -1,35 +1,39 @@
 'use strict';
 
-var router = require('express').Router();
+var router = module.exports = require('express').Router();
 
-// Default route
-router.all('/', function (req, res, next) {
-  res.json({
-    success: true,
-    data: {
-      versions: ['v1'],
-      latest: 'v1'
-    }
-  });
-});
-
-// API version 1
 router.use('/v1', require('./v1'));
 
-// Not Found Handler
 router.use(function (req, res, next) {
   res.status(404).json({
-    success: false,
-    error: 'NOT FOUND'
+    error: 'Not Found',
+    message: 'The resource requested was not found'
   });
 });
 
-// Server Error Handler
 router.use(function (err, req, res, next) {
-  console.error(err.stack);
+  if (!err || !err.name || !err.errors) { return next(err); }
+
+  switch (err.name) {
+    case 'SequelizeValidationError':
+      res.status(400);
+      res.json({
+        error: 'Invalid Data',
+        message: 'The data that was sent does not pass data validation',
+        errors: err.errors
+      });
+      break;
+    default:
+      next(err);
+      break;
+  }
+});
+
+router.use(function (err, req, res, next) {
+  console.log(err);
   res.status(500).json({
-    success: false,
-    error: 'SERVER ERROR'
+    error: 'Server Error',
+    message: 'The server encountered an error'
   });
 });
 

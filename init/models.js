@@ -1,31 +1,51 @@
 'use strict';
+/**
+ * @module init/models
+ * @description Initializes the application models. Reads the `models/`
+ * directory to dynamically load new models
+ *
+ * @requires core:path
+ * @requires core:fs
+ * @requires npm:bluebird
+ * @requires lib/log
+ */
 
-var glob     = require('glob');
 var path     = require('path');
-var mongoose = require('mongoose');
-var PATTERN          = path.resolve(__dirname, '../models/*.js');
-var LOWERCASE_DASHES = /^[a-z\-]+$/;
+var Promise  = require('bluebird');
+var fs       = Promise.promisifyAll(require('fs'));
+var log      = require('../lib/log');
 
-// Loop through all of the schema modules
-glob.sync(PATTERN).map(function (modulePath) {
-  var schemaModule = require(modulePath);
-  var basename     = path.basename(modulePath, path.extname(modulePath));
+// Directory where all of the models live.
+var MODELS_DIR = path.resolve(__dirname, '..', 'models');
 
-  // If the schema module isn't a mongoose Schema or the filename doesn't only
-  // contain lowercase letters and dashes, then skip out
-  /* istanbul ignore if: All models should be named correctly */
-  if (!(schemaModule instanceof mongoose.Schema) ||
-      !LOWERCASE_DASHES.test(basename)) {
-    return;
-  }
+module.exports = function initModels() {
+  log.debug('Loading models from %s', MODELS_DIR);
+  log.debug('Finding files in %s', MODELS_DIR);
 
-  // Make a CamelCase name from the model filename
-  var name = basename
-    .split('-')
-    .map(function (word) {
-      return word.charAt(0).toUpperCase() + word.substr(1);
-    })
-    .join('');
+  return fs.readdirAsync(MODELS_DIR).then(function (files) {
+    log.debug('Found %s items in %s', files.length, MODELS_DIR);
 
-  mongoose.model(name, schemaModule);
-});
+    // Loop through the files to require each one in our models
+    files.map(function (file) {
+
+      // Get the full path that we'll use when we require it.
+      var fullPath  = path.join(MODELS_DIR, file);
+      var extension = path.extname(file);
+
+      // Non .js file (such as folders) will be excluded.
+      /* istanbul ignore if: All files in `models/` should be .js files */
+      if (extension !== '.js') {
+        return log.debug('%s exluded from models, not a .js file', file);
+      }
+
+      // Load the actual model module
+      log.debug('Loading model file from %s', fullPath);
+      var model = require(fullPath);
+      log.debug('Loaded model file from %s', fullPath);
+      log.debug('Initialized "%s" model', model.name);
+
+    });
+
+    log.debug('Loaded models from %s', MODELS_DIR);
+  });
+};

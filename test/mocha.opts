@@ -1,1 +1,3 @@
+test/**/*-test.js
 --reporter spec
+--require test/test-helpers/chai.js
