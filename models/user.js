@@ -8,6 +8,7 @@
  * @requires core:util
  * @requires npm:sequelize
  * @requires lib/db
+ * @requires lib/errors
  * @requires lib/hash
  *
  * @see http://sequelize.readthedocs.org/en/latest/api/model/
@@ -16,6 +17,7 @@
 var util      = require('util');
 var Sequelize = require('sequelize');
 var db        = require('../lib/db');
+var errors    = require('../lib/errors');
 var hash      = require('../lib/hash');
 
 // Constants
@@ -110,20 +112,10 @@ var User = db.define('User', {
  * @description an object containing the various reasons a user might fail
  * login.
  */
-User.errors = {
-  NotFound: function NotFound(email) {
-    this.message = util.format('User not found: %s', email);
-  },
-  FailedAttempts: function FailedAttempts() {
-    this.message = util.format('User has had too many failed login attempts');
-  },
-  WrongPassword: function WrongPassword() {
-    this.message = util.format('User has entered the wrong password');
-  }
-};
-// Make them all Error prototype
-Object.keys(User.errors).forEach(function (errorName) {
-  User.errors[errorName].prototype = Object.create(Error.prototype);
+User.errors = errors({
+  NotFound: 'User not found: %s',
+  FailedAttempts: 'User has had too many failed login attempts',
+  WrongPassword: 'User has entered the wrong password'
 });
 
 /**
