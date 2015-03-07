@@ -52,6 +52,8 @@
     "jsx-loader": "^0.12.2",
     "material-ui": "^0.7.1",
     "method-override": "^2.3.1",
+    "passport": "^0.2.1",
+    "passport-http": "^0.2.2",
     "pg": "^4.3.0",
     "pg-hstore": "^2.3.1",
     "react": "^0.12.2",

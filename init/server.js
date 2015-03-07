@@ -11,6 +11,7 @@
  * @requires npm:compression
  * @requires npm:body-parser
  * @requires npm:method-override
+ * @requires npm:passport
  * @requires config
  * @requires lib/log
  */
@@ -28,6 +29,7 @@ var app     = express();
 var compression    = require('compression');
 var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
+var passport       = require('passport');
 
 var KEY_PATH  = config.get('key');
 var CERT_PATH = config.get('cert');
@@ -57,6 +59,7 @@ module.exports = function initServer() {
 
   // This is our main api router w/ logging middleware
   log.debug('Initializing routes');
+  app.use(passport.initialize());
   app.use('/api', require('../routes'));
   log.debug('Initialized routes');
 
