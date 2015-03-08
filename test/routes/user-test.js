@@ -107,6 +107,12 @@ describe(url, function () {
         });
     });
 
+    it('GET /:id should fail if non number is given as id', function () {
+      return request.get(url + '/abc')
+        .auth(userInfo.email, userInfo.password)
+        .expect(404);
+    });
+
     it('PUT /:id should update a user', function () {
       return request.put(url + '/2')
         .auth(userInfo.email, userInfo.password)

@@ -65,7 +65,7 @@ router.route('/')
 router.route('/:id')
   .all(
     auth.loggedIn,
-      function (req, res, next) {
+    function (req, res, next) {
       req.params.id = parseInt(req.params.id, 10) || null;
       next();
     }
