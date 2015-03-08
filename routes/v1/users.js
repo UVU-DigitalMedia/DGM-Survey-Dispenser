@@ -25,8 +25,16 @@ router.route('/logout')
     next(new auth.errors.Unauthorized());
   });
 
+router.route('/roles')
+  .get(
+    auth.loggedIn,
+    function (req, res, next) {
+      res.json(User.roles);
+    }
+  );
+
 router.route('/')
-  .get([
+  .get(
     auth.loggedIn,
     auth.hasRole('admin'),
     function (req, res, next) {
@@ -37,8 +45,8 @@ router.route('/')
         })
         .catch(next);
     }
-  ])
-  .post([
+  )
+  .post(
     auth.loggedIn,
     auth.hasRole('admin'),
     function (req, res, next) {
@@ -51,16 +59,18 @@ router.route('/')
         })
         .catch(next);
     }
-  ])
+  )
   ;
 
 router.route('/:id')
-  .all(function (req, res, next) {
-    req.params.id = parseInt(req.params.id, 10) || null;
-    next();
-  })
-  .get([
+  .all(
     auth.loggedIn,
+      function (req, res, next) {
+      req.params.id = parseInt(req.params.id, 10) || null;
+      next();
+    }
+  )
+  .get(
     function (req, res, next) {
       if (req.user.role === 'admin') {
         return next();
@@ -80,9 +90,8 @@ router.route('/:id')
         })
         .catch(next);
     }
-  ])
-  .put([
-    auth.loggedIn,
+  )
+  .put(
     function (req, res, next) {
       if (req.user.role === 'admin') { return next(); }
       if (req.user.id === req.params.id) {
@@ -103,9 +112,8 @@ router.route('/:id')
         })
         .catch(next);
     }
-  ])
-  .delete([
-    auth.loggedIn,
+  )
+  .delete(
     auth.hasRole('admin'),
     function (req, res, next) {
       User
@@ -123,5 +131,5 @@ router.route('/:id')
         })
         .catch(next);
     }
-  ])
+  )
   ;

@@ -34,6 +34,19 @@ describe(url, function () {
         });
     });
 
+    it('POST /login should fail user login', function () {
+      return request.post(url + '/login')
+        .auth(userInfo.email, userInfo.password + '1')
+        .expect(401);
+    });
+
+    it('GET /roles should get list of roles', function () {
+      return request.get(url + '/roles')
+        .auth(userInfo.email, userInfo.password)
+        .expect(200)
+        .expect(['admin', 'user']);
+    });
+
     it('POST /logout should log a user out', function () {
       return request.post(url + '/login')
         .auth(userInfo.email, userInfo.password)
@@ -70,6 +83,17 @@ describe(url, function () {
         })
         .expect(201)
         .expect('location', url + '/2');
+    });
+
+    it('POST / should fail with invalid email', function () {
+      return request.post(url)
+        .auth(userInfo.email, userInfo.password)
+        .send({
+          email: 'test',
+          password: '12345678',
+          role: 'user'
+        })
+        .expect(400);
     });
 
     it('GET /:id should get a specific user', function () {
@@ -112,6 +136,12 @@ describe(url, function () {
             .auth(userInfo.email, userInfo.password)
             .expect(404);
         });
+    });
+
+    it('DELETE /:id should get 404 when there is no user', function () {
+      return request.delete(url + '/2')
+        .auth(userInfo.email, userInfo.password)
+        .expect(404);
     });
 
   });
@@ -177,6 +207,15 @@ describe(url, function () {
         });
     });
 
+    it('PUT /:id should not be able to update other users', function () {
+      return request.put(url + '/1')
+        .auth(newUser.email, newUser.password)
+        .send({
+          email: 'testnew@email.com'
+        })
+        .expect(403);
+    })
+
     it('PUT /:id should not be able to update role', function () {
       return request.put(url + '/' + newUser.id)
         .auth(newUser.email, newUser.password)
@@ -186,7 +225,7 @@ describe(url, function () {
         .expect(403);
     });
 
-    it('DELETE /:id should failt to delete a user', function () {
+    it('DELETE /:id should fail to delete a user', function () {
       return request.delete(url + '/1')
         .auth(newUser.email, newUser.password)
         .expect(403);

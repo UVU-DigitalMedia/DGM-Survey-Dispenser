@@ -12,6 +12,7 @@ router.use(function (req, res, next) {
 });
 
 router.use(function (err, req, res, next) {
+  /* istanbul ignore next: ideally, we catch all errors */
   if (!err || !err.name) { return next(err); }
 
   switch (err.name) {
@@ -37,12 +38,14 @@ router.use(function (err, req, res, next) {
         message: err.message
       });
       break;
+    /* istanbul ignore next: ideally, we catch all errors */
     default:
       next(err);
       break;
   }
 });
 
+/* istanbul ignore next: ideally , we catch all errors */
 router.use(function (err, req, res, next) {
   console.log(err);
   res.status(500).json({
