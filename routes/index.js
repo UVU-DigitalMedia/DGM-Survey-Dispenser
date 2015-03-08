@@ -37,7 +37,7 @@ router.use(function (err, req, res, next) {
 });
 
 router.use(function (err, req, res, next) {
-  console.log(err);
+  console.error(err.stack);
   res.status(500).json({
     error: 'Server Error',
     message: 'The server encountered an error'
