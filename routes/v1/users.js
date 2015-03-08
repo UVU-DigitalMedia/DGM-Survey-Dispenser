@@ -55,6 +55,10 @@ router.route('/')
   ;
 
 router.route('/:id')
+  .all(function (req, res, next) {
+    req.params.id = parseInt(req.params.id, 10) || null;
+    next();
+  })
   .get([
     auth.loggedIn,
     function (req, res, next) {
@@ -82,7 +86,9 @@ router.route('/:id')
     function (req, res, next) {
       if (req.user.role === 'admin') { return next(); }
       if (req.user.id === req.params.id) {
-        if (req.user.role !== 'admin') { delete req.user.role; }
+        if (req.body.role && req.user.role !== req.body.role) {
+          return next(new auth.errors.Forbidden());
+        }
         return next();
       }
       next(new auth.errors.Forbidden());

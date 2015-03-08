@@ -30,6 +30,13 @@ router.use(function (err, req, res, next) {
         message: err.message
       });
       break;
+    case 'Forbidden':
+      res.status(403);
+      res.json({
+        error: err.name,
+        message: err.message
+      });
+      break;
     default:
       next(err);
       break;
@@ -37,7 +44,7 @@ router.use(function (err, req, res, next) {
 });
 
 router.use(function (err, req, res, next) {
-  console.error(err.stack);
+  console.log(err);
   res.status(500).json({
     error: 'Server Error',
     message: 'The server encountered an error'

@@ -47,69 +47,151 @@ describe(url, function () {
 
   });
 
-  it('GET / should get list of users', function () {
-    return request.get(url)
-      .auth(userInfo.email, userInfo.password)
-      .expect(200)
-      .expect([{
-        email: userInfo.email,
-        role: userInfo.role,
-        id: 1
-      }]);
+  describe('admin', function () {
+
+    it('GET / should get list of users', function () {
+      return request.get(url)
+        .auth(userInfo.email, userInfo.password)
+        .expect(200)
+        .expect([{
+          email: userInfo.email,
+          role: userInfo.role,
+          id: 1
+        }]);
+    });
+
+    it('POST / should create new user', function () {
+      return request.post(url)
+        .auth(userInfo.email, userInfo.password)
+        .send({
+          email: 'test2@email.com',
+          password: '12345678',
+          role: 'user'
+        })
+        .expect(201)
+        .expect('location', url + '/2');
+    });
+
+    it('GET /:id should get a specific user', function () {
+      return request.get(url + '/2')
+        .auth(userInfo.email, userInfo.password)
+        .expect(200)
+        .expect({
+          id: 2,
+          email: 'test2@email.com',
+          role: 'user'
+        });
+    });
+
+    it('PUT /:id should update a user', function () {
+      return request.put(url + '/2')
+        .auth(userInfo.email, userInfo.password)
+        .send({
+          email: 'test3@email.com',
+          role: 'user'
+        })
+        .expect(204)
+        .then(function (res) {
+          return request.get(url + '/2')
+            .auth(userInfo.email, userInfo.password)
+            .expect(200)
+            .expect({
+              id: 2,
+              email: 'test3@email.com',
+              role: 'user'
+            });
+        });
+    });
+
+    it('DELETE /:id should delete a user', function () {
+      return request.delete(url + '/2')
+        .auth(userInfo.email, userInfo.password)
+        .expect(204)
+        .then(function (res) {
+          return request.get(url + '/2')
+            .auth(userInfo.email, userInfo.password)
+            .expect(404);
+        });
+    });
+
   });
 
-  it('POST / should create new user', function () {
-    return request.post(url)
-      .auth(userInfo.email, userInfo.password)
-      .send({
-        email: 'test2@email.com',
-        password: '12345678',
-        role: 'user'
-      })
-      .expect(201)
-      .expect('location', url + '/2');
-  });
+  describe('user', function () {
 
-  it('GET /:id should get a specific user', function () {
-    return request.get(url + '/2')
-      .auth(userInfo.email, userInfo.password)
-      .expect(200)
-      .expect({
-        id: 2,
-        email: 'test2@email.com',
-        role: 'user'
+    var newUser = {
+      email: 'test3@test.com',
+      password: 'newpassword',
+      role: 'user'
+    };
+
+    before(function () {
+      return User.create(newUser).then(function (user) {
+        newUser.id = user.id;
       });
-  });
+    });
 
-  it('PUT /:id should update a user', function () {
-    return request.put(url + '/2')
-      .auth(userInfo.email, userInfo.password)
-      .send({
-        email: 'test3@email.com',
-        role: 'user'
-      })
-      .expect(204)
-      .then(function (res) {
-        return request.get(url + '/2')
-          .auth(userInfo.email, userInfo.password)
-          .expect(200)
-          .expect({
-            id: 2,
-            email: 'test3@email.com',
-            role: 'user'
-          });
-      });
-  });
+    it('GET / should fail to get list of users', function () {
+      return request.get(url)
+        .auth(newUser.email, newUser.password)
+        .expect(403);
+    });
 
-  it('DELETE /:id should delete a user', function () {
-    return request.delete(url + '/2')
-      .auth(userInfo.email, userInfo.password)
-      .expect(204)
-      .then(function (res) {
-        return request.get(url + '/2')
-          .auth(userInfo.email, userInfo.password)
-          .expect(404);
-      });
+    it('POST / should fail to create new user', function () {
+      return request.post(url)
+        .auth(newUser.email, newUser.password)
+        .send({
+          email: 'test10@email.com',
+          password: '12345678',
+          role: 'user'
+        })
+        .expect(403);
+    });
+
+    it('GET /:id should get your own user', function () {
+      return request.get(url + '/' + newUser.id)
+        .auth(newUser.email, newUser.password)
+        .expect(200)
+        .expect({
+          id: newUser.id,
+          email: newUser.email,
+          role: newUser.role
+        });
+    });
+
+    it('GET /:id should fail to get other users', function () {
+      return request.get(url + '/1')
+        .auth(newUser.email, newUser.password)
+        .expect(403);
+    });
+
+    it('PUT /:id should update self', function () {
+      return request.put(url + '/' + newUser.id)
+        .auth(newUser.email, newUser.password)
+        .send({
+          email: 'test5@email.com',
+          role: 'user'
+        })
+        .expect(204)
+        .then(function (res) {
+          newUser.email = 'test5@email.com';
+        });
+    });
+
+    it('PUT /:id should not be able to update role', function () {
+      return request.put(url + '/' + newUser.id)
+        .auth(newUser.email, newUser.password)
+        .send({
+          role: 'admin'
+        })
+        .expect(403);
+    });
+
+    it('DELETE /:id should failt to delete a user', function () {
+      return request.delete(url + '/1')
+        .auth(newUser.email, newUser.password)
+        .expect(403);
+    });
+
   });
 
 });
