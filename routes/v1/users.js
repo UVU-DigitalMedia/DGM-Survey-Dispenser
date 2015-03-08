@@ -12,6 +12,18 @@ function reduce(user) {
   };
 }
 
+/**
+ * @api {post} /api/v1/users/login Login
+ * @apiGroup User
+ *
+ * @apiSuccessExample {json} Success-Example:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "id": 1,
+ *       "email": "test@email.com",
+ *       "role": "admin"
+ *     }
+ */
 router.route('/login')
   .post(
     auth.loggedIn,
@@ -20,11 +32,29 @@ router.route('/login')
     }
   );
 
+/**
+ * @api {post} /api/v1/users/logout Logout
+ * @apiGroup User
+ */
 router.route('/logout')
   .post(function (req, res, next) {
     next(new auth.errors.Unauthorized());
   });
 
+/**
+ * @api {get} /api/v1/users/roles User Roles
+ * @apiGroup User
+ *
+ * @apiPermission admin
+ * @apiPermission user
+ *
+ * @apiSuccessExample {json} Success-Example:
+ *     HTTP/1.1 200 OK
+ *     [
+ *       "admin",
+ *       "user"
+ *     ]
+ */
 router.route('/roles')
   .get(
     auth.loggedIn,

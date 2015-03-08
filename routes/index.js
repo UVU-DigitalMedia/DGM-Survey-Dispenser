@@ -5,10 +5,9 @@ var router = module.exports = require('express').Router();
 router.use('/v1', require('./v1'));
 
 router.use(function (req, res, next) {
-  res.status(404).json({
-    error: 'Not Found',
-    message: 'The resource requested was not found'
-  });
+  var error = new Error('The Resource you requested was not found');
+  error.name = 'NotFound';
+  next(error);
 });
 
 router.use(function (err, req, res, next) {
@@ -33,6 +32,13 @@ router.use(function (err, req, res, next) {
       break;
     case 'Forbidden':
       res.status(403);
+      res.json({
+        error: err.name,
+        message: err.message
+      });
+      break;
+    case 'NotFound':
+      res.status(404);
       res.json({
         error: err.name,
         message: err.message

@@ -75,7 +75,7 @@ var User = db.define('User', {
      *
      * @param {String} email - The user's email
      * @param {String} password - The user's unhashed password
-     * @returns {Promise(REASONS|Boolean)} Returns the user object if found,
+     * @returns {Promise(User)} Returns the user object if found,
      * throws a reason if authentication failed.
      */
     authenticate: function (email, password) {
