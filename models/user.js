@@ -124,4 +124,13 @@ User.errors = errors({
  */
 User.roles = ROLES;
 
+/**
+ * @member User.passwordMinLength
+ */
+User.passwordMinLength = PASSWORD_MIN_LENGTH;
+/**
+ * @member User.passwordMaxLength
+ */
+User.passwordMaxLength = PASSWORD_MAX_LENGTH;
+
 module.exports = User;

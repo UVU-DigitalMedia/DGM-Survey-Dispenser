@@ -95,7 +95,7 @@ describe('User', function () {
       .catch(function (err) {
         expect(err.name).to.eql('SequelizeValidationError');
         expect(err.errors[0].message).to.eql(
-          'Password must have between 8 and 255 characters'
+          'Password must have between 8 and 64 characters'
         );
       })
       .then(function (user) {
