@@ -64,32 +64,53 @@ router.route('/roles')
   );
 
 router.route('/')
-  .get(
-    auth.loggedIn,
-    auth.hasRole('admin'),
-    function (req, res, next) {
-      User
-        .findAll()
-        .then(function (users) {
-          res.json(users.map(reduce));
-        })
-        .catch(next);
-    }
-  )
-  .post(
-    auth.loggedIn,
-    auth.hasRole('admin'),
-    function (req, res, next) {
-      User
-        .create(req.body)
-        .then(function (user) {
-          res.status(201);
-          res.location(req.originalUrl + '/' + user.id);
-          res.end();
-        })
-        .catch(next);
-    }
-  )
+  .all(auth.loggedIn, auth.hasRole('admin'))
+  /**
+   * @api {get} /api/v1/users Read Users
+   * @apiGroup User
+   *
+   * @apiPermission admin
+   *
+   * @apiSuccessExample {json} Success-Example:
+   *     HTTP/1.1 200 OK
+   *     [{
+   *       "id": 1,
+   *       "email": "test@email.com",
+   *       "role": "admin"
+   *     }]
+   */
+  .get(function (req, res, next) {
+    User
+      .findAll()
+      .then(function (users) {
+        res.json(users.map(reduce));
+      })
+      .catch(next);
+  })
+  /**
+   * @api {post} /api/v1/users Create User
+   * @apiGroup User
+   *
+   * @apiPermission admin
+   *
+   * @apiParam {String} email    Must be a valid email
+   * @apiParam {String} password Must be between 8 and 64 characters
+   * @apiParam {String} role     Must be one of the roles at /api/v1/users/roles
+   *
+   * @apiSuccessExample {json} Success-Example:
+   *     HTTP/1.1 201
+   *     location: /api/v1/users/2435
+   */
+  .post(function (req, res, next) {
+    User
+      .create(req.body)
+      .then(function (user) {
+        res.status(201);
+        res.location(req.originalUrl + '/' + user.id);
+        res.end();
+      })
+      .catch(next);
+  })
   ;
 
 router.route('/:id')
@@ -100,12 +121,26 @@ router.route('/:id')
       next();
     }
   )
+  /**
+   * @api {get} /api/v1/users/:id Read User
+   * @apiGroup User
+   *
+   * @apiPermission admin
+   * @apiPermission user
+   * @apiPermission (user can only get self, not other users)
+   *
+   * @apiSuccessExample {json} Success-Example:
+   *     HTTP/1.1 200 OK
+   *     {
+   *       "id": 1,
+   *       "email": "test@email.com",
+   *       "role": "admin"
+   *     }
+   */
   .get(
+    // Admins can get any user, but users can only get themselves
     function (req, res, next) {
-      if (req.user.role === 'admin') {
-        return next();
-      }
-      if (req.user.id === req.params.id) {
+      if (req.user.role === 'admin' || req.user.id === req.params.id) {
         return next();
       }
       next(new auth.errors.Forbidden());
@@ -121,7 +156,26 @@ router.route('/:id')
         .catch(next);
     }
   )
+  /**
+   * @api {put} /api/v1/users/:id Update User
+   * @apiGroup User
+   *
+   * @apiPermission admin
+   * @apiPermission user
+   * @apiPermission (user can only update self, not other users)
+   * @apiPermission (user cannot update role)
+   *
+   * @apiParam {String} email    Must be a valid email
+   * @apiParam {String} password Must be between 8 and 64 characters
+   * @apiParam {String} role     Must be one of the roles at /api/v1/users/roles
+   *
+   * @apiSuccessExample {json} Success-Example:
+   *     HTTP/1.1 204
+   */
   .put(
+    // Filter out which users can access which updates. Admins can update all
+    // users. Users can only update themselves, but they can't update their own
+    // role
     function (req, res, next) {
       if (req.user.role === 'admin') { return next(); }
       if (req.user.id === req.params.id) {
@@ -143,6 +197,15 @@ router.route('/:id')
         .catch(next);
     }
   )
+  /**
+   * @api {delete} /api/v1/users/:id Delete User
+   * @apiGroup User
+   *
+   * @apiPermission admin
+   *
+   * @apiSuccessExample {json} Success-Example:
+   *     HTTP/1.1 204
+   */
   .delete(
     auth.hasRole('admin'),
     function (req, res, next) {
@@ -154,8 +217,7 @@ router.route('/:id')
         .then(function (rowsAffected) {
           if (rowsAffected) {
             res.status(204);
-            res.end();
-            return;
+            return res.end();
           }
           next();
         })

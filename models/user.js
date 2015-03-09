@@ -22,7 +22,7 @@ var hash      = require('../lib/hash');
 
 // Constants
 var PASSWORD_MIN_LENGTH = 8;
-var PASSWORD_MAX_LENGTH = 255;
+var PASSWORD_MAX_LENGTH = 64;
 var SALT_WORK_FACTOR    = 10;
 var ROLES               = ['admin', 'user'];
 
