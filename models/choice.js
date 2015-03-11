@@ -30,6 +30,6 @@ var Choice = db.define('Choice', {
 
 });
 
-Choice.hasMany(Answer, {as: 'Answers'});
+Choice.hasMany(Answer, {as: 'answers', onDelete: 'cascade'});
 
 module.exports = Choice;

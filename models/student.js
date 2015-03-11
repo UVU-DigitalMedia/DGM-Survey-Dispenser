@@ -35,6 +35,6 @@ var Student = db.define('Student', {
   instanceMethods: {}
 });
 
-Student.hasMany(Answer, {as: 'Answers'});
+Student.hasMany(Answer, {as: 'answers'});
 
 module.exports = Student;

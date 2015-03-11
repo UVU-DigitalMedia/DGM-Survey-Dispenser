@@ -27,12 +27,13 @@ router.route('/')
   .get(function (req, res, next) {
     Question
       .findAll({
+        order: [[{model: Choice, as: 'choices'}, 'id']],
         include: [{
           model: Choice,
-          as: 'Choices',
+          as: 'choices',
           include: [{
             model: Answer,
-            as: 'Answers'
+            as: 'answers'
           }]
         }]
       })
@@ -95,13 +96,15 @@ router.route('/:id')
    */
   .get(function (req, res, next) {
     Question
-      .findOne(req.params.id, {
+      .findOne({
+        where: {id: req.params.id},
+        order: [[{model: Choice, as: 'choices'}, 'id']],
         include: [{
           model: Choice,
-          as: 'Choices',
+          as: 'choices',
           include: [{
             model: Answer,
-            as: 'Answers'
+            as: 'answers'
           }]
         }]
       })

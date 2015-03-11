@@ -48,7 +48,7 @@ var Question = db.define('Question', {
         return Choice.create({
           label: choices[0].label,
           dynamicValue: true,
-          questionId: id
+          QuestionId: id
         }).then(function () {
           return self;
         });
@@ -58,7 +58,7 @@ var Question = db.define('Question', {
           return {
             label: choice.label,
             dynamicValue: Boolean(choice.dynamicValue),
-            questionId: id
+            QuestionId: id
           };
         }),
         {validate: true}
@@ -83,8 +83,8 @@ var Question = db.define('Question', {
         return Answer.bulkCreate(
           values.map(function (value) {
             return {
-              choiceId: value.id,
-              studentId: student.id,
+              ChoiceId: value.id,
+              StudentId: student.id,
               value: value.value
             };
           }),
@@ -101,7 +101,7 @@ Question.types = Object.keys(types).reduce(function (typesObject, type) {
   return typesObject;
 }, {});
 
-Question.hasMany(Choice, {as: 'Choices'});
+Question.hasMany(Choice, {as: 'choices', onDelete: 'cascade'});
 
 Question.errors = errors({
   InvalidAnswers: 'The answers given are invalid',
