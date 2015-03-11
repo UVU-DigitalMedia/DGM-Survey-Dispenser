@@ -8,6 +8,7 @@
  * @requires npm:sequelize
  * @requires lib/db
  * @requires lib/errors
+ * @requires models/answer
  *
  * @see http://sequelize.readthedocs.org/en/latest/api/model/
  */
@@ -15,8 +16,10 @@
 var Sequelize = require('sequelize');
 var db        = require('../lib/db');
 var errors    = require('../lib/errors');
+var Answer    = require('./answer');
 
 var Student = db.define('Student', {
+  /** @member {String} Student#uvid - The student's uvid */
   uvid: {
     type: Sequelize.STRING,
     unique: true,
@@ -31,5 +34,7 @@ var Student = db.define('Student', {
   classMethods: {},
   instanceMethods: {}
 });
+
+Student.hasMany(Answer, {as: 'Answers'});
 
 module.exports = Student;
