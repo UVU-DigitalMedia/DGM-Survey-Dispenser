@@ -38,18 +38,19 @@ var Question = db.define('Question', {
   }
 }, {
   hooks: {},
-  classMethods: {
-    addChoices: function (choices) {
+  instanceMethods: {
+    attachChoices: function (choices) {
       var self = this;
       choices = arrify(choices);
       var type = types[this.type];
       var id = this.id;
-      if (type.type.value === 'single') {
+      if (type.type.choices === 'input') {
         return Choice.create({
           label: choices[0].label,
-          dynamicValue: type.type.choices === 'input' ||
-            Boolean(choices[0].dynamicValue),
+          dynamicValue: true,
           questionId: id
+        }).then(function () {
+          return self;
         });
       }
       return Choice.bulkCreate(
@@ -92,7 +93,7 @@ var Question = db.define('Question', {
       });
     }
   },
-  instanceMethods: {}
+  classMethods: {}
 });
 
 Question.types = Object.keys(types).reduce(function (typesObject, type) {

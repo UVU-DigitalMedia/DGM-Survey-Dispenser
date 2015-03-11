@@ -29,7 +29,11 @@ router.route('/')
       .findAll({
         include: [{
           model: Choice,
-          include: [{model: Answer}]
+          as: 'Choices',
+          include: [{
+            model: Answer,
+            as: 'Answers'
+          }]
         }]
       })
       .then(function (questions) {
@@ -53,7 +57,7 @@ router.route('/')
     Question
       .create(req.body)
       .then(function (question) {
-        return question.addChoices(choices);
+        return question.attachChoices(choices);
       })
       .then(function (question) {
         res.status(201);
@@ -94,7 +98,11 @@ router.route('/:id')
       .findOne(req.params.id, {
         include: [{
           model: Choice,
-          include: [{model: Answer}]
+          as: 'Choices',
+          include: [{
+            model: Answer,
+            as: 'Answers'
+          }]
         }]
       })
       .then(function (question) {
