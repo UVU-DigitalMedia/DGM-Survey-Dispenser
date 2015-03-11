@@ -11,11 +11,13 @@ router.use(function (req, res, next) {
 });
 
 router.use(function (err, req, res, next) {
+  /* jshint maxcomplexity: false */
   /* istanbul ignore next: ideally, we catch all errors */
   if (!err || !err.name) { return next(err); }
 
   switch (err.name) {
     case 'SequelizeValidationError':
+    case 'SequelizeUniqueConstraintError':
       res.status(400);
       res.json({
         error: 'Invalid Data',

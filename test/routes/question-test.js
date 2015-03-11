@@ -48,6 +48,24 @@ describe(url, function () {
       .expect('location', url + '/1');
   });
 
+  it('POST / should fail to create duplicate question label', function () {
+    return request.post(url)
+      .auth(user.email, user.password)
+      .send({
+        label: 'My Question',
+        description: 'This is my first question',
+        type: 'multipleChoice',
+        choices: [
+          {label: 'Choice 1'},
+          {label: 'Choice 2'},
+          {label: 'Choice 3'},
+          {label: 'Choice 4'},
+          {label: 'Other', dynamicValue: true}
+        ]
+      })
+      .expect(400);
+  });
+
   it('GET /:id should get specific question', function () {
     return request.get(url + '/1')
       .auth(user.email, user.password)
@@ -101,6 +119,56 @@ describe(url, function () {
       .then(function (choices) {
         expect(choices).to.eql([]);
       });
+  });
+
+  it('POST / should fail to create invalid question type', function () {
+    return request.post(url)
+      .auth(user.email, user.password)
+      .send({
+        label: 'My Question',
+        description: 'This is my first question',
+        type: 'multipleChoicea',
+        choices: [
+          {label: 'Choice 1'},
+          {label: 'Choice 2'},
+          {label: 'Choice 3'},
+          {label: 'Choice 4'},
+          {label: 'Other', dynamicValue: true}
+        ]
+      })
+      .expect(400);
+  });
+
+  it('POST / should create with different question type', function () {
+    return request.post(url)
+      .auth(user.email, user.password)
+      .send({
+        label: 'My Question',
+        description: 'This is my first question',
+        type: 'multipleCorrect',
+        choices: [
+          {label: 'Choice 1'},
+          {label: 'Choice 2'},
+          {label: 'Choice 3'},
+          {label: 'Choice 4'},
+          {label: 'Other', dynamicValue: true}
+        ]
+      })
+      .expect(201);
+  });
+
+  it('POST / should create with different question type', function () {
+    return request.post(url)
+      .auth(user.email, user.password)
+      .send({
+        label: 'My second Question',
+        description: 'This is my first question',
+        type: 'shortAnswer',
+        choices: [
+          {label: 'Answer?'}
+        ]
+      })
+      .expect(201);
   });
 
 });
