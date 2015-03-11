@@ -40,6 +40,7 @@ var Question = db.define('Question', {
   hooks: {},
   classMethods: {
     addChoices: function (choices) {
+      var self = this;
       choices = arrify(choices);
       var type = types[this.type];
       var id = this.id;
@@ -60,7 +61,9 @@ var Question = db.define('Question', {
           };
         }),
         {validate: true}
-      );
+      ).then(function () {
+        return self;
+      });
     },
     answer: function (student, values) {
       values = arrify(values);
