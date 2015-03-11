@@ -16,6 +16,13 @@ router.use(function (err, req, res, next) {
   if (!err || !err.name) { return next(err); }
 
   switch (err.name) {
+    case 'InvalidAnswers':
+      res.status(400);
+      res.json({
+        error: 'Invalid Answers',
+        message: 'The answers you gave are invalid'
+      });
+      break;
     case 'SequelizeValidationError':
     case 'SequelizeUniqueConstraintError':
       res.status(400);

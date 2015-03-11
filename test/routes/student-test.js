@@ -39,6 +39,44 @@ describe(url, function () {
         .expect(400);
     });
 
+    it('POST /:uvid/question get a random question', function () {
+      return request.post('/api/v1/questions')
+        .auth(user.email, user.password)
+        .send({
+          label: 'My Question',
+          description: 'This is my first question',
+          type: 'multipleChoice',
+          choices: [
+            {label: 'Choice 1'},
+            {label: 'Choice 2'},
+            {label: 'Choice 3'},
+            {label: 'Choice 4'},
+            {label: 'Other', dynamicValue: true}
+          ]
+        })
+        .expect(201)
+        .then(function (res) {
+          return request.get(url + '/12345678/question')
+            .expect(200);
+        })
+        .then(function (res) {
+          expect(res.body.id).to.equal(1);
+        });
+    });
+
+    it('POST /:uvid/answer/:qid answer a question', function () {
+      return request.post(url + '/12345678/answer/1')
+        .send({id: 1})
+        .expect(204)
+        .then(function () {
+          return request.get(url + '/12345678/question')
+            .expect(200);
+        })
+        .then(function (res) {
+          expect(res.body).to.eql({});
+        });
+    });
+
   });
 
 });

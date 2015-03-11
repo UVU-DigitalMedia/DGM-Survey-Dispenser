@@ -29,6 +29,11 @@ var Question = db.define('Question', {
     unique: true,
     allowNull: false
   },
+  active: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: true
+  },
   description: {
     type: Sequelize.STRING(1000),
     allowNull: false
@@ -105,7 +110,8 @@ Question.hasMany(Choice, {as: 'choices', onDelete: 'cascade'});
 
 Question.errors = errors({
   InvalidAnswers: 'The answers given are invalid',
-  InvalidChoices: 'There are no available choices for that choice type'
+  InvalidChoices: 'There are no available choices for that choice type',
+  NotFound: 'The question you requested was not found'
 });
 
 module.exports = Question;
