@@ -14,6 +14,7 @@
  * @requires npm:passport
  * @requires config
  * @requires lib/log
+ * @requires lib/react-middleware
  */
 
 var fs      = require('fs');
@@ -26,10 +27,11 @@ var log     = require('../lib/log');
 var app     = express();
 
 // Express middleware
-var compression    = require('compression');
-var bodyParser     = require('body-parser');
-var methodOverride = require('method-override');
-var passport       = require('passport');
+var compression     = require('compression');
+var bodyParser      = require('body-parser');
+var methodOverride  = require('method-override');
+var passport        = require('passport');
+var reactMiddleware = require('../lib/react-middleware');
 
 var KEY_PATH  = config.get('key');
 var CERT_PATH = config.get('cert');
@@ -55,13 +57,15 @@ module.exports = function initServer() {
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(bodyParser.json());
   app.use(methodOverride());
-  app.use(express.static(path.resolve(__dirname, '..', 'public')));
 
   // This is our main api router w/ logging middleware
   log.debug('Initializing routes');
   app.use(passport.initialize());
   app.use('/api', require('../routes'));
   log.debug('Initialized routes');
+
+  reactMiddleware(app);
+  app.use(express.static(path.resolve(__dirname, '..', 'public')));
 
   // return the promise of a new server
   return new Promise(function (resolve, reject) {
