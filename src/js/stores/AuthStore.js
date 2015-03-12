@@ -3,7 +3,7 @@
 var Reflux      = require('reflux');
 var AuthActions = require('../actions/AuthActions');
 
-var UserStore = Reflux.createStore({
+var AuthStore = Reflux.createStore({
   init: function () {
     this.state = {
       user: null,
@@ -51,3 +51,5 @@ var UserStore = Reflux.createStore({
     this.trigger(this.state);
   }
 });
+
+module.exports = AuthStore;
