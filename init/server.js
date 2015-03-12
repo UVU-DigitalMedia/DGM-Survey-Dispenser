@@ -79,8 +79,8 @@ module.exports = function initServer() {
   app.use('/api', require('../routes'));
   log.debug('Initialized routes');
 
-  reactMiddleware(app);
   app.use(express.static(path.resolve(__dirname, '..', 'public')));
+  app.use(reactMiddleware);
 
   // return the promise of a new server
   return new Promise(function (resolve, reject) {

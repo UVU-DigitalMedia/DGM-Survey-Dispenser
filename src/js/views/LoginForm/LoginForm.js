@@ -35,27 +35,37 @@ var LoginForm = React.createClass({
 
   handleSubmit: function (event) {
     event.preventDefault();
-    console.log(this.state);
     AuthActions.login(this.state.email, this.state.password);
     this.setState({password: ''});
   },
 
   render: function () {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <TextField
-          floatingLabelText="Email"
-          valueLink={this.linkState('email')} />
-        <TextField
-          floatingLabelText="Password"
-          valueLink={this.linkState('password')}
-          type="password" />
-        <RaisedButton
-          type="submit"
-          primary={true}
-          disabled={this.state.auth.loading}
-          label={this.state.auth.loading ? 'Loading...' : 'Login'}/>
-      </form>
+      <div className="row center-xs">
+        <div className="col-xs-12 col-sm-6">
+          <h2 className="text-center">DGM Survey Dispenser Login</h2>
+          <form onSubmit={this.handleSubmit}>
+            <div>
+              <TextField
+                floatingLabelText="Email"
+                valueLink={this.linkState('email')} />
+            </div>
+            <div>
+              <TextField
+                floatingLabelText="Password"
+                valueLink={this.linkState('password')}
+                type="password" />
+            </div>
+            <div>
+              <RaisedButton
+                type="submit"
+                primary={true}
+                disabled={this.state.auth.loading}
+                label={this.state.auth.loading ? 'Loading...' : 'Login'} />
+            </div>
+          </form>
+        </div>
+      </div>
     );
   }
 });
