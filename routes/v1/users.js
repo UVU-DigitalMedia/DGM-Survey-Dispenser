@@ -38,7 +38,11 @@ router.route('/login')
  */
 router.route('/logout')
   .post(function (req, res, next) {
-    next(new auth.errors.Unauthorized());
+    req.session.destroy(function (err) {
+      if (err) { return next(err); }
+      res.status(204);
+      res.end();
+    });
   });
 
 /**
