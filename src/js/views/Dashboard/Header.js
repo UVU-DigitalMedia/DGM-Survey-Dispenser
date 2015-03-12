@@ -30,7 +30,7 @@ var Header = React.createClass({
       <Paper zDepth={1}>
         <Toolbar>
           <ToolbarGroup key={0} float="left">
-            <h3>DGM Survey Dispenser</h3>
+            <h4 className="toolbar-heading">DGM Survey Dispenser</h4>
           </ToolbarGroup>
           <ToolbarGroup key={1} float="right">
             <RaisedButton label="Logout" secondary={true} onClick={AuthActions.logout} />
