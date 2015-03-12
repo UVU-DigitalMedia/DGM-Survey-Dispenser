@@ -8,7 +8,7 @@ var Router = require('react-router');
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
-var Header = require('./views/Header.jsx');
+var Header = require('./views/Header');
 
 var App = React.createClass({
   render: function () {

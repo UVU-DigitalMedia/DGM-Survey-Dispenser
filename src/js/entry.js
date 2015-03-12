@@ -5,8 +5,8 @@ require('react-tap-event-plugin')();
 var React  = require('react');
 var Router = require('react-router');
 
-var application = require('./App.jsx');
+var App = require('./App');
 
-Router.run(application, Router.HistoryLocation, function (Handler) {
+Router.run(App, Router.HistoryLocation, function (Handler) {
   React.render(<Handler />, document.body);
 });
