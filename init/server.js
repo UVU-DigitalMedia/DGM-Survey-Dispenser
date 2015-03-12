@@ -31,6 +31,8 @@ var compression     = require('compression');
 var bodyParser      = require('body-parser');
 var methodOverride  = require('method-override');
 var passport        = require('passport');
+var cookieParser    = require('cookie-parser');
+var session         = require('express-session');
 var reactMiddleware = require('../lib/react-middleware');
 
 var KEY_PATH  = config.get('key');
@@ -57,6 +59,19 @@ module.exports = function initServer() {
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(bodyParser.json());
   app.use(methodOverride());
+  app.use(cookieParser());
+  app.use(session({
+    store: false,
+    secret: '32lqrewafsdlifqu4po243asdv42qp38123423',
+    proxy: false,
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+      path: '/',
+      httpOnly: true,
+      maxAge: 1 * 60 * 60 * 1000 // 1 hour
+    }
+  }));
 
   // This is our main api router w/ logging middleware
   log.debug('Initializing routes');

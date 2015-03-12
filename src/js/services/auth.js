@@ -27,7 +27,7 @@ auth.logout = function () {
 
 auth.roles = function () {
   return new Promise(function (resolve, reject) {
-    request.post('/api/v1/users/roles')
+    request.get('/api/v1/users/roles')
       .end(function (err, res) {
         if (err) { return reject(err); }
         resolve(res.body);

@@ -13,6 +13,7 @@ AuthActions.login.listen(function (email, password) {
   auth.login(email, password)
     .then(function (foundUser) {
       user = foundUser;
+      console.log(user);
       return auth.roles();
     })
     .then(function (roles) {

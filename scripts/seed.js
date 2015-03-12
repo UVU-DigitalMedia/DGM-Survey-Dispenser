@@ -27,7 +27,10 @@ module.exports = require('bluebird').resolve()
     console.log('Let\'s create the superuser');
     return prompt(userQuestions);
   })
-  .then(User.create.bind(User))
+  .then(function (user) {
+    user.role = 'admin';
+    return User.create(user);
+  })
   .then(function () {
     console.log('Super user successfully created!');
   })
