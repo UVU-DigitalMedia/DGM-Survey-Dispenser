@@ -7,7 +7,7 @@ var UserActions = Reflux.createActions({
   create : {children: ['success', 'failure']},
   read   : {children: ['success', 'failure']},
   update : {children: ['success', 'failure']},
-  delete : {chilcren: ['success', 'failure']}
+  delete : {children: ['success', 'failure']}
 });
 
 UserActions.create.listen(function (user) {

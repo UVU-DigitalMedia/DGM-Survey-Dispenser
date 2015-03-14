@@ -41,3 +41,5 @@ var Users = React.createClass({
     );
   }
 });
+
+module.exports = Users;

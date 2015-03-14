@@ -25,21 +25,22 @@ var UserStore = Reflux.createStore({
       }
     };
 
-    // this.listenTo(UserActions.create, 'create');
-    // this.listenTo(UserActions.create.success, 'createSuccess');
-    // this.listenTo(UserActions.create.failure, 'createFailure');
-    //
-    // this.listenTo(UserActions.read, 'read');
-    // this.listenTo(UserActions.read.success, 'readSuccess');
-    // this.listenTo(UserActions.read.failure, 'readFailure');
-    //
-    // this.listenTo(UserActions.update, 'update');
-    // this.listenTo(UserActions.update.success, 'updateSuccess');
-    // this.listenTo(UserActions.update.failure, 'updateFailure');
-    //
-    // this.listenTo(UserActions.delete, 'delete');
-    // this.listenTo(UserActions.delete.success, 'deleteSuccess');
-    // this.listenTo(UserActions.delete.failure, 'deleteFailure');
+    this.listenTo(UserActions.create, 'create');
+    this.listenTo(UserActions.create.success, 'createSuccess');
+    this.listenTo(UserActions.create.failure, 'createFailure');
+
+    this.listenTo(UserActions.read, 'read');
+    this.listenTo(UserActions.read.success, 'readSuccess');
+    this.listenTo(UserActions.read.failure, 'readFailure');
+
+    this.listenTo(UserActions.update, 'update');
+    this.listenTo(UserActions.update.success, 'updateSuccess');
+    this.listenTo(UserActions.update.failure, 'updateFailure');
+
+    this.listenTo(UserActions.delete, 'delete');
+    this.listenTo(UserActions.delete.success, 'deleteSuccess');
+    this.listenTo(UserActions.delete.failure, 'deleteFailure');
+
   },
 
   create: function () {
