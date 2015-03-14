@@ -7,6 +7,8 @@ var mui         = require('material-ui');
 var UserActions = require('../../actions/UserActions');
 var UserStore   = require('../../stores/UserStore');
 
+var CreateUser  = require('./CreateUser');
+
 var Menu        = mui.Menu;
 
 var Users = React.createClass({
@@ -37,6 +39,7 @@ var Users = React.createClass({
     return (
       <div>
         <Menu menuItems={this.getUserMenu()} />
+        <CreateUser />
       </div>
     );
   }
