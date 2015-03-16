@@ -16,24 +16,27 @@ var RadioButton      = mui.RadioButton;
 var CreateUser = React.createClass({
   mixins: [
     require('react/lib/LinkedStateMixin'),
-    Reflux.listenTo(UserStore, 'onUsersChange')
+    Reflux.listenTo(UserStore, 'onUsersChange'),
+    Reflux.connect(AuthStore, 'auth')
   ],
 
   getInitialState: function () {
     return {
-      roles: AuthStore.state.roles
+      roles: AuthStore.state.roles,
+      auth: {
+        user: {}
+      }
     };
   },
 
   onUsersChange: function (userStore) {
     this.setState({status: userStore.create});
-    console.log(AuthStore.state);
   },
 
   setError: function (field, error) {
-    var error = this.state.error || {};
-    error[field] = error;
-    this.setState({error: error});
+    var err = this.state.error || {};
+    err[field] = error;
+    this.setState({error: err});
   },
 
   handleSubmit: function (event) {
@@ -52,45 +55,49 @@ var CreateUser = React.createClass({
 
   getRoleOptions: function () {
     if (!this.state.roles) { return []; }
-    return this.state.roles.map(function (role) {
+    return this.state.roles.map(function (role, i) {
       var label = role.charAt(0).toUpperCase() + role.substr(1);
-      return <RadioButton value={role} label={label} />;
+      return <RadioButton key={i} value={role} label={label} />;
     });
   },
 
   render: function () {
+    if (this.state.auth.user.role !== 'admin') { return <span />; }
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div>
-          <TextField
-            floatingLabelText="User Email"
-            valueLink={this.linkState('email')}
-            type="email"/>
-        </div>
-        <div>
-          <TextField
-            floatingLabelText="Password"
-            valueLink={this.linkState('password1')}
-            type="password"/>
-        </div>
-        <div>
-          <TextField
-            floatingLabelText="Confirm Password"
-            valueLink={this.linkState('password2')}
-            type="password"/>
-        </div>
-        <div>
-          <RadioButtonGroup name="role" label="Role">
-            {this.getRoleOptions()}
-          </RadioButtonGroup>
-        </div>
-        <div>
-          <RaisedButton
-            type="submit"
-            label="Create User"
-            secondary={true} />
-        </div>
-      </form>
+      <div>
+        <h2>Create New User</h2>
+        <form onSubmit={this.handleSubmit}>
+          <div>
+            <TextField
+              floatingLabelText="User Email"
+              valueLink={this.linkState('email')}
+              type="email"/>
+          </div>
+          <div>
+            <TextField
+              floatingLabelText="Password"
+              valueLink={this.linkState('password1')}
+              type="password"/>
+          </div>
+          <div>
+            <TextField
+              floatingLabelText="Confirm Password"
+              valueLink={this.linkState('password2')}
+              type="password"/>
+          </div>
+          <div>
+            <RadioButtonGroup name="role" label="Role">
+              {this.getRoleOptions()}
+            </RadioButtonGroup>
+          </div>
+          <div>
+            <RaisedButton
+              type="submit"
+              label="Create User"
+              secondary={true} />
+          </div>
+        </form>
+      </div>
     );
   }
 });

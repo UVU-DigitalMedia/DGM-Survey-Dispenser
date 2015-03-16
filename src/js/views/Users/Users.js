@@ -6,18 +6,25 @@ var mui         = require('material-ui');
 
 var UserActions = require('../../actions/UserActions');
 var UserStore   = require('../../stores/UserStore');
+var AuthStore   = require('../../stores/AuthStore');
 
 var CreateUser  = require('./CreateUser');
 
 var Menu        = mui.Menu;
 
 var Users = React.createClass({
-  mixins: [Reflux.connect(UserStore, 'userData')],
+  mixins: [
+    Reflux.connect(UserStore, 'userData'),
+    Reflux.connect(AuthStore, 'authData')
+  ],
 
   getInitialState: function () {
     return {
       userData: {
         users: []
+      },
+      authData: {
+        user: {}
       }
     };
   },
@@ -38,8 +45,16 @@ var Users = React.createClass({
   render: function () {
     return (
       <div>
-        <Menu menuItems={this.getUserMenu()} />
-        <CreateUser />
+        <div className="row">
+          <div className="col-xs-12 col-sm-6">
+            <Menu menuItems={this.getUserMenu()} />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-xs-12 col-sm-6">
+            <CreateUser />
+          </div>
+        </div>
       </div>
     );
   }

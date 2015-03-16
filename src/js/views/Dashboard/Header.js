@@ -11,7 +11,7 @@ var AuthStore    = require('../../stores/AuthStore');
 var Toolbar      = mui.Toolbar;
 var ToolbarGroup = mui.ToolbarGroup;
 var Paper        = mui.Paper;
-var RaisedButton = mui.RaisedButton;
+var FlatButton   = mui.FlatButton;
 
 var Header = React.createClass({
   mixins: [
@@ -33,7 +33,7 @@ var Header = React.createClass({
             <h4 className="toolbar-heading">DGM Survey Dispenser</h4>
           </ToolbarGroup>
           <ToolbarGroup key={1} float="right">
-            <RaisedButton label="Logout" secondary={true} onClick={AuthActions.logout} />
+            <FlatButton label="Logout" primary={true} onClick={AuthActions.logout} />
           </ToolbarGroup>
         </Toolbar>
       </Paper>
