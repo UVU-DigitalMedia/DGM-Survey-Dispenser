@@ -50,11 +50,7 @@ var Users = React.createClass({
             <Menu menuItems={this.getUserMenu()} />
           </div>
         </div>
-        <div className="row">
-          <div className="col-xs-12 col-sm-6">
-            <CreateUser />
-          </div>
-        </div>
+        <CreateUser />
       </div>
     );
   }
