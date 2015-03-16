@@ -31,6 +31,7 @@ describe(url, function () {
         .then(function (res) {
           expect(res.body.id).to.eql(1);
           expect(res.body.role).to.eql('admin');
+          return request.post(url + '/logout');
         });
     });
 
@@ -54,7 +55,7 @@ describe(url, function () {
         .then(function () {
           return request
             .post(url + '/logout')
-            .expect(401);
+            .expect(204);
         });
     });
 
@@ -163,6 +164,7 @@ describe(url, function () {
     before(function () {
       return User.create(newUser).then(function (user) {
         newUser.id = user.id;
+        return request.post(url + '/logout');
       });
     });
 
