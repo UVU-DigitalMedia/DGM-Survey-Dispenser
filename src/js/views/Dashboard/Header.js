@@ -17,6 +17,10 @@ var Link         = Router.Link;
 var Header = React.createClass({
   mixins: [],
 
+  logout: function () {
+    window.location.href = '/';
+  },
+
   render: function () {
     return (
       <Paper zDepth={1}>
@@ -28,7 +32,7 @@ var Header = React.createClass({
             <Link to="users">Users</Link>
           </ToolbarGroup>
           <ToolbarGroup key={2} float="right">
-            <FlatButton label="Logout" primary={true} onClick={AuthActions.logout} />
+            <FlatButton label="Logout" primary={true} onClick={this.logout} />
           </ToolbarGroup>
         </Toolbar>
       </Paper>

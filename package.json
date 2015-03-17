@@ -54,6 +54,7 @@
     "express-session": "^1.10.3",
     "flexboxgrid": "^6.1.1",
     "inquirer": "^0.8.0",
+    "jade": "^1.9.2",
     "jsx-loader": "^0.12.2",
     "material-ui": "^0.7.1",
     "method-override": "^2.3.1",

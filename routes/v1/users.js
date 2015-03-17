@@ -40,8 +40,7 @@ router.route('/logout')
   .post(function (req, res, next) {
     req.session.destroy(function (err) {
       if (err) { return next(err); }
-      res.status(204);
-      res.end();
+      res.redirect('/');
     });
   });
 

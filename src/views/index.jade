@@ -1,0 +1,12 @@
+doctype html
+html
+  head
+    title
+    link(href='//fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css')
+    link(href='/css/app.min.css' rel='stylesheet' type='text/css')
+  body
+    script(src='/js/app.min.js')
+    - if (user)
+      script.
+        window.user = !{JSON.stringify(user)};
+        window.roles = !{JSON.stringify(roles)};
