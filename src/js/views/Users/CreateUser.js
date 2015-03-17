@@ -17,48 +17,22 @@ var Paper            = mui.Paper;
 var Dialog           = mui.Dialog;
 
 var CreateUser = React.createClass({
-  mixins: [
-    require('react/lib/LinkedStateMixin'),
-    Reflux.listenTo(UserStore, 'onUsersChange'),
-    Reflux.connect(AuthStore, 'auth')
-  ],
-
-  getInitialState: function () {
-    return {
-      roles: AuthStore.state.roles,
-      auth: {
-        user: {}
-      },
-      status: {}
-    };
-  },
-
-  onUsersChange: function (userStore) {
-    this.setState({status: userStore.create});
-  },
 
   setError: function (field, error) {
-    this.setState({status: {
-      error: {
-        errors: [{
-          path: field,
-          message: error
-        }]
-      }
-    }});
+
   },
 
   getErrors: function () {
-    if (!this.state.status.error) { return {}; }
-    return this.state.status.error.errors.reduce(function (errors, error) {
+    if (!this.props.status || !this.props.status.error) { return {}; }
+    return this.props.status.error.errors.reduce(function (errors, error) {
       errors[error.path] = error.message;
       return errors;
     }, {});
   },
 
   getRoleOptions: function () {
-    if (!this.state.roles) { return []; }
-    return this.state.roles.map(function (role, i) {
+    if (!this.props.roles) { return []; }
+    return this.props.roles.map(function (role, i) {
       var label = role.charAt(0).toUpperCase() + role.substr(1);
       return <RadioButton key={i} value={role} label={label} />;
     });
@@ -67,7 +41,7 @@ var CreateUser = React.createClass({
   handleSubmit: function (event) {
     event.preventDefault();
 
-    this.setState({error: null});
+    //this.setState({error: null});
 
     var values = {
       email: this.refs.email.getValue(),
@@ -92,9 +66,7 @@ var CreateUser = React.createClass({
   showDialog: function () { this.refs.createDialog.show(); },
 
   render: function () {
-    if (this.state.auth.user.role !== 'admin') {
-      return <span />;
-    }
+    if (this.props.userRole !== 'admin') { return <span />; }
     var errors = this.getErrors();
     var actions = [
       <FlatButton

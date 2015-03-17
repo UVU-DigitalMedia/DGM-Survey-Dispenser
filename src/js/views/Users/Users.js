@@ -14,17 +14,13 @@ var Menu        = mui.Menu;
 
 var Users = React.createClass({
   mixins: [
-    Reflux.connect(UserStore, 'userData'),
-    Reflux.connect(AuthStore, 'authData')
+    Reflux.connect(UserStore, 'userData')
   ],
 
   getInitialState: function () {
     return {
       userData: {
         users: []
-      },
-      authData: {
-        user: {}
       }
     };
   },
@@ -50,7 +46,10 @@ var Users = React.createClass({
             <Menu menuItems={this.getUserMenu()} />
           </div>
         </div>
-        <CreateUser />
+        <CreateUser
+          roles={this.props.roles}
+          userRole={this.props.user && this.props.user.role}
+          status={this.state.userData.create}/>
       </div>
     );
   }

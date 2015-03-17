@@ -12,18 +12,10 @@ var Toolbar      = mui.Toolbar;
 var ToolbarGroup = mui.ToolbarGroup;
 var Paper        = mui.Paper;
 var FlatButton   = mui.FlatButton;
+var Link         = Router.Link;
 
 var Header = React.createClass({
-  mixins: [
-    Reflux.listenTo(AuthStore, 'onAuthChange'),
-    Router.Navigation
-  ],
-
-  onAuthChange: function (auth) {
-    if (!auth.user) {
-      this.transitionTo('login');
-    }
-  },
+  mixins: [],
 
   render: function () {
     return (
@@ -32,7 +24,10 @@ var Header = React.createClass({
           <ToolbarGroup key={0} float="left">
             <h4 className="toolbar-heading">DGM Survey Dispenser</h4>
           </ToolbarGroup>
-          <ToolbarGroup key={1} float="right">
+          <ToolbarGroup key={1} float="left">
+            <Link to="users">Users</Link>
+          </ToolbarGroup>
+          <ToolbarGroup key={2} float="right">
             <FlatButton label="Logout" primary={true} onClick={AuthActions.logout} />
           </ToolbarGroup>
         </Toolbar>
