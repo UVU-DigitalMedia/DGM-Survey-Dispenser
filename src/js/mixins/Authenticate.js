@@ -4,6 +4,7 @@ var AuthStore = require('../stores/AuthStore');
 
 function loggedIn(transition) {
   var nextPath = transition.path;
+  console.log('loggedIn');
   if (!AuthStore.state.user) {
     transition.redirect(
       '/login',

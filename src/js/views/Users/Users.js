@@ -10,8 +10,7 @@ var AuthStore    = require('../../stores/AuthStore');
 var Authenticate = require('../../mixins/Authenticate');
 
 var CreateUser   = require('./CreateUser');
-
-var Menu         = mui.Menu;
+var UserList     = require('./UserList');
 
 var Users = React.createClass({
   mixins: [
@@ -31,7 +30,7 @@ var Users = React.createClass({
     return this.state.userData.users.map(function (user, i) {
       return {
         payload: i,
-        text: user.email
+        text: user.email + ' (' + user.role + ')'
       };
     });
   },
@@ -45,7 +44,7 @@ var Users = React.createClass({
       <div>
         <div className="row">
           <div className="col-xs-12 col-sm-6">
-            <Menu menuItems={this.getUserMenu()} />
+            <UserList users={this.state.userData.users} />
           </div>
         </div>
         <CreateUser
