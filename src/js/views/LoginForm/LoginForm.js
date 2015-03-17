@@ -15,13 +15,16 @@ var LoginForm = React.createClass({
   mixins: [
     require('react/lib/LinkedStateMixin'),
     Reflux.listenTo(AuthStore, 'onAuthChange'),
-    Router.Navigation
+    Router.Navigation, Router.State
   ],
 
   onAuthChange: function (auth) {
     this.setState({auth: auth});
+
     if (auth.user) {
-      this.transitionTo('dashboard');
+      var nextPath = this.getQuery().nextPath;
+      console.log(nextPath);
+      this.transitionTo(nextPath || 'dashboard');
     }
   },
 

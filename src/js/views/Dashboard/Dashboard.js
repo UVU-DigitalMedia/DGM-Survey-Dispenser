@@ -6,6 +6,7 @@ var Router       = require('react-router');
 
 var AuthActions  = require('../../actions/AuthActions');
 var AuthStore    = require('../../stores/AuthStore');
+var Authenticate = require('../../mixins/Authenticate');
 
 var Header       = require('./Header');
 var Users        = require('../Users/Users');
@@ -13,7 +14,8 @@ var RouteHandler = Router.RouteHandler;
 
 var Dashboard = React.createClass({
   mixins: [
-    Reflux.connect(AuthStore, 'auth')
+    Reflux.connect(AuthStore, 'auth'),
+    Authenticate.loggedIn()
   ],
 
   componentDidMount: function () {
@@ -21,12 +23,10 @@ var Dashboard = React.createClass({
   },
 
   render: function () {
-    var user = this.state.auth ? this.state.auth.user : {};
-    var roles = this.state.auth ? this.state.auth.roles : [];
     return (
       <div>
         <Header />
-        <RouteHandler user={user} roles={roles}/>
+        <RouteHandler {...this.props}/>
       </div>
     );
   }

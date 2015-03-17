@@ -1,20 +1,22 @@
 'use strict';
 
-var React       = require('react');
-var Reflux      = require('reflux');
-var mui         = require('material-ui');
+var React        = require('react');
+var Reflux       = require('reflux');
+var mui          = require('material-ui');
 
-var UserActions = require('../../actions/UserActions');
-var UserStore   = require('../../stores/UserStore');
-var AuthStore   = require('../../stores/AuthStore');
+var UserActions  = require('../../actions/UserActions');
+var UserStore    = require('../../stores/UserStore');
+var AuthStore    = require('../../stores/AuthStore');
+var Authenticate = require('../../mixins/Authenticate');
 
-var CreateUser  = require('./CreateUser');
+var CreateUser   = require('./CreateUser');
 
-var Menu        = mui.Menu;
+var Menu         = mui.Menu;
 
 var Users = React.createClass({
   mixins: [
-    Reflux.connect(UserStore, 'userData')
+    Reflux.connect(UserStore, 'userData'),
+    Authenticate.hasRole('admin')
   ],
 
   getInitialState: function () {
