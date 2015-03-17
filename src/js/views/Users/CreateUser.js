@@ -18,13 +18,26 @@ var Dialog           = mui.Dialog;
 
 var CreateUser = React.createClass({
 
-  setError: function (field, error) {
+  getInitialState: function () {
+    return {
+      errors: []
+    };
+  },
 
+  setError: function (field, error) {
+    this.setState({
+      errors: [{
+        path: field,
+        message: error
+      }]
+    });
   },
 
   getErrors: function () {
-    if (!this.props.status || !this.props.status.error) { return {}; }
-    return this.props.status.error.errors.reduce(function (errors, error) {
+    var statusErrors = this.props.status && this.props.status.error ?
+      this.props.status.error.errors : [];
+    statusErrors = statusErrors.concat(this.state.errors);
+    return statusErrors.reduce(function (errors, error) {
       errors[error.path] = error.message;
       return errors;
     }, {});
@@ -41,7 +54,7 @@ var CreateUser = React.createClass({
   handleSubmit: function (event) {
     event.preventDefault();
 
-    //this.setState({error: null});
+    this.setState({errors: []});
 
     var values = {
       email: this.refs.email.getValue(),

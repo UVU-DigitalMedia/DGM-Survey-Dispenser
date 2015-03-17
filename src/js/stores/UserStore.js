@@ -104,6 +104,14 @@ var UserStore = Reflux.createStore({
     this.trigger(this.state);
   },
 
+  getById: function (id) {
+    id = parseInt(id, 10);
+    var users = this.state.users;
+    for (var i = 0, len = users.length; i < len; i += 1) {
+      if (users[i].id === id) { return users[i]; }
+    }
+  }
+
 });
 
 module.exports = UserStore;
