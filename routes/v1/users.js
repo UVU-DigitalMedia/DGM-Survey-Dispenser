@@ -39,7 +39,8 @@ router.route('/login')
 router.route('/logout')
   .post(function (req, res, next) {
     req.logout();
-    res.redirect('/');
+    res.status(204);
+    res.end();
   });
 
 /**

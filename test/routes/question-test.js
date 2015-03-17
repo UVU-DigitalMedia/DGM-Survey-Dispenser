@@ -110,7 +110,7 @@ describe(url, function () {
   });
 
   it('DELETE /:id should delete a question', function () {
-    return request.delete(url + '/1')
+    return request.del(url + '/1')
       .auth(user.email, user.password)
       .expect(204)
       .then(function () {

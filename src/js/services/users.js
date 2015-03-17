@@ -39,7 +39,7 @@ users.update = function (user) {
 
 users.delete = function (user) {
   return new Promise(function (resolve, reject) {
-    request.delete('/api/v1/users/' + user.id)
+    request.del('/api/v1/users/' + user.id)
       .end(function (err, res) {
         if (err) { return reject(res.body); }
         resolve();

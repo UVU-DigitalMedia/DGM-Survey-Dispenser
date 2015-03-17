@@ -79,13 +79,11 @@ var CreateUser = React.createClass({
   showDialog: function () { this.refs.createDialog.show(); },
 
   render: function () {
-    if (this.props.userRole !== 'admin') { return <span />; }
     var errors = this.getErrors();
     var actions = [
       <FlatButton
         key={0}
         label="Cancel"
-        secondary={true}
         onTouchTap={this.hideDialog} />,
       <RaisedButton
         key={1}

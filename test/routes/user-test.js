@@ -135,7 +135,7 @@ describe(url, function () {
     });
 
     it('DELETE /:id should delete a user', function () {
-      return request.delete(url + '/2')
+      return request.del(url + '/2')
         .auth(userInfo.email, userInfo.password)
         .expect(204)
         .then(function (res) {
@@ -146,7 +146,7 @@ describe(url, function () {
     });
 
     it('DELETE /:id should get 404 when there is no user', function () {
-      return request.delete(url + '/2')
+      return request.del(url + '/2')
         .auth(userInfo.email, userInfo.password)
         .expect(404);
     });
@@ -234,7 +234,7 @@ describe(url, function () {
     });
 
     it('DELETE /:id should fail to delete a user', function () {
-      return request.delete(url + '/1')
+      return request.del(url + '/1')
         .auth(newUser.email, newUser.password)
         .expect(403);
     });
