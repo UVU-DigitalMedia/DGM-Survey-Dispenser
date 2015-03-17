@@ -29,7 +29,7 @@ module.exports = {
         willTransitionTo: function (transition) {
           var isLoggedIn = loggedIn(transition);
           if (!isLoggedIn || AuthStore.state.user.role !== role) {
-            transition.redirect('/');
+            transition.redirect('dashboard');
           }
         }
       }

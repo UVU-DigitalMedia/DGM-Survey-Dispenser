@@ -10,6 +10,7 @@ var AuthActions = Reflux.createActions({
 
 AuthActions.login.listen(function (email, password) {
   var user;
+  console.log(email, password);
   auth.login(email, password)
     .then(function (foundUser) {
       user = foundUser;

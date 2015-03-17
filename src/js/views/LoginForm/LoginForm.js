@@ -23,7 +23,6 @@ var LoginForm = React.createClass({
 
     if (auth.user) {
       var nextPath = this.getQuery().nextPath;
-      console.log(nextPath);
       this.transitionTo(nextPath || 'dashboard');
     }
   },

@@ -28,7 +28,7 @@ router.route('/login')
   .post(
     auth.loggedIn,
     function (req, res, next) {
-      res.json(reduce(req.user));
+      res.json(reduce(req.session.passport.user));
     }
   );
 
@@ -38,10 +38,8 @@ router.route('/login')
  */
 router.route('/logout')
   .post(function (req, res, next) {
-    req.session.destroy(function (err) {
-      if (err) { return next(err); }
-      res.redirect('/');
-    });
+    req.logout();
+    res.redirect('/');
   });
 
 /**

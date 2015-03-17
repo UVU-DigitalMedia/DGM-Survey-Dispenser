@@ -6,21 +6,22 @@ var Router       = require('react-router');
 var mui          = require('material-ui');
 
 var RaisedButton = mui.RaisedButton;
-var FlatButton   = mui.FlatButton;
 var FontIcon     = mui.FontIcon;
 
-var Link         = Router.Link;
-
 var UserListItem = React.createClass({
+  mixins: [
+    Router.Navigation
+  ],
+  goToUser: function (userId) {
+    this.transitionTo('user', {userId: userId});
+  },
   render: function () {
     return (
       <div>
         <h5 className="preview">{this.props.user.email}</h5>
         <div className="actions">
-          <Link to="user" params={{userId: this.props.user.id}}>
-            Edit
-          </Link>
-          <RaisedButton primary={true} label="Delete"/>
+          <RaisedButton label="Edit" onClick={this.goToUser.bind(this, this.props.user.id)} />
+          <RaisedButton primary={true} label="Delete" />
         </div>
       </div>
     );

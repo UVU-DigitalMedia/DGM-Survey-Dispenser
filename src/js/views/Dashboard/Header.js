@@ -18,7 +18,7 @@ var Header = React.createClass({
   mixins: [],
 
   logout: function () {
-    window.location.href = '/';
+    window.location.href = '/logout';
   },
 
   render: function () {
