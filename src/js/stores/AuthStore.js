@@ -5,7 +5,6 @@ var AuthActions = require('../actions/AuthActions');
 
 var AuthStore = Reflux.createStore({
   init: function () {
-    console.log('init authStore');
     this.state = {
       user: window.user || null,
       roles: window.roles || [],

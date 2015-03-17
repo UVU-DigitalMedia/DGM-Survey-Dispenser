@@ -2,6 +2,7 @@
 
 var React        = require('react');
 var Reflux       = require('reflux');
+var Router       = require('react-router');
 var mui          = require('material-ui');
 
 var UserActions  = require('../../actions/UserActions');
@@ -11,6 +12,7 @@ var Authenticate = require('../../mixins/Authenticate');
 
 var CreateUser   = require('./CreateUser');
 var UserList     = require('./UserList');
+var RouteHandler = Router.RouteHandler;
 
 var Users = React.createClass({
   mixins: [
@@ -42,9 +44,13 @@ var Users = React.createClass({
   render: function () {
     return (
       <div>
+        <h1 className="heading">Users</h1>
         <div className="row">
-          <div className="col-xs-12 col-sm-6">
+          <div className="col-xs-12 col-md-6">
             <UserList users={this.state.userData.users} />
+          </div>
+          <div className="col-xs-12 col-md-6">
+            <RouteHandler {...this.props} />
           </div>
         </div>
         <CreateUser

@@ -9,17 +9,19 @@ var UserListItem = require('./UserListItem');
 var UserList = React.createClass({
   getUsers: function () {
     return this.props.users.map(function (user, i) {
+      var classes = ['users-list-item'];
+      classes.push((i % 2) ? 'even' : 'odd');
       return (
-        <li key={i} className='user-list-item'>
+        <li key={i} className={classes.join(' ')}>
           <UserListItem user={user} />
         </li>
-      )
+      );
     });
   },
 
   render: function () {
     return (
-      <ul className='user-list'>
+      <ul className="users-list">
         {this.getUsers()}
       </ul>
     );
