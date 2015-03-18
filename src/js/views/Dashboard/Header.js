@@ -5,33 +5,34 @@ var Reflux       = require('reflux');
 var Router       = require('react-router');
 var mui          = require('material-ui');
 
-var AuthActions  = require('../../actions/AuthActions');
-var AuthStore    = require('../../stores/AuthStore');
+// var Toolbar      = mui.Toolbar;
+// var ToolbarGroup = mui.ToolbarGroup;
+// var Paper        = mui.Paper;
+// var FlatButton   = mui.FlatButton;
+// var Link         = Router.Link;
 
-var Toolbar      = mui.Toolbar;
-var ToolbarGroup = mui.ToolbarGroup;
-var Paper        = mui.Paper;
-var FlatButton   = mui.FlatButton;
-var Link         = Router.Link;
+var AppBar = mui.AppBar;
+var AppNav = require('./AppNav');
 
 var Header = React.createClass({
-  mixins: [],
+  mixins: [Router.State],
+
+  menuTap: function () {
+    this.refs.appNav.toggle();
+  },
 
   render: function () {
     return (
-      <Paper zDepth={1}>
-        <Toolbar>
-          <ToolbarGroup key={0} float="left">
-            <h4 className="toolbar-heading">DGM Survey Dispenser</h4>
-          </ToolbarGroup>
-          <ToolbarGroup key={1} float="left">
-            <Link to="users">Users</Link>
-          </ToolbarGroup>
-          <ToolbarGroup key={2} float="right">
-            <FlatButton label="Logout" linkButton={true} href="/logout" />
-          </ToolbarGroup>
-        </Toolbar>
-      </Paper>
+      <div>
+        <AppBar
+          className="mui-dark-theme"
+          onMenuIconButtonTouchTap={this.menuTap}
+          title="DGM Survey Dispenser"
+          zDepth={1}>
+          <FlatButton className="logout-button" label="Logout" linkButton={true} href="/logout" />
+        </AppBar>
+        <AppNav ref="appNav" />
+      </div>
     );
   }
 });

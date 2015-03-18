@@ -14,7 +14,6 @@ var RouteHandler = Router.RouteHandler;
 
 var Dashboard = React.createClass({
   mixins: [
-    Reflux.connect(AuthStore, 'auth'),
     Authenticate.loggedIn()
   ],
 
@@ -25,7 +24,7 @@ var Dashboard = React.createClass({
   render: function () {
     return (
       <div>
-        <Header />
+        <Header user={this.props.user}/>
         <div className="dashboard-content">
           <RouteHandler {...this.props}/>
         </div>
