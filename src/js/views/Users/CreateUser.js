@@ -8,11 +8,10 @@ var UserActions      = require('../../actions/UserActions');
 var UserCreateStore  = require('../../stores/UserCreateStore');
 var AuthStore        = require('../../stores/AuthStore');
 
+var RadioSet         = require('../Form/RadioSet');
 var TextField        = mui.TextField;
 var RaisedButton     = mui.RaisedButton;
 var FlatButton       = mui.FlatButton;
-var RadioButtonGroup = mui.RadioButtonGroup;
-var RadioButton      = mui.RadioButton;
 var Dialog           = mui.Dialog;
 var Snackbar         = mui.Snackbar;
 
@@ -70,14 +69,6 @@ var CreateUser = React.createClass({
     }, {});
   },
 
-  getRoleOptions: function () {
-    if (!this.props.roles) { return []; }
-    return this.props.roles.map(function (role, i) {
-      var label = role.charAt(0).toUpperCase() + role.substr(1);
-      return <RadioButton key={i} value={role} label={label} />;
-    });
-  },
-
   handleSubmit: function (event) {
     event.preventDefault();
 
@@ -126,31 +117,40 @@ var CreateUser = React.createClass({
           onTouchTap={this.showDialog} />
         <Dialog title="Create User" actions={actions} ref="createDialog" onDismiss={this.resetValues}>
           <form onSubmit={this.handleSubmit}>
-            <div>
-              <TextField
-                floatingLabelText="User Email"
-                ref="email"
-                type="email"
-                errorText={errors.email}/>
-            </div>
-            <div>
-              <TextField
-                floatingLabelText="Password"
-                ref="password1"
-                type="password"
-                errorText={errors.password}/>
-            </div>
-            <div>
-              <TextField
-                floatingLabelText="Confirm Password"
-                ref="password2"
-                type="password"
-                errorText={errors.password2}/>
-            </div>
-            <div>
-              <RadioButtonGroup name="role" label="Role" ref="role">
-                {this.getRoleOptions()}
-              </RadioButtonGroup>
+            <div className="row">
+              <div className="col-sm-6">
+                <div>
+                  <TextField
+                    floatingLabelText="User Email"
+                    ref="email"
+                    type="email"
+                    errorText={errors.email}/>
+                </div>
+                <div>
+                  <RadioSet
+                    name="role"
+                    label="Role"
+                    ref="role"
+                    values={this.props.roles}
+                    errorText={errors.role}/>
+                </div>
+              </div>
+              <div className="col-sm-6">
+                <div>
+                  <TextField
+                    floatingLabelText="Password"
+                    ref="password1"
+                    type="password"
+                    errorText={errors.password}/>
+                </div>
+                <div>
+                  <TextField
+                    floatingLabelText="Confirm Password"
+                    ref="password2"
+                    type="password"
+                    errorText={errors.password2}/>
+                </div>
+              </div>
             </div>
           </form>
         </Dialog>
