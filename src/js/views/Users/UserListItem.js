@@ -32,6 +32,7 @@ var UserListItem = React.createClass({
   handleDelete: function () {
     UserActions.delete(this.props.user);
     this.hideDialog();
+    this.transitionTo('users');
   },
 
   render: function () {
