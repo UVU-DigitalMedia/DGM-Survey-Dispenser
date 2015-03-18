@@ -80,7 +80,7 @@ describe(url, function () {
       });
   });
 
-  it('GET / should get all questions with created question', function () {
+  it('GET / should get all choices with created question', function () {
     return request.get(url)
       .auth(user.email, user.password)
       .expect(200)

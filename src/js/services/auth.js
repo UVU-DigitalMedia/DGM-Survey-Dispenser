@@ -3,9 +3,7 @@
 var Promise = require('bluebird');
 var request = require('superagent');
 
-var auth = {};
-
-auth.login = function (email, password) {
+exports.login = function (email, password) {
   return new Promise(function (resolve, reject) {
     request.post('/api/v1/users/login')
       .auth(email, password)
@@ -16,7 +14,7 @@ auth.login = function (email, password) {
   });
 };
 
-auth.logout = function () {
+exports.logout = function () {
   return new Promise(function (resolve, reject) {
     request.post('/api/v1/users/logout')
       .end(function (err, res) {
@@ -25,7 +23,7 @@ auth.logout = function () {
   });
 };
 
-auth.roles = function () {
+exports.roles = function () {
   return new Promise(function (resolve, reject) {
     request.get('/api/v1/users/roles')
       .end(function (err, res) {
@@ -34,5 +32,3 @@ auth.roles = function () {
       });
   });
 };
-
-module.exports = auth;

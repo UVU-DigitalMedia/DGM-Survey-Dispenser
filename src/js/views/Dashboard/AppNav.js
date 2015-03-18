@@ -15,6 +15,10 @@ var menuItems = [
     item: {route: 'users', text: 'Users'}
   },
   {
+    restrict: ['admin', 'user'],
+    item: {route: 'questions', text: 'Questions'}
+  },
+  {
     item: {type: mui.MenuItem.Types.LINK, payload: '/logout', text: 'Logout'}
   }
 ];

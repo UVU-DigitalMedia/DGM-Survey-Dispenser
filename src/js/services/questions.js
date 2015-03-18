@@ -3,10 +3,10 @@
 var Promise = require('bluebird');
 var request = require('superagent');
 
-exports.create = function (user) {
+exports.create = function (question) {
   return new Promise(function (resolve, reject) {
-    request.post('/api/v1/users')
-      .send(user)
+    request.post('/api/v1/questions')
+      .send(question)
       .end(function (err, res) {
         if (err) { return reject(res.body); }
         resolve();
@@ -16,7 +16,7 @@ exports.create = function (user) {
 
 exports.read = function () {
   return new Promise(function (resolve, reject) {
-    request.get('/api/v1/users')
+    request.get('/api/v1/questions')
       .end(function (err, res) {
         if (err) { return reject(res.body); }
         resolve(res.body);
@@ -24,23 +24,24 @@ exports.read = function () {
   });
 };
 
-exports.update = function (user) {
+exports.update = function (question) {
+  delete question.choices;
   return new Promise(function (resolve, reject) {
-    request.put('/api/v1/users/' + user.id)
-      .send(user)
+    request.put('/api/v1/users/' + question.id)
+      .send(question)
       .end(function (err, res) {
         if (err) { return reject(res.body); }
-        resolve();
+        resolve(res.body);
       });
   });
 };
 
-exports.delete = function (user) {
+exports.delete = function (question) {
   return new Promise(function (resolve, reject) {
-    request.del('/api/v1/users/' + user.id)
+    request.delete('/api/v1/users/' + question.id)
       .end(function (err, res) {
         if (err) { return reject(res.body); }
-        resolve();
+        resolve(res.body);
       });
   });
 };
