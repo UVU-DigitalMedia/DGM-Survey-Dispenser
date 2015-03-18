@@ -5,29 +5,37 @@ var Reflux           = require('reflux');
 var Router           = require('react-router');
 var mui              = require('material-ui');
 
+var UserUpdateStore  = require('../../stores/UserUpdateStore');
 var UserStore        = require('../../stores/UserStore');
 var UserActions      = require('../../actions/UserActions');
 var Authenticate     = require('../../mixins/Authenticate');
 
+var RadioSet         = require('../Form/RadioSet');
 var TextField        = mui.TextField;
-var RadioButtonGroup = mui.RadioButtonGroup;
-var RadioButton      = mui.RadioButton;
 var RaisedButton     = mui.RaisedButton;
+var Snackbar         = mui.Snackbar;
 
 var User = React.createClass({
   mixins: [
     Router.State,
     Authenticate.hasRole('admin'),
-    Reflux.listenTo(UserStore, 'onUpdateUsers')
+    Reflux.listenTo(UserUpdateStore, 'onUpdateUser')
   ],
 
-  onUpdateUsers: function (userStore) {
-    var update = userStore.update;
-    var errors = update.error ? update.error.errors : [];
+  onUpdateUser: function (updateStatus) {
+    if (updateStatus.success) {
+      this.successAlert();
+    }
     this.setState({
-      errors: errors,
-      loading: update.loading
+      loading: updateStatus.loading,
+      errors: updateStatus.error ? updateStatus.error.errors : []
     });
+  },
+
+  successAlert: function () {
+    var successAlert = this.refs.successAlert;
+    successAlert.show();
+    setTimeout(successAlert.dismiss, 3000);
   },
 
   setError: function (field, error) {
@@ -40,21 +48,10 @@ var User = React.createClass({
   },
 
   getErrors: function () {
-    var statusErrors = this.props.status && this.props.status.error ?
-      this.props.status.error.errors : [];
-    statusErrors = statusErrors.concat(this.state.errors);
-    return statusErrors.reduce(function (errors, error) {
+    return this.state.errors.reduce(function (errors, error) {
       errors[error.path] = error.message;
       return errors;
     }, {});
-  },
-
-  getRoleOptions: function () {
-    if (!this.props.roles) { return []; }
-    return this.props.roles.map(function (role, i) {
-      var label = role.charAt(0).toUpperCase() + role.substr(1);
-      return <RadioButton key={i} value={role} label={label} />;
-    });
   },
 
   updateValues: function (user) {
@@ -66,10 +63,8 @@ var User = React.createClass({
   },
 
   getStateFromStore: function () {
-    var userId = this.getParams().userId;
     return {
-      user: UserStore.getById(userId) || {},
-      errors: []
+      user: UserStore.getById(this.getParams().userId) || {}
     };
   },
 
@@ -91,7 +86,9 @@ var User = React.createClass({
   },
 
   getInitialState: function () {
-    return this.getStateFromStore();
+    var state = this.getStateFromStore();
+    state.errors = [];
+    return state;
   },
 
   handleSubmit: function (event) {
@@ -124,36 +121,52 @@ var User = React.createClass({
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <div>
-            <TextField
-              floatingLabelText="User Email"
-              ref="email"
-              errorText={errors.email} />
+          <div className="row">
+            <div className="col-sm-6">
+              <div>
+                <TextField
+                  floatingLabelText="User Email"
+                  ref="email"
+                  errorText={errors.email} />
+              </div>
+              <div>
+                <RadioSet
+                  name="role"
+                  label="Role"
+                  ref="role"
+                  values={this.props.roles}
+                  errorText={errors.role} />
+              </div>
+            </div>
+            <div className="col-sm-6">
+              <div>
+                <TextField
+                  floatingLabelText="New Password"
+                  ref="password1"
+                  type="password"
+                  errorText={errors.password}/>
+              </div>
+              <div>
+                <TextField
+                  floatingLabelText="Confirm Password"
+                  ref="password2"
+                  type="password"
+                  errorText={errors.password2}/>
+              </div>
+            </div>
           </div>
           <div>
-            <RadioButtonGroup name="role" label="Role" ref="role">
-              {this.getRoleOptions()}
-            </RadioButtonGroup>
-          </div>
-          <div>
-            <TextField
-              floatingLabelText="New Password"
-              ref="password1"
-              type="password"
-              errorText={errors.password}/>
-          </div>
-          <div>
-            <TextField
-              floatingLabelText="Confirm Password"
-              ref="password2"
-              type="password"
-              errorText={errors.password2}/>
-          </div>
-          <div>
-            <RaisedButton type="button" label="Reset" onClick={this.reset}/>
-            <RaisedButton type="submit" primary={true} label="Update User" />
+            <RaisedButton
+              type="button"
+              label="Reset"
+              onClick={this.reset}/>
+            <RaisedButton
+              type="submit"
+              primary={true}
+              label={this.state.loading ? 'Updating...' : 'Update User'} />
           </div>
         </form>
+        <Snackbar message="User has been updated" ref="successAlert" />
       </div>
     );
   }

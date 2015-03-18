@@ -17,26 +17,25 @@ var Snackbar         = mui.Snackbar;
 
 var CreateUser = React.createClass({
   mixins: [
-    Reflux.listenTo(UserCreateStore, 'onCreateUpdate')
+    Reflux.listenTo(UserCreateStore, 'onCreateUser')
   ],
 
-  onCreateUpdate: function (createStatus) {
-    if (createStatus.success === true) {
+  onCreateUser: function (createStatus) {
+    if (createStatus.success) {
       this.successAlert();
       this.resetValues();
       this.hideDialog();
     }
-    var errors = createStatus.error ? createStatus.error.errors : [];
     this.setState({
       loading: createStatus.loading,
-      errors: errors
+      errors: createStatus.error ? createStatus.error.errors : []
     });
   },
 
   successAlert: function () {
     var successAlert = this.refs.successAlert;
     successAlert.show();
-    setTimeout(successAlert.dismiss.bind(successAlert), 3000);
+    setTimeout(successAlert.dismiss, 3000);
   },
 
   resetValues: function () {

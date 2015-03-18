@@ -7,10 +7,6 @@ var UserStore = Reflux.createStore({
   init: function () {
     this.state = {
       users: [],
-      create: {
-        loading: false,
-        error: false
-      },
       read: {
         loading: false,
         error: false
@@ -25,10 +21,6 @@ var UserStore = Reflux.createStore({
       }
     };
 
-    this.listenTo(UserActions.create, 'create');
-    this.listenTo(UserActions.create.success, 'createSuccess');
-    this.listenTo(UserActions.create.failure, 'createFailure');
-
     this.listenTo(UserActions.read, 'read');
     this.listenTo(UserActions.read.success, 'readSuccess');
     this.listenTo(UserActions.read.failure, 'readFailure');
@@ -41,21 +33,6 @@ var UserStore = Reflux.createStore({
     this.listenTo(UserActions.delete.success, 'deleteSuccess');
     this.listenTo(UserActions.delete.failure, 'deleteFailure');
 
-  },
-
-  create: function () {
-    this.state.create.loading = true;
-    this.state.create.error = null;
-    this.trigger(this.state);
-  },
-  createSuccess: function () {
-    this.state.create.loading = false;
-    this.trigger(this.state);
-  },
-  createFailure: function (err) {
-    this.state.create.loading = false;
-    this.state.create.error = err;
-    this.trigger(this.state);
   },
 
   read: function () {

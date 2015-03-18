@@ -44,7 +44,7 @@ var RadioSet = React.createClass({
   render: function() {
     return (
       <div className={this.getClasses()}>
-        <label class="mui-text-field-floating-label">{this.props.label}</label><br />
+        <label>{this.props.label}</label><br />
         <RadioButtonGroup name={this.props.name} ref="radioGroup">
           {this.getOptions()}
         </RadioButtonGroup>
