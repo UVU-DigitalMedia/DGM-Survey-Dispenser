@@ -1,21 +1,20 @@
 'use strict';
 
-var Reflux      = require('reflux');
-var UserActions = require('../actions/UserActions');
+var Reflux          = require('reflux');
+var QuestionActions = require('../actions/QuestionActions');
 
-var UserStore = Reflux.createStore({
+var QuestionStore = Reflux.createStore({
   init: function () {
     this.state = {
-      users: [],
+      questions: [],
       loading: false,
       error: false,
       success: false
     };
 
-    this.listenTo(UserActions.read, 'read');
-    this.listenTo(UserActions.read.success, 'readSuccess');
-    this.listenTo(UserActions.read.failure, 'readFailure');
-
+    this.listenTo(QuestionActions.read, 'read');
+    this.listenTo(QuestionActions.read.success, 'readSuccess');
+    this.listenTo(QuestionActions.read.failure, 'readFailure');
   },
 
   read: function () {
@@ -39,12 +38,12 @@ var UserStore = Reflux.createStore({
 
   getById: function (id) {
     id = parseInt(id, 10);
-    var users = this.state.users;
-    for (var i = 0, len = users.length; i < len; i += 1) {
-      if (users[i].id === id) { return users[i]; }
+    var questions = this.state.questions;
+    for (var i = 0, len = questions.length; i < len; i += 1) {
+      if (questions[i].id === id) { return questions[i]; }
     }
   }
 
 });
 
-module.exports = UserStore;
+module.exports = QuestionStore;
