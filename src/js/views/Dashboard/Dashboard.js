@@ -26,7 +26,9 @@ var Dashboard = React.createClass({
     return (
       <div>
         <Header />
-        <RouteHandler {...this.props}/>
+        <div className="dashboard-content">
+          <RouteHandler {...this.props}/>
+        </div>
       </div>
     );
   }

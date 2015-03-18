@@ -47,16 +47,15 @@ var Users = React.createClass({
         <h1 className="heading">Users</h1>
         <div className="row">
           <div className="col-xs-12 col-md-6">
+            <CreateUser
+              roles={this.props.roles}
+              userRole={this.props.user && this.props.user.role} />
             <UserList users={this.state.userData.users} />
           </div>
           <div className="col-xs-12 col-md-6">
             <RouteHandler {...this.props} />
           </div>
         </div>
-        <CreateUser
-          roles={this.props.roles}
-          userRole={this.props.user && this.props.user.role}
-          status={this.state.userData.create}/>
       </div>
     );
   }

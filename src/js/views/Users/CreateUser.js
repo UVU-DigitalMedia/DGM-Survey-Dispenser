@@ -5,7 +5,7 @@ var Reflux           = require('reflux');
 var mui              = require('material-ui');
 
 var UserActions      = require('../../actions/UserActions');
-var UserStore        = require('../../stores/UserStore');
+var UserCreateStore  = require('../../stores/UserCreateStore');
 var AuthStore        = require('../../stores/AuthStore');
 
 var TextField        = mui.TextField;
@@ -13,13 +13,43 @@ var RaisedButton     = mui.RaisedButton;
 var FlatButton       = mui.FlatButton;
 var RadioButtonGroup = mui.RadioButtonGroup;
 var RadioButton      = mui.RadioButton;
-var Paper            = mui.Paper;
 var Dialog           = mui.Dialog;
+var Snackbar         = mui.Snackbar;
 
 var CreateUser = React.createClass({
+  mixins: [
+    Reflux.listenTo(UserCreateStore, 'onCreateUpdate')
+  ],
+
+  onCreateUpdate: function (createStatus) {
+    if (createStatus.success === true) {
+      this.successAlert();
+      this.resetValues();
+      this.hideDialog();
+    }
+    var errors = createStatus.error ? createStatus.error.errors : [];
+    this.setState({
+      loading: createStatus.loading,
+      errors: errors
+    });
+  },
+
+  successAlert: function () {
+    var successAlert = this.refs.successAlert;
+    successAlert.show();
+    setTimeout(successAlert.dismiss.bind(successAlert), 3000);
+  },
+
+  resetValues: function () {
+    this.refs.email.setValue('');
+    this.refs.password1.setValue('');
+    this.refs.password2.setValue('');
+    this.refs.role.setSelectedValue('');
+  },
 
   getInitialState: function () {
     return {
+      loading: false,
       errors: []
     };
   },
@@ -34,10 +64,7 @@ var CreateUser = React.createClass({
   },
 
   getErrors: function () {
-    var statusErrors = this.props.status && this.props.status.error ?
-      this.props.status.error.errors : [];
-    statusErrors = statusErrors.concat(this.state.errors);
-    return statusErrors.reduce(function (errors, error) {
+    return this.state.errors.reduce(function (errors, error) {
       errors[error.path] = error.message;
       return errors;
     }, {});
@@ -87,7 +114,7 @@ var CreateUser = React.createClass({
         onTouchTap={this.hideDialog} />,
       <RaisedButton
         key={1}
-        label="Create"
+        label={this.state.loading ? 'Creating...' : 'Create'}
         primary={true}
         onTouchTap={this.handleSubmit} />
     ];
@@ -97,7 +124,7 @@ var CreateUser = React.createClass({
           label="Create New User"
           secondary={true}
           onTouchTap={this.showDialog} />
-        <Dialog title="Create User" actions={actions} ref="createDialog">
+        <Dialog title="Create User" actions={actions} ref="createDialog" onDismiss={this.resetValues}>
           <form onSubmit={this.handleSubmit}>
             <div>
               <TextField
@@ -127,6 +154,7 @@ var CreateUser = React.createClass({
             </div>
           </form>
         </Dialog>
+        <Snackbar message="User has been created" ref="successAlert" />
       </div>
     );
   }

@@ -86,6 +86,10 @@ var User = React.createClass({
     this.setState({user: user});
   },
 
+  componentDidMount: function() {
+    this.updateValues();
+  },
+
   getInitialState: function () {
     return this.getStateFromStore();
   },
