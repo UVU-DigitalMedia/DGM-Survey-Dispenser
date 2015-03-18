@@ -1,12 +1,56 @@
 'use strict';
 
-var React = require('react');
+var React   = require('react');
+var Router  = require('react-router');
+var mui     = require('material-ui');
+
+var LeftNav = mui.LeftNav;
+
+var menuItems = [
+  {
+    item: {route: 'dashboard', text: 'Dashboard'}
+  },
+  {
+    restrict: ['admin'],
+    item: {route: 'users', text: 'Users'}
+  },
+  {
+    item: {type: mui.MenuItem.Types.LINK, payload: '/logout', text: 'Logout'}
+  }
+];
 
 var AppNav = React.createClass({
 
+  mixins: [Router.Navigation, Router.State],
+
+  getMenuItems: function () {
+    if (!this.props.user) { return []; }
+    var role = this.props.user.role;
+    return menuItems
+      .filter(function (menuItem) {
+        return !menuItem.restrict || menuItem.restrict.indexOf(role) !== -1;
+      })
+      .map(function (menuItem) {
+        return menuItem.item;
+      });
+  },
+
+  toggle: function () {
+    this.refs.leftNav.toggle();
+  },
+
+  onLeftNavChange: function(e, key, payload) {
+    this.transitionTo(payload.route);
+  },
+
   render: function() {
     return (
-      <div />
+      <LeftNav
+        ref="leftNav"
+        docked={false}
+        isInitiallyOpen={false}
+        menuItems={this.getMenuItems()}
+        onChange={this.onLeftNavChange}/>
     );
   }
 

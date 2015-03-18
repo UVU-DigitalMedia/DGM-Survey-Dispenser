@@ -1,9 +1,9 @@
 'use strict';
 
-var React        = require('react');
-var Reflux       = require('reflux');
-var Router       = require('react-router');
-var mui          = require('material-ui');
+var React      = require('react');
+var Reflux     = require('reflux');
+var Router     = require('react-router');
+var mui        = require('material-ui');
 
 // var Toolbar      = mui.Toolbar;
 // var ToolbarGroup = mui.ToolbarGroup;
@@ -11,8 +11,9 @@ var mui          = require('material-ui');
 // var FlatButton   = mui.FlatButton;
 // var Link         = Router.Link;
 
-var AppBar = mui.AppBar;
-var AppNav = require('./AppNav');
+var AppBar     = mui.AppBar;
+var FlatButton = mui.FlatButton;
+var AppNav     = require('./AppNav');
 
 var Header = React.createClass({
   mixins: [Router.State],
@@ -31,7 +32,7 @@ var Header = React.createClass({
           zDepth={1}>
           <FlatButton className="logout-button" label="Logout" linkButton={true} href="/logout" />
         </AppBar>
-        <AppNav ref="appNav" />
+        <AppNav ref="appNav" user={this.props.user}/>
       </div>
     );
   }
