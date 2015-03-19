@@ -6,7 +6,6 @@ var mui              = require('material-ui');
 
 var UserActions      = require('../../actions/UserActions');
 var UserCreateStore  = require('../../stores/UserCreateStore');
-var AuthStore        = require('../../stores/AuthStore');
 
 var RadioSet         = require('../Form/RadioSet');
 var TextField        = mui.TextField;

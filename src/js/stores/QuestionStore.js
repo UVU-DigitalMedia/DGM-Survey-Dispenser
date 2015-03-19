@@ -7,6 +7,7 @@ var QuestionStore = Reflux.createStore({
   init: function () {
     this.state = {
       questions: [],
+      types: {},
       loading: false,
       error: false,
       success: false
@@ -22,9 +23,10 @@ var QuestionStore = Reflux.createStore({
     this.state.error = null;
     this.trigger(this.state);
   },
-  readSuccess: function (questions) {
+  readSuccess: function (data) {
     this.state.loading = false;
-    this.state.questions = questions;
+    this.state.questions = data.questions;
+    this.state.types = data.types;
     this.state.success = true;
     this.trigger(this.state);
     this.state.success = false;

@@ -19,8 +19,18 @@ QuestionActions.create.listen(function (question) {
     .catch(this.failure);
 });
 
+var typesCache;
+
 QuestionActions.read.listen(function () {
-  questions.read()
+  questions.read().bind({})
+    .then(function (qs) {
+      this.questions = qs;
+      return questions.types();
+    })
+    .then(function (types) {
+      this.types = types;
+      return this;
+    })
     .then(this.success)
     .catch(this.failure);
 });

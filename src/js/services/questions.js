@@ -45,3 +45,17 @@ exports.delete = function (question) {
       });
   });
 };
+
+var typesCache;
+
+exports.types = function () {
+  if (typesCache) { return Promise.resolve(typesCache); }
+  return new Promise(function (resolve, reject) {
+    request.get('/api/v1/questions/types')
+      .end(function (err, res) {
+        if (err) { return reject(res.body); }
+        typesCache = res.body;
+        resolve(res.body);
+      });
+  });
+};

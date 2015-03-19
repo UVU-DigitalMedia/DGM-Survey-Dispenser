@@ -19,8 +19,15 @@ var RadioSet = React.createClass({
   getOptions: function () {
     if (!this.props.values) { return []; }
     return this.props.values.map(function (value, i) {
-      var label = value.charAt(0).toUpperCase() + value.substr(1);
-      return <RadioButton key={i} value={value} label={label} />;
+      var key, label;
+      if (typeof value === 'string') {
+        key = value;
+        label = value.charAt(0).toUpperCase() + value.substr(1);
+      } else {
+        key = value.key;
+        label = value.label;
+      }
+      return <RadioButton key={i} value={key} label={label} />;
     });
   },
 
@@ -45,7 +52,7 @@ var RadioSet = React.createClass({
     return (
       <div className={this.getClasses()}>
         <label>{this.props.label}</label><br />
-        <RadioButtonGroup name={this.props.name} ref="radioGroup">
+        <RadioButtonGroup name={this.props.name} ref="radioGroup" onChange={this.props.onChange}>
           {this.getOptions()}
         </RadioButtonGroup>
         {this.getError()}

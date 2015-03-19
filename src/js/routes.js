@@ -13,6 +13,7 @@ var LoginForm     = require('./views/LoginForm/LoginForm');
 var Dashboard     = require('./views/Dashboard/Dashboard');
 var Users         = require('./views/Users/Users');
 var User          = require('./views/Users/User');
+var Questions     = require('./views/Questions/Questions');
 var FourOhFour    = require('./views/Static/FourOhFour');
 
 module.exports = (
@@ -21,6 +22,9 @@ module.exports = (
     <Route name="dashboard" path="/dashboard" handler={Dashboard}>
       <Route name="users" path="/dashboard/users" handler={Users}>
         <Route name="user" path="/dashboard/users/:userId" handler={User} ignoreScrollBehavior={true}/>
+      </Route>
+      <Route name="questions" path="/dashboard/questions" handler={Questions}>
+
       </Route>
       <Redirect from="/dashboard/*" to="dashboard" />
     </Route>

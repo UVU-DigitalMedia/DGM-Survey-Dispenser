@@ -6,7 +6,7 @@ var Choice   = require('../../models/choice');
 var Answer   = require('../../models/answer');
 var auth     = require('../../lib/auth');
 
-router.route('/types', function (req, res, next) {
+router.route('/types').get(function (req, res, next) {
   res.json(Question.types);
 });
 
