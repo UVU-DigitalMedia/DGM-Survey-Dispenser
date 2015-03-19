@@ -28,15 +28,6 @@ var Users = React.createClass({
     };
   },
 
-  getUserMenu: function () {
-    return this.state.userData.users.map(function (user, i) {
-      return {
-        payload: i,
-        text: user.email + ' (' + user.role + ')'
-      };
-    });
-  },
-
   componentDidMount: function () {
     UserActions.read();
   },

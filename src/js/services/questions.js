@@ -27,7 +27,7 @@ exports.read = function () {
 exports.update = function (question) {
   delete question.choices;
   return new Promise(function (resolve, reject) {
-    request.put('/api/v1/users/' + question.id)
+    request.put('/api/v1/questions/' + question.id)
       .send(question)
       .end(function (err, res) {
         if (err) { return reject(res.body); }
@@ -38,7 +38,7 @@ exports.update = function (question) {
 
 exports.delete = function (question) {
   return new Promise(function (resolve, reject) {
-    request.delete('/api/v1/users/' + question.id)
+    request.delete('/api/v1/questions/' + question.id)
       .end(function (err, res) {
         if (err) { return reject(res.body); }
         resolve(res.body);

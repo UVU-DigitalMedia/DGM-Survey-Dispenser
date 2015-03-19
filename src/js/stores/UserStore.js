@@ -23,9 +23,9 @@ var UserStore = Reflux.createStore({
     this.state.error = null;
     this.trigger(this.state);
   },
-  readSuccess: function (questions) {
+  readSuccess: function (users) {
     this.state.loading = false;
-    this.state.questions = questions;
+    this.state.users = users;
     this.state.success = true;
     this.trigger(this.state);
     this.state.success = false;
