@@ -1,0 +1,47 @@
+.dashboard-content {
+  padding: 0 15px;
+}
+
+.logout-button {
+  float: right;
+  margin-top: 14px;
+  @media (max-width: 450px) {
+    &.mui-enhanced-button.mui-is-link-button {
+      display: none;
+    }
+  }
+}
+
+.heading {
+  margin: 10px 0 10px 10px;
+}
+
+// Users
+.users-list {
+  list-style: none;
+  margin: 10px 0;
+}
+
+.users-list-item {
+  @backgroundColor: #eee;
+  background-color: @backgroundColor;
+  padding: 10px;
+  overflow: hidden;
+
+  &.odd {
+    background-color: lighten(@backgroundColor, 3%);
+  }
+
+  .preview {
+    float: left;
+  }
+
+  .actions {
+    float: right;
+  }
+}
+
+// Questions
+.question-view {
+  padding: 0 20px 20px;
+}

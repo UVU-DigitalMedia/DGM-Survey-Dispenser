@@ -1,19 +1,40 @@
 'use strict';
+/**
+ * @module models/student
+ * @class Student
+ * @classdesc The Student model is used to keep track of individual student
+ * answers
+ *
+ * @requires npm:sequelize
+ * @requires lib/db
+ * @requires lib/errors
+ * @requires models/answer
+ *
+ * @see http://sequelize.readthedocs.org/en/latest/api/model/
+ */
 
-var mongoose = require('mongoose');
-var Schema   = mongoose.Schema;
+var Sequelize = require('sequelize');
+var db        = require('../lib/db');
+var errors    = require('../lib/errors');
+var Answer    = require('./answer');
 
-var StudentSchema = new Schema({
+var Student = db.define('Student', {
+  /** @member {String} Student#uvid - The student's uvid */
   uvid: {
-    type: String,
-    index: { unique: true },
-    required: true
+    type: Sequelize.STRING,
+    unique: true,
+    allowNull: false,
+    validate: {
+      isNumeric: true,
+      len: [8,10]
+    }
   }
+}, {
+  hooks: {},
+  classMethods: {},
+  instanceMethods: {}
 });
 
-// Add createdAt property
-StudentSchema.plugin(require('mongoose-created-at'));
-// Add updatedAt property
-StudentSchema.plugin(require('mongoose-updated-at'));
+Student.hasMany(Answer, {as: 'answers'});
 
-module.exports = StudentSchema;
+module.exports = Student;
