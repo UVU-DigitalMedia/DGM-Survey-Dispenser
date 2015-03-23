@@ -139,6 +139,7 @@ var CreateQuestion = React.createClass({
                     floatingLabelText="Question"
                     ref="description"
                     type="text"
+                    multiLine={true}
                     errorText={errors.description} />
                 </div>
                 <div>

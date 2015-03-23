@@ -40,13 +40,15 @@ var Multiple = React.createClass({
     this.setState({choices: []});
   },
 
-  changeLabelValue: function (i, event, value) {
+  changeLabelValue: function (i, event) {
+    var value = event.target.value;
     var choices = this.state.choices;
     choices[i].label = value;
     this.setState({choices: choices});
   },
 
-  changeDynamicValue: function (i, event, value) {
+  changeDynamicValue: function (i, event) {
+    var value = event.target.value === 'on' ? true : false;
     var choices = this.state.choices;
     choices[i].dynamicValue = value;
     this.setState({choices: choices});

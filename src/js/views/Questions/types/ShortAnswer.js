@@ -22,7 +22,8 @@ var ShortAnswer = React.createClass({
     this.setState(this.getInitialState());
   },
 
-  changeLabelValue: function (event, value) {
+  changeLabelValue: function (event) {
+    var value = event.target.value;
     var choices = this.state.choices;
     choices[0].label = value;
     this.setState({choices: choices});
