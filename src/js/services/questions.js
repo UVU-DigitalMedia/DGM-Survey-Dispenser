@@ -38,7 +38,7 @@ exports.update = function (question) {
 
 exports.delete = function (question) {
   return new Promise(function (resolve, reject) {
-    request.delete('/api/v1/questions/' + question.id)
+    request.del('/api/v1/questions/' + question.id)
       .end(function (err, res) {
         if (err) { return reject(res.body); }
         resolve(res.body);

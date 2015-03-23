@@ -1,88 +1,41 @@
 'use strict';
 
-var React        = require('react');
-var mui          = require('material-ui');
+var React       = require('react');
+var mui         = require('material-ui');
 
-var RaisedButton = mui.RaisedButton;
-var TextField    = mui.TextField;
-var Toggle       = mui.Toggle;
+var Multiple    = require('./types/Multiple');
+var ShortAnswer = require('./types/ShortAnswer');
 
 var Choices = React.createClass({
 
-  getInitialState: function () {
-    return {
-      choices: []
-    };
-  },
-
-  addChoice: function (dynamicValue) {
-    this.setState({
-      choices: this.state.choices.concat({
-        label: '', dynamicValue: !!dynamicValue
-      })
-    });
-  },
-
-  removeChoice: function (i) {
-    this.state.choices.splice(i, 1);
-    this.setState({
-      choices: this.state.choices
-    });
-  },
-
   getValues: function () {
-    return this.state.choices;
+    if (!this.refs.choices) { return []; }
+    return this.refs.choices.getValues();
   },
 
   resetValues: function () {
-    this.setState({choices: []});
+    if (!this.refs.choices) { return; }
+    this.refs.choices.resetValues();
   },
 
-  changeLabelValue: function (i, event, value) {
-    var choices = this.state.choices;
-    choices[i].label = value;
-    this.setState({choices: choices});
-  },
-
-  changeDynamicValue: function (i, event, value) {
-    var choices = this.state.choices;
-    choices[i].dynamicValue = value;
-    this.setState({choices: choices});
-  },
-
-  renderChoices: function () {
-    return this.state.choices.map(function (choice, i) {
-      return (
-        <li key={i}>
-          <TextField
-            floatingLabelText="Label"
-            onChange={this.changeLabelValue.bind(this, i)} />
-          <Toggle
-            label="Dynamic Value"
-            defaultToggled={choice.dynamicValue}
-            onToggle={this.changeDynamicValue.bind(this, i)} />
-          <RaisedButton
-            label="Remove Choice"
-            primary={true}
-            onTouchTap={this.removeChoice.bind(this, i)} />
-        </li>
-      );
-    }, this);
-  },
-
-  render: function() {
-    if (!this.props.type) { return <span/>; }
-    return (
-      <div>
-        <ul className="choices-input">
-          {this.renderChoices()}
-        </ul>
-        <RaisedButton
-          label="Add Choice"
-          secondary={true}
-          onTouchTap={this.addChoice} />
-      </div>
-    );
+  render: function () {
+    var rendered;
+    switch (this.props.type) {
+      case null:
+        rendered = <p>Please select a type</p>;
+        break;
+      case 'multipleChoice':
+      case 'multipleCorrect':
+        rendered = <Multiple ref="choices" />;
+        break;
+      case 'shortAnswer':
+        rendered = <ShortAnswer ref="choices" />;
+        break;
+      default:
+        rendered = <p>That question type is not supported</p>;
+        break;
+    }
+    return rendered;
   }
 
 });

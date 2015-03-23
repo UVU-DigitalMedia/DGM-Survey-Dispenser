@@ -40,10 +40,10 @@ var CreateQuestion = React.createClass({
   },
 
   resetValues: function () {
-    this.ref.choices.resetValues();
-    this.ref.label.setValue('');
-    this.ref.description.setValue('');
-    this.ref.type.setValue(null);
+    this.refs.choices.resetValues();
+    this.refs.label.setValue('');
+    this.refs.description.setValue('');
+    this.refs.type.setSelectedValue(null);
   },
 
   getInitialState: function () {
@@ -64,6 +64,7 @@ var CreateQuestion = React.createClass({
   },
 
   getErrors: function () {
+    if (!this.state.errors) { return {}; }
     return this.state.errors.reduce(function (errors, error) {
       errors[error.path] = error.message;
       return errors;
@@ -88,6 +89,15 @@ var CreateQuestion = React.createClass({
     event.preventDefault();
 
     this.setState({errors: []});
+
+    var values = {
+      label: this.refs.label.getValue(),
+      description: this.refs.description.getValue(),
+      type: this.refs.type.getSelectedValue(),
+      choices: this.refs.choices.getValues()
+    };
+
+    QuestionActions.create(values);
   },
 
   hideDialog: function () { this.refs.createDialog.dismiss(); },
