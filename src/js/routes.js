@@ -15,10 +15,14 @@ var Users         = require('./views/Users/Users');
 var User          = require('./views/Users/User');
 var Questions     = require('./views/Questions/Questions');
 var Question      = require('./views/Questions/Question');
+var StudentLogin  = require('./views/Student/StudentLogin');
+var Answer        = require('./views/Student/Answer');
 var FourOhFour    = require('./views/Static/FourOhFour');
 
 module.exports = (
-  <Route name="app" path="/" handler={App}>
+  <Route name="app" handler={App}>
+    <Route name="student-login" path="/" handler={StudentLogin} />
+    <Route name="answer" path="/answer" handler={Answer} />
     <Route name="login" path="/login" handler={LoginForm} />
     <Route name="dashboard" path="/dashboard" handler={Dashboard}>
       <Route name="users" path="/dashboard/users" handler={Users}>
