@@ -47,6 +47,7 @@ router.route('/:uvid/question')
           where: {
             active: true
           },
+          order: [[{model: Choice, as: 'choices'}, 'id']],
           include: [{
             model: Choice,
             as: 'choices',

@@ -2,24 +2,21 @@
 
 var React = require('react');
 
+var mapping = {
+  multipleCorrect: require('./MultipleCorrect')
+};
+
 var Choices = React.createClass({
 
-  multipleCorrect: function () {
-    return this.props.choices.map(function (choice) {
-      return (
-        <li key={choice.id}>
-
-        </li>
-      )
-    });
+  getValues: function () {
+    if (!this.refs.choices) { return []; }
+    return this.refs.choices.getValues();
   },
 
   render: function() {
-    return (
-      <div>
-
-      </div>
-    );
+    var ChoiceType = mapping[this.props.type];
+    if (!ChoiceType) { return <span/>; }
+    return <ChoiceType ref="choices" choices={this.props.choices}/>
   }
 
 });
