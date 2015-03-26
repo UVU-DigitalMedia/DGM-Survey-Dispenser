@@ -67,7 +67,7 @@ router.route('/:uvid/question')
             });
           });
           if (!questions.length) { return res.end(); }
-          var rand = Math.random() * (0, questions.length - 1);
+          var rand = Math.floor(Math.random() * (questions.length));
           res.json(questions[rand]);
         });
     }

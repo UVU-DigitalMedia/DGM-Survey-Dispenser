@@ -4,7 +4,8 @@ var React = require('react');
 
 var mapping = {
   multipleCorrect: require('./MultipleCorrect'),
-  multipleChoice: require('./MultipleChoice')
+  multipleChoice: require('./MultipleChoice'),
+  shortAnswer: require('./ShortAnswer')
 };
 
 var Choices = React.createClass({
@@ -16,7 +17,7 @@ var Choices = React.createClass({
 
   render: function() {
     var ChoiceType = mapping[this.props.type];
-    if (!ChoiceType) { return <span/>; }
+    if (!ChoiceType) { return <p>Question type not supported. Please inform an admin.</p>; }
     return <ChoiceType ref="choices" choices={this.props.choices}/>
   }
 

@@ -7,26 +7,15 @@ var TextField = mui.TextField;
 
 var ShortAnswer = React.createClass({
 
-  getInitialState: function () {
-    return {choices: [{
-      label: '',
-      dynamicValue: true
-    }]};
-  },
-
   getValues: function () {
-    return this.state.choices;
+    return [{
+      label: this.refs.choice.getValue(),
+      dynamicValue: true
+    }];
   },
 
   resetValues: function () {
-    this.setState(this.getInitialState());
-  },
-
-  changeLabelValue: function (event) {
-    var value = event.target.value;
-    var choices = this.state.choices;
-    choices[0].label = value;
-    this.setState({choices: choices});
+    this.refs.choice.setValue('');
   },
 
   render: function () {
@@ -34,7 +23,7 @@ var ShortAnswer = React.createClass({
       <div>
         <TextField
           floatingLabelText="Label"
-          onChange={this.changLabelValue} />
+          ref="choice"/>
       </div>
     );
   }

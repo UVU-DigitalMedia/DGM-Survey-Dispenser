@@ -14,9 +14,16 @@ var Choices = require('./Choices');
 
 var Answer = React.createClass({
   mixins: [
-    Reflux.connect(StudentQuestionStore, 'question'),
+    Reflux.listenTo(StudentQuestionStore, 'questionUpdate'),
     Router.Navigation
   ],
+
+  questionUpdate: function (question) {
+    this.setState({question: question});
+    if (question.success && !question.question) {
+      this.setState({empty: true});
+    }
+  },
 
   getInitialState: function () {
     return {
@@ -37,6 +44,9 @@ var Answer = React.createClass({
 
   render: function() {
     var question = this.state.question.question;
+    if (this.state.empty) {
+      return <p>There are no more surveys for you to respond to. Come back soon!</p>;
+    }
     if (!question) { return <span />; }
     return (
       <div>
