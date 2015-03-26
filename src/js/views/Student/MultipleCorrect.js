@@ -6,9 +6,6 @@ var mui   = require('material-ui');
 var Checkbox  = mui.Checkbox;
 var TextField = mui.TextField;
 
-var CHOICE_PREFIX = 'choice-';
-var VALUE_PREFIX = 'value-';
-
 var MultipleCorrect = React.createClass({
 
   getChoiceById: function (id) {
@@ -49,7 +46,7 @@ var MultipleCorrect = React.createClass({
   },
 
   updateValue: function (id) {
-    return (function (event, value) {
+    return (function (event) {
       var values = this.state.values;
       values[id] = event.target.value;
       this.setState({values: values});
@@ -76,7 +73,7 @@ var MultipleCorrect = React.createClass({
     }, this);
   },
 
-  render: function() {
+  render: function () {
     return (
       <ul className="choices">
         {this.renderChoices()}

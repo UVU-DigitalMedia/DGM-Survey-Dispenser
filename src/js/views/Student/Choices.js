@@ -3,7 +3,8 @@
 var React = require('react');
 
 var mapping = {
-  multipleCorrect: require('./MultipleCorrect')
+  multipleCorrect: require('./MultipleCorrect'),
+  multipleChoice: require('./MultipleChoice')
 };
 
 var Choices = React.createClass({
