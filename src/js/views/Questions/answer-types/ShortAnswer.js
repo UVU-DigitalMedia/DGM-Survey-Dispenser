@@ -3,18 +3,32 @@
 var React = require('react');
 var mui   = require('material-ui');
 
-var Menu = mui.Menu;
+var Menu = require('../../Components/Menu');
 
 var ShortAnswer = React.createClass({
 
+  getAnswerList: function (answers) {
+    answers = answers || [];
+    var answerData = answers.reduce(function (data, answer) {
+      data[answer.value] = (data[answer.value] || 0) + 1;
+      return data;
+    }, {});
+    return Object.keys(answerData)
+      .map(function (value, i) {
+        return {
+          payload: i,
+          text: value,
+          number: answerData[value] + ''
+        };
+      })
+      .sort(function (a, b) {
+        return a.number < b.number;
+      });
+  },
+
   getItems: function () {
     if (!this.props.choices || !this.props.choices[0]) { return []; }
-    return (this.props.choices[0].answers || []).map(function (answer) {
-      return {
-        payload: answer.id + '',
-        text: answer.value
-      };
-    });
+    return this.getAnswerList(this.props.choices[0].answers);
   },
 
   render: function() {
