@@ -61,15 +61,21 @@ var Multiple = React.createClass({
           <TextField
             floatingLabelText="Label"
             onChange={this.changeLabelValue.bind(this, i)} />
-          <Toggle
-            label="Dynamic Value"
-            defaultToggled={choice.dynamicValue}
-            onToggle={this.changeDynamicValue.bind(this, i)} />
-          <RaisedButton
-            type="button"
-            label="Remove Choice"
-            primary={true}
-            onTouchTap={this.removeChoice.bind(this, i)} />
+          <div className="row">
+            <div className="col-xs-6">
+              <Toggle
+                label="Dynamic Value"
+                defaultToggled={choice.dynamicValue}
+                onToggle={this.changeDynamicValue.bind(this, i)} />
+            </div>
+            <div classNAme="col-xs-6">
+              <RaisedButton
+                type="button"
+                label="Remove Choice"
+                primary={true}
+                onTouchTap={this.removeChoice.bind(this, i)} />
+            </div>
+          </div>
         </li>
       );
     }, this);

@@ -44,6 +44,7 @@ var CreateQuestion = React.createClass({
     this.refs.label.setValue('');
     this.refs.description.setValue('');
     this.refs.type.setSelectedValue(null);
+    this.setState(this.getInitialState());
   },
 
   getInitialState: function () {
