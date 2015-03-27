@@ -22,8 +22,6 @@ First, you'll need to clone the repo and move into the repo's directory:
 ```bash
 git clone git@github.com:UVU-DigitalMedia/DGM-Survey-Dispenser.git
 cd DGM-Survey-Dispenser
-# if this is still in the flux branch, checkout the flux branch
-git checkout flux
 ```
 
 Now you'll need to pull down the 3rd party packages:
@@ -80,6 +78,14 @@ npm run seed
 # If you quit using ctrl-c, it will hang for a bit while it closes database connections
 ```
 
+Now you need to build the assets
+
+```bash
+npm run build
+# If you want to rebuild on a filechange run the following instead:
+npm run watch
+```
+
 Now you're ready to run the app!
 
 ```bash
@@ -88,11 +94,3 @@ npm run server
 
 That will display the url that you can hit to run the app. Once there, go to
 `/login` to login to the backend portion of the app.
-
-# Development
-
-TODO
-
-For now, just know that you can have `npm run watch` run in one tab, and
-`npm run server` on the other, and all of the assets will be built automatically
-for you.
