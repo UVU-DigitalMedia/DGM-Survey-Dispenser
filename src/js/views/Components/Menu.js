@@ -25,7 +25,7 @@ var Menu = React.createClass({
             className += 'menu-list-item';
             return (
               <li key={i} onClick={onClick} className={className}>
-                <span className="menu-list-item-text">{menuItem.text}</span>
+                <span className="menu-list-item-text">{menuItem.text || '(No Value Entered)'}</span>
                 <span className="menu-list-item-number">{menuItem.number}</span>
               </li>
             )
