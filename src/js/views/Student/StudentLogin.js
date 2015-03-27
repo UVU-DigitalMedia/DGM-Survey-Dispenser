@@ -37,6 +37,8 @@ var StudentLogin = React.createClass({
   },
 
   render: function() {
+    var hasError = this.state.studentInfo && this.state.studentInfo.error;
+    var errorText = hasError ? 'Login Failed. Enter a valid UVID.' : null;
     return (
       <div className="row center-xs">
         <div className="col-xs-12 col-sm-6">
@@ -46,8 +48,10 @@ var StudentLogin = React.createClass({
               <TextField
                 type="tel"
                 floatingLabelText="UVID"
-                ref="uvid" />
+                ref="uvid"
+                errorText={errorText}/>
             </div>
+            <br/><br/>
             <div>
               <RaisedButton
                 type="submit"

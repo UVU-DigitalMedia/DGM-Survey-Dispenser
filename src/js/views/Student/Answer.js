@@ -77,7 +77,7 @@ var Answer = React.createClass({
         { !question ? <span /> :
           <div className="row center-xs">
             <div className="col-xs-12 col-sm-4">
-              <div style="text-align: left;">
+              <div style={{textAlign: 'left'}}>
                 <h3>{question.description}</h3>
                 <Choices ref="choices" type={question.type} choices={question.choices}/>
                 <RaisedButton secondary={true} label="Submit" onClick={this.handleSubmit} />

@@ -6,8 +6,16 @@ var Router = require('react-router');
 var mui    = require('material-ui');
 
 var QuestionStore = require('../../stores/QuestionStore');
+var MultipleAnswer = require('./answer-types/Multiple');
+var ShortAnswerAnswer = require('./answer-types/ShortAnswer');
 
-var Paper = mui.Paper;
+var Paper    = mui.Paper;
+
+var mapping = {
+  multipleChoice: MultipleAnswer,
+  multipleCorrect: MultipleAnswer,
+  shortAnswer: ShortAnswerAnswer
+};
 
 var Question = React.createClass({
   mixins: [
@@ -29,24 +37,24 @@ var Question = React.createClass({
   },
 
   renderChoices: function () {
-    if (!this.state.question || !this.state.question.choices) { return; }
+    if (!this.state.question || !this.state.question.choices) { return []; }
     return this.state.question.choices.map(function (choice) {
-      return (
-        <li key={choice.id}>
-          {choice.label}
-        </li>
-      );
+      return {
+        payload: choice.id + '',
+        text: choice.label,
+        number: choice.answers.length + ''
+      };
     });
   },
 
   render: function () {
+    if (!this.state.question || !this.state.question.type) { return <span/>; }
+    var AnswerRendering = mapping[this.state.question.type];
     return (
       <Paper zDepth={1}>
         <div className="question-view">
           <h3>{this.state.question.description}</h3>
-          <ul>
-            {this.renderChoices()}
-          </ul>
+          <AnswerRendering choices={this.state.question.choices}/>
         </div>
       </Paper>
     );

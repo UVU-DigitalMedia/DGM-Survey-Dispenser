@@ -29,7 +29,7 @@ module.exports = (
         <Route name="user" path="/dashboard/users/:userId" handler={User} ignoreScrollBehavior={true}/>
       </Route>
       <Route name="questions" path="/dashboard/questions" handler={Questions}>
-        <Route name="question" path="/dashboard/question/:questionId" handler={Question} ignoreScrollBehavior={true} />
+        <Route name="question" path="/dashboard/questions/:questionId" handler={Question} ignoreScrollBehavior={true} />
       </Route>
       <Redirect from="/dashboard/*" to="dashboard" />
     </Route>
