@@ -26,6 +26,7 @@ exports.getQuestion = function (uvid) {
 exports.answerQuestion = function (uvid, question, answer) {
   return new Promise(function (resolve, reject) {
     request.post('/api/v1/students/' + uvid + '/answer/' + question.id)
+      .send(answer)
       .end(function (err, res) {
         if (err) { return reject(res.body); }
         resolve(res.body);

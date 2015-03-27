@@ -39,10 +39,9 @@ var Question = React.createClass({
     });
   },
 
-  render: function() {
-    console.log(this.state.question);
+  render: function () {
     return (
-      <Paper>
+      <Paper zDepth={1}>
         <div className="question-view">
           <h3>{this.state.question.description}</h3>
           <ul>

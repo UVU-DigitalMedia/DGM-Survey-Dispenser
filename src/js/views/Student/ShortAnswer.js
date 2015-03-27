@@ -10,7 +10,7 @@ var ShortAnswer = React.createClass({
   getValues: function () {
     return {
       id: this.props.choices[0].id,
-      value: this.refs.choices.getValue()
+      value: this.refs.choice.getValue()
     };
   },
 

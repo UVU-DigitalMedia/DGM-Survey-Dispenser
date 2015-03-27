@@ -42,12 +42,12 @@ var StudentQuestionStore = Reflux.createStore({
     this.trigger(this.state);
   },
 
-  answerQuestion: function () {
+  answer: function () {
     this.state.answerLoading = true;
     this.state.error = null;
     this.trigger(this.state);
   },
-  answerQuestionSuccess: function () {
+  answerSuccess: function () {
     this.state.answerLoading = false;
     this.state.question = null;
     this.state.answerSuccess = true;
@@ -55,7 +55,7 @@ var StudentQuestionStore = Reflux.createStore({
     this.state.answerSuccess = false;
     this.trigger(this.state);
   },
-  answerQuestionFailure: function (err) {
+  answerFailure: function (err) {
     this.state.answerLoading = false;
     this.state.error = err;
     this.trigger(this.state);
