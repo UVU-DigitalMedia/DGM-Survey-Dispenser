@@ -35,9 +35,10 @@ var Questions = React.createClass({
   render: function() {
     return (
       <div>
-        <CreateQuestion types={this.state.questionData.types} />
+        <h1>Questions</h1>
         <div className="row">
           <div className="col-cs-12 col-md-6">
+            <CreateQuestion types={this.state.questionData.types} />
             <QuestionList questions={this.state.questionData.questions} />
           </div>
           <div className="col-xs-12 col-md-6">
