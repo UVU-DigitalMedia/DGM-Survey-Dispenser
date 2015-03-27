@@ -53,7 +53,9 @@ var Answer = React.createClass({
   },
 
   closeDialog: function () {
-    this.refs.thankYouDialog.dismiss();
+    if (this.refs.thankYouDialog) {
+      this.refs.thankYouDialog.dismiss();
+    }
     StudentActions.logout();
     this.transitionTo('student-login');
   },
@@ -61,15 +63,26 @@ var Answer = React.createClass({
   render: function() {
     var question = this.state.question.question;
     if (this.state.empty) {
-      return <p>There are no more surveys for you to respond to. Come back soon!</p>;
+      return (
+        <div style={{textAlign: 'center', marginTop: 30, padding: 15}}>
+          <h4>
+            There are no more surveys for you to respond to. Come back soon!
+          </h4>
+          <RaisedButton secondary={true} label="Go Back" onClick={this.closeDialog} />
+        </div>
+      );
     }
     return (
       <div>
         { !question ? <span /> :
-          <div>
-            <h3>{question.description}</h3>
-            <Choices ref="choices" type={question.type} choices={question.choices}/>
-            <RaisedButton secondary={true} label="Submit" onClick={this.handleSubmit} />
+          <div className="row center-xs">
+            <div className="col-xs-12 col-sm-4">
+              <div style="text-align: left;">
+                <h3>{question.description}</h3>
+                <Choices ref="choices" type={question.type} choices={question.choices}/>
+                <RaisedButton secondary={true} label="Submit" onClick={this.handleSubmit} />
+              </div>
+            </div>
           </div>
         }
         <Dialog
