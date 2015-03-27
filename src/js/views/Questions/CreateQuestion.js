@@ -44,6 +44,7 @@ var CreateQuestion = React.createClass({
     this.refs.label.setValue('');
     this.refs.description.setValue('');
     this.refs.type.setSelectedValue(null);
+    this.refs.active.setToggled(true);
     this.setState(this.getInitialState());
   },
 
@@ -95,6 +96,7 @@ var CreateQuestion = React.createClass({
       label: this.refs.label.getValue(),
       description: this.refs.description.getValue(),
       type: this.refs.type.getSelectedValue(),
+      active: this.refs.active.isToggled(),
       choices: this.refs.choices.getValues()
     };
 

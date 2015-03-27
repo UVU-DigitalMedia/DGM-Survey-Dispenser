@@ -133,6 +133,7 @@ router.route('/:id')
    */
   .put(function (req, res, next) {
     req.body.id = req.params.id;
+    delete req.body.id;
     Question
       .update(req.body, {where: {id: req.params.id}})
       .then(function (user) {

@@ -50,7 +50,7 @@ QuestionActions.delete.listen(function (question) {
 });
 
 QuestionActions.activate.listen(function (question) {
-  question.update({
+  questions.update({
     id: question.id,
     active: true
   })
@@ -60,7 +60,7 @@ QuestionActions.activate.listen(function (question) {
 });
 
 QuestionActions.deactivate.listen(function (question) {
-  question.update({
+  questions.update({
     id: question.id,
     active: false
   })

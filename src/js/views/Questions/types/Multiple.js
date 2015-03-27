@@ -68,7 +68,7 @@ var Multiple = React.createClass({
                 defaultToggled={choice.dynamicValue}
                 onToggle={this.changeDynamicValue.bind(this, i)} />
             </div>
-            <div classNAme="col-xs-6">
+            <div className="col-xs-6">
               <RaisedButton
                 type="button"
                 label="Remove Choice"

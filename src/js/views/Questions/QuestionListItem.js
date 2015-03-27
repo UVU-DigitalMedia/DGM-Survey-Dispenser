@@ -17,7 +17,7 @@ var QuestionListItem = React.createClass({
     Router.Navigation
   ],
 
-  Question: function (questionId) {
+  toQuestion: function (questionId) {
     this.transitionTo('question', {questionId: questionId});
   },
 
@@ -51,7 +51,12 @@ var QuestionListItem = React.createClass({
       <div>
         <h5 className="preview">{this.props.question.label}</h5>
         <div className="actions">
-          <RaisedButton label="View" onClick={this.Question.bind(this, this.props.question.id)} />
+          <RaisedButton label="View" onClick={this.toQuestion.bind(this, this.props.question.id)} />
+          { this.props.question.active ?
+            <RaisedButton label="Deactivate" onClick={QuestionActions.deactivate.bind(null, this.props.question)}/>
+            :
+            <RaisedButton secondary={true} label="Activate" onClick={QuestionActions.activate.bind(null, this.props.question)}/>
+          }
           <RaisedButton primary={true} label="Delete" onClick={this.showDialog}/>
         </div>
         <Dialog title={'Delete ' + this.props.question.label} actions={actions} ref="deleteDialog">
