@@ -37,7 +37,7 @@ var Questions = React.createClass({
       <div>
         <h1>Questions</h1>
         <div className="row">
-          <div className="col-cs-12 col-md-6">
+          <div className="col-xs-12 col-md-6">
             <CreateQuestion types={this.state.questionData.types} />
             <QuestionList questions={this.state.questionData.questions} />
           </div>
