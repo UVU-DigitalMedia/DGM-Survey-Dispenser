@@ -10,6 +10,7 @@ var StudentStore   = require('../../stores/StudentStore');
 
 var TextField      = mui.TextField;
 var RaisedButton   = mui.RaisedButton;
+var FlatButton     = mui.FlatButton;
 
 var StudentLogin = React.createClass({
   mixins: [
@@ -56,6 +57,10 @@ var StudentLogin = React.createClass({
             </div>
           </form>
         </div>
+        <FlatButton
+          className="fixed-button"
+          label="Admin Login"
+          onClick={this.transitionTo.bind(null, 'login')} />
       </div>
     );
   }

@@ -10,6 +10,7 @@ var AuthStore    = require('../../stores/AuthStore');
 
 var TextField    = mui.TextField;
 var RaisedButton = mui.RaisedButton;
+var FlatButton   = mui.FlatButton;
 
 var LoginForm = React.createClass({
   mixins: [
@@ -67,6 +68,10 @@ var LoginForm = React.createClass({
             </div>
           </form>
         </div>
+        <FlatButton
+          className="fixed-button"
+          label="Student Login"
+          onClick={this.transitionTo.bind(null, 'student-login')} />
       </div>
     );
   }
