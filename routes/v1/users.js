@@ -1,7 +1,7 @@
 'use strict';
 
 var router = module.exports = require('express').Router();
-var User   = require('../../models/User');
+var User   = require('../../models/user');
 var auth   = require('../../lib/auth');
 
 function reduce(user) {
