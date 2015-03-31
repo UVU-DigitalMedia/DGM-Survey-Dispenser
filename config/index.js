@@ -57,6 +57,7 @@ var config = convict({
   host: {
     doc: 'The user reachable host with protocol and port',
     format: 'url',
+    env: 'HOST',
     default: null
   },
   /**
