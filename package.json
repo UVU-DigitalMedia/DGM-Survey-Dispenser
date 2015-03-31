@@ -57,7 +57,6 @@
     "express": "^4.12.3",
     "express-session": "^1.10.4",
     "flexboxgrid": "^6.1.1",
-    "galileo": "0.0.0",
     "jade": "^1.9.2",
     "johnny-five": "^0.8.50",
     "jsx-loader": "^0.12.2",
