@@ -336,6 +336,8 @@ mkdir /usr/local/pgsql/data
 chown postgres /usr/local/pgsql/data
 su - postgres
 /usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data
+/usr/local/pgsql/bin/postgres -D /usr/local/pgsql/data >logfile 2>&1 &
+/usr/local/pgsql/bin/createdb survey
 exit
 exit
 ```
@@ -381,7 +383,38 @@ a while if you have to run `npm install` multiple times.
 npm install
 ```
 
+Next, you'll want to create your admin user. This can be done with the following
+command:
 
+```bash
+NODE_ENV=production DB=postgres://postgres:[password from before]@127.0.0.1/survey npm run seed
+```
+
+It will prompt your for an email and password. You can run this as many times as
+you wish in order to create many admin users, but once you get the app running,
+you'll be able to create as many users as you would like.
+
+Next, you should generate the ssl certificates. It would be great to have paid
+ones, but for now, self-signed will have to do.
+
+```bash
+npm run ssl
+```
+
+For the host, just enter in the IP address that you'll be using. When it asks
+about adding it to keychain access, just press `CTRL` + `c` to exit. That's only
+for Mac setups.
+
+---
+
+To run the server, you'll want to use environment variables to set your
+configuration options.
+
+```bash
+NODE_ENV=production DB=postgres://postres:[your postgres password]@127.0.0.1/survey HOST=https://[ip address] PORT=443 npm start
+```
+
+It will take a while to spin up, but it will come up.
 
 ```bash
 /usr/local/pgsql/bin/postgres -D /usr/local/pgsql/data

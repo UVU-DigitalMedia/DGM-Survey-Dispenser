@@ -94,3 +94,7 @@ npm run server
 
 That will display the url that you can hit to run the app. Once there, go to
 `/login` to login to the backend portion of the app.
+
+# Galileo Instructions
+
+[Go here](GALILEO_SETUP.md)
