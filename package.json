@@ -61,6 +61,7 @@
     "jsx-loader": "^0.12.2",
     "material-ui": "^0.7.2",
     "method-override": "^2.3.2",
+    "opencv": "^3.0.0",
     "passport": "^0.2.1",
     "passport-http": "^0.2.2",
     "pg": "^4.3.0",
