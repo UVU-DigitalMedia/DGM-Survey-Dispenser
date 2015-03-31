@@ -14,6 +14,7 @@ bootstrapping process
 installation, but it is recommended that you upgrade the one given to you by
 running `npm install -g npm`
 * [`postgresql`](http://www.postgresql.org/) `brew install postgresql`
+* `opencv` `brew install homebrew/science/opencv`
 
 # Installation
 
