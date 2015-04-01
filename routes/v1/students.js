@@ -7,6 +7,7 @@ var Question  = require('../../models/question');
 var Choice    = require('../../models/choice');
 var Answer    = require('../../models/answer');
 var auth      = require('../../lib/auth');
+var dispense  = require('../../lib/dispense');
 
 function findOrCreateStudent(req, res, next) {
   Student
@@ -82,6 +83,7 @@ router.route('/:uvid/answer/:qid')
         .then(function () {
           res.status(204);
           res.end();
+          dispense();
         })
         .catch(next);
     }
