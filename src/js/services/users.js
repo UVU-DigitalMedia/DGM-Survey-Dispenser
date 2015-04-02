@@ -44,3 +44,13 @@ exports.delete = function (user) {
       });
   });
 };
+
+exports.dispense = function () {
+  return new Promise(function (resolve, reject) {
+    request.post('/api/v1/users/dispense')
+      .end(function (err, res) {
+        if (err) { return reject(res.body); }
+        resolve();
+      });
+  });
+};

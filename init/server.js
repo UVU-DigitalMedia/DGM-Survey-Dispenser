@@ -61,7 +61,7 @@ module.exports = function initServer() {
   app.use(methodOverride());
   app.use(cookieParser());
   app.use(session({
-    store: false,
+    store: config._instance.sessionStore(),
     secret: '32lqrewafsdlifqu4po243asdv42qp38123423',
     proxy: false,
     resave: true,

@@ -35,6 +35,7 @@ var Questions = React.createClass({
   render: function() {
     return (
       <div>
+        <br/>
         <h1>Questions</h1>
         <div className="row">
           <div className="col-xs-12 col-md-6">

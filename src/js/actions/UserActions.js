@@ -7,7 +7,8 @@ var UserActions = Reflux.createActions({
   create : {children: ['success', 'failure']},
   read   : {children: ['success', 'failure']},
   update : {children: ['success', 'failure']},
-  delete : {children: ['success', 'failure']}
+  delete : {children: ['success', 'failure']},
+  dispense: {children: ['success', 'failure']}
 });
 
 UserActions.create.listen(function (user) {
@@ -33,6 +34,12 @@ UserActions.update.listen(function (user) {
 UserActions.delete.listen(function (user) {
   users.delete(user)
     .then(UserActions.read)
+    .then(this.success)
+    .catch(this.failure);
+});
+
+UserActions.dispense.listen(function () {
+  users.dispense()
     .then(this.success)
     .catch(this.failure);
 });

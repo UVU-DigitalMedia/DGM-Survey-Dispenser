@@ -43,15 +43,18 @@ var LoginForm = React.createClass({
   },
 
   render: function () {
+    var hasError = this.state.auth && this.state.auth.error;
     return (
       <div className="row center-xs">
         <div className="col-xs-12 col-sm-6">
-          <h2 className="text-center">DGM Survey Dispenser Login</h2>
+          <h1 className="text-center">DGM Survey Dispenser Login</h1>
           <form onSubmit={this.handleSubmit}>
             <div>
               <TextField
+                type="email"
                 floatingLabelText="Email"
-                valueLink={this.linkState('email')} />
+                valueLink={this.linkState('email')}
+                errorText={hasError ? 'Login Failed' : null}/>
             </div>
             <div>
               <TextField

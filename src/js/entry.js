@@ -1,6 +1,7 @@
 'use strict';
 
 require('react-tap-event-plugin')();
+require('fastclick').attach(document.body);
 
 var React  = require('react');
 var Router = require('react-router');

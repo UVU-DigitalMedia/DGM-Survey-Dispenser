@@ -1,8 +1,9 @@
 'use strict';
 
-var router = module.exports = require('express').Router();
-var User   = require('../../models/user');
-var auth   = require('../../lib/auth');
+var router   = module.exports = require('express').Router();
+var User     = require('../../models/user');
+var auth     = require('../../lib/auth');
+var dispense = require('../../lib/dispense');
 
 function reduce(user) {
   return {
@@ -62,6 +63,16 @@ router.route('/roles')
     auth.loggedIn,
     function (req, res, next) {
       res.json(User.roles);
+    }
+  );
+
+router.route('/dispense')
+  .get(
+    auth.loggedIn,
+    function (req, res, next) {
+      dispense().then(function () {
+        res.status(204).end();
+      });
     }
   );
 
