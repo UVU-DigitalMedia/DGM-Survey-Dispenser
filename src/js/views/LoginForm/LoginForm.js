@@ -24,7 +24,7 @@ var LoginForm = React.createClass({
 
     if (auth.user) {
       var nextPath = this.getQuery().nextPath;
-      this.transitionTo(nextPath || 'dashboard');
+      this.transitionTo(nextPath || 'dashboard-default');
     }
   },
 
@@ -47,6 +47,7 @@ var LoginForm = React.createClass({
     return (
       <div className="row center-xs">
         <div className="col-xs-12 col-sm-6">
+          <br/>
           <h1 className="text-center">DGM Survey Dispenser Login</h1>
           <form onSubmit={this.handleSubmit}>
             <div>

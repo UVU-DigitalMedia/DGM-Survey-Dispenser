@@ -8,7 +8,7 @@ var LeftNav = mui.LeftNav;
 
 var menuItems = [
   {
-    item: {route: 'dashboard', text: 'Dashboard'}
+    item: {route: 'dashboard-default', text: 'Dashboard'}
   },
   {
     restrict: ['admin'],

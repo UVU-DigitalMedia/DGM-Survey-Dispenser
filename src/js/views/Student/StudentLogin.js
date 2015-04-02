@@ -42,7 +42,8 @@ var StudentLogin = React.createClass({
     return (
       <div className="row center-xs">
         <div className="col-xs-12 col-sm-6">
-          <h2>DGM Survey</h2>
+          <br/>
+          <h1>DGM Survey</h1>
           <form onSubmit={this.handleSubmit}>
             <div>
               <TextField
