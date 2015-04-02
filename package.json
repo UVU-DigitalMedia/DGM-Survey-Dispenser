@@ -17,7 +17,8 @@
     "jsdoc": "jsdoc -c .jsdocrc || true",
     "apidoc": "apidoc -i routes/ -o docs/api/",
     "ssl": "bash ./scripts/ssl.sh",
-    "seed": "node scripts/seed"
+    "seed": "node scripts/seed",
+    "pm2": "pm2"
   },
   "author": "",
   "license": "ISC",
