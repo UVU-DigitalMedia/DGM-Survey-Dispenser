@@ -113,10 +113,12 @@ var CreateQuestion = React.createClass({
       <FlatButton
         key={0}
         label="Cancel"
+        disabled={this.state.loading}
         onTouchTap={this.hideDialog} />,
       <RaisedButton
         key={1}
         label={this.state.loading ? 'Creating...' : 'Create'}
+        disabled={this.state.loading}
         primary={true}
         onTouchTap={this.handleSubmit} />
     ];
