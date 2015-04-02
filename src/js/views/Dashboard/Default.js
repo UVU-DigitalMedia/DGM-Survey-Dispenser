@@ -18,6 +18,10 @@ var Default = React.createClass({
     return {loading: false};
   },
 
+  dispense: function () {
+    UserActions.dispense();
+  },
+
   render: function() {
     return (
       <div>
@@ -25,7 +29,7 @@ var Default = React.createClass({
         <h1>Dashboard</h1>
         <RaisedButton
           label={this.state.loading ? 'Dispensing...' : 'Dispense M&Ms'}
-          onClick={UserActions.dispense}
+          onClick={this.dispense}
           disabled={this.state.loading} />
       </div>
     );

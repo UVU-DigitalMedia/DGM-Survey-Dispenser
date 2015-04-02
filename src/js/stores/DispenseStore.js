@@ -7,11 +7,11 @@ var DispenseStore = Reflux.createStore({
   init: function () {
     this.loading = false;
 
-    this.listenTo(UserActions.dispense, 'loading');
+    this.listenTo(UserActions.dispense, 'load');
     this.listenTo(UserActions.dispense.success, 'done');
     this.listenTo(UserActions.dispense.failure, 'done');
   },
-  loading: function () {
+  load: function () {
     this.loading = true;
     this.trigger(this.loading);
   },

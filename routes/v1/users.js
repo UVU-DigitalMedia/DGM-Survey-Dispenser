@@ -67,7 +67,7 @@ router.route('/roles')
   );
 
 router.route('/dispense')
-  .get(
+  .post(
     auth.loggedIn,
     function (req, res, next) {
       dispense().then(function () {

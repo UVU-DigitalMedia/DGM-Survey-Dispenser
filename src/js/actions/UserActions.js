@@ -4,11 +4,11 @@ var Reflux = require('reflux');
 var users  = require('../services/users');
 
 var UserActions = Reflux.createActions({
-  create : {children: ['success', 'failure']},
-  read   : {children: ['success', 'failure']},
-  update : {children: ['success', 'failure']},
-  delete : {children: ['success', 'failure']},
-  dispense: {children: ['success', 'failure']}
+  create   : {children: ['success', 'failure']},
+  read     : {children: ['success', 'failure']},
+  update   : {children: ['success', 'failure']},
+  delete   : {children: ['success', 'failure']},
+  dispense : {children: ['success', 'failure']}
 });
 
 UserActions.create.listen(function (user) {
