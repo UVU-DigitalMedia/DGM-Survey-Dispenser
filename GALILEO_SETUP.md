@@ -1,3 +1,12 @@
+[virtual-box]: http://www.oracle.com/technetwork/server-storage/virtualbox/downloads/index.html
+[ubuntu]: http://www.ubuntu.com/download/desktop
+[how-to-install-ubuntu]: http://lmgtfy.com/
+[brew]: http://brew.sh/
+[bonjour]: http://www.macupdate.com/app/mac/13388/bonjour-browser
+[postgres]: http://www.postgresql.org/
+[postgres-files]: http://www.postgresql.org/ftp/source/
+[opencv]: http://opencv.org/
+
 # Galileo Setup
 
 This was a very painful process to go through. It took an entire weekend and
@@ -7,415 +16,319 @@ get the environment set up on the Intel Galileo (Gen 2).
 
 # Prerequisites
 
-The firmware on the Galileo should be updated. I'm not sure the latest version
-now, but using the [Arduino Software for
-Galileo](http://www.intel.com/support/galileo/sb/CS-035101.htm) and a serial
-cable, you should be able to update it no problem (I say no problem, but if I
-remember right, we actually spent a lot of time getting this to work in the
-first place). If you have issues with that, just look up the
-[documenation](http://www.intel.com/content/www/us/en/do-it-yourself/downloads-and-documentation.html).
-
-Although I'm going to go through step-by-step what you should do, you should be
-comfortable using the Terminal. I'm doing this in a typical Mac Dev environment
-(Virtual Box, Homebrew, `wget`, etc.), and I'm not going to cover how to do this
-with Windows. That has it's own set of issues that I did not have time to
-tackle. Use a Mac. There should be someone around that has one you can use.
-
-I'm not sure how long this process would take from start to finish because I did
-a bunch of these steps on different days (because it took that much trial and
-error... but mostly error). I'll try to give estimates on times, but if you want
-to get it done in one day, I would set apart a Saturday afternoon to do it.
-
-# Hardware
-
-You should have the hardware set up already, but if you have to replace or redo
-the galileo, this is what you will need:
-
-* **Ethernet Cable** - You need to be able to connect this directly to a router
-* or ethernet port you have access to. I did this at home so it was easy. If you
-* do it at school, you'll have a lot more difficulty getting the access you
-* need.
-
-* **Internet Access** - you'll be downloading a lot of software directly to the
-* galileo. Having a router isn't enough, you'll need Internet Access
-
-* **Micro SD Card with SD adapter** - This should already be there, but if
-* you're starting from scratch, you'll need this. I believe it needs to be at
-* least 4 GB, but I used a 32GB one.
-
-Everything else should be there. We'll go over software as we go along.
-
-# SD Card
-
-The SD Card will run a bigger version of linux, built for the Galileo (I believe
-it's called Yocto). It doesn't have `apt-get` so don't even try. I tried getting
-several different versions of linux working, like a version of debian built for
-the galileo, but there were so many things lacking, like an [easy way to
-boot](http://sourceforge.net/p/galileodebian/wiki/How%20to%20Boot%20the%20image/)
-the freakin' thing.
-
----
-
-First thing you'll need to do is download the linux image from intel. I found it
-at [this page](https://software.intel.com/en-us/node/530415) but you can
-download it directly with
-
-```bash
-wget http://iotdk.intel.com/images/iot-devkit-latest-mmcblkp0.direct.bz2
-```
-
-Once that's downloaded, unzip it
-
-```bash
-bunzip2 iot-devkit-latest-mmcblkp0.direct.bz2
-```
-
-You should end up with a file names `iot-devkit-latest-mmcblkp0.direct`. This is
-the disk image.
-
----
-
-Now you need to figure out which domain your SD card is mounted under. Type in
-
-```bash
-diskutil list
-```
-
-You should get something like this:
-
-```bash
-/dev/disk0
-   #:                       TYPE NAME                    SIZE       IDENTIFIER
-   0:      GUID_partition_scheme                        *751.3 GB   disk0
-   1:                        EFI EFI                     209.7 MB   disk0s1
-   2:          Apple_CoreStorage                         750.4 GB   disk0s2
-   3:                 Apple_Boot Recovery HD             650.0 MB   disk0s3
-/dev/disk1
-   #:                       TYPE NAME                    SIZE       IDENTIFIER
-   0:                  Apple_HFS Macintosh HD           *750.1 GB   disk1
-                                 Logical Volume on disk0s2
-                                 27400A53-D5C6-4FAC-8CD8-73482A6F3980
-                                 Unlocked Encrypted
-/dev/disk2
-   #:                       TYPE NAME                    SIZE       IDENTIFIER
-   0:      GUID_partition_scheme                        *8.0 GB     disk2
-   1:                        EFI EFI                     209.7 MB   disk2s1
-   2:                  Apple_HFS [Your SD Card Name]     7.7 GB     disk2s2
-```
+These prerequisites aren't necessarily required, but it is an outline of how my
+setup was.
 
-Look for your SD Card name in the spot where is says `[Your SD Card Name]` above
-in your output. The, take note of the section that it's in `/dev/diskN` where
-the `N` is the number it is attached to. The above example, the SD card is at
-`/dev/disk2`. **Take note of this!** If you don't get the right number, you
-could erase you're entire hard drive, or a different one. I would unplug all
-other peripherals, eject the SD card, and put it back in. More than likely, it
-will be at `/dev/disk2`, but it doesn't have to be. Just make sure you get the
-right one.
+## Hardware
 
-Now, you'll want to unmount it. This does not mean eject. If you eject, you have
-to start over and find the `/dev/diskN` again. To unmount the disk, use the
-following:
+* **Intel Galileo (Gen2)** - This is assumed that you have, and it may work on
+  the Gen1, but this tutorial was written while working on a Gen2. You should
+  also have the servo set up and receiving input from pin 10.
 
-```bash
-diskutil unmountDisk /dev/diskN
-```
+* **USB Webcam** - This should also already be mounted to the setup.
 
-where `N` is the number from the last step. Don't remove your SD card.
+* **Mac** - A Linux machine should be just fine as well. Technically, you could
+  do all of the following on a windows machine, but that has its own set of
+  caveats that you'll have to work through on your own. The only real solid
+  requirements for your computer is that you'll need an SD card reader and
+  access to the Internet. The tutorial, however, will assume you're on a Mac.
 
----
+* **Router** - You should have access to a router with internet access. You'll
+  need to connect the Galileo directly to this router.
 
-Now, we'll write the image to the SD card. Still in the directory of the linux
-image from before, run the following (replace the N with the number from
-before):
+* **Ethernet Cable** - You'll need a standard ethernet cable to connect the
+  Galileo to your router.
 
-```bash
-sudo dd bs=8m if=iot-devkit-latest-mmcblkp0.direct of=/dev/diskN
-```
+* **Micro SD Card** - I haven't tested a wide variety of SD cards, but get a
+  decent name branded one that's probably at least 8 Gb, but no more than 32 Gb.
+  You'll need an SD card adapter in order to plug it into your computer.
 
-This won't print out any progress, and it will take a while. It took about 8 to
-15 minutes for me. I don't know all the ins and outs of that command, but the
-`if` argument is some kind of input, and `of` is the output. `bs` is how big
-each block write is (in this case 8 megabytes), but I'm not sure what effect
-that has on the process overall. I just followed (several) tutorials, and they
-just had that value.
+## Software
 
-You can eject it, but we're not quite done with SD card yet. We'll put it back
-in later.
+* **[Virtual Box][virtual-box] with [Ubuntu][ubuntu]** - This is only needed if
+  you're not already running a version of linux that can run `gparted`. If you
+  don't know how to install Ubuntu into virtual box, this
+  [link][how-to-install-ubuntu] should help you. It's free!
 
----
+* **[Homebrew][brew]** - This is only for Mac, and isn't a hard requirement, but
+  for any development done on a mac, many projects assume you already have it
+  installed. For linux users, `brew` is linux's `apt-get`. Make sure your XCode
+  is updated!
 
-<a name="ubuntu"></a>
+* **`wget`** - You could use curl, but `wget` gives you better progress when
+  downloading files. You could also just download the needed files by clicking
+  through links and links, but this will help you through the process a little
+  bit quicker.
 
-Now that you have the SD card, you may notice that the root partition is only
-about 1Gb. About 900Mb are filled with system files, so you're only left with
-about 150Mb, which is not enough to install much of anything let alone the
-whole project.
+## Skills
 
-This is where I spent the most time, and what ultimately narrowed down which
-flavor of linux I needed. The basic one that basically just runs to get the
-Arduino connections up and running didn't have any of the software I needed
-installed like `node`. The devkit one didn't have enough space (that's the next
-step for us), and the debian one didn't boot in an easy way. Since we're doing
-the devkit one, we need to expand the filesystem to use the remainder of the
-disk. I got really good at writing disk images to the SD card because I redid it
-so many times.
+* **Terminal** - Specifically in `bash`, but if you're comfortable in any other
+  shell, you should be able to get by just fine. It's just important that you
+  know you're way about your system using just terminal commands. If you don't,
+  follow the instructions very carefully otherwise you could irrecoverably
+  destroy your system.
 
-First, you'll want to have VirtualBox installed.
+* **Reformatting** - You should be comfortable reformatting hard drives and
+  flash drives. Disk Utility is your friend.
 
-Next, download a .iso of the latest Ubuntu [found here](http://www.ubuntu.com/download/desktop).
 
-After you've downloaded it, open up VirtualBox, and click on the `New` button at
-the top.
+# Installation
 
-In the next window, in the Name: box, type in `Ubuntu`. If it doesn't
-pre-populate the next fields, the next fields should be `Type: Linux` and
-`Version: Ubuntu (64-bit)` (or 32-bit if that's your arch type). Click
-Continue.
+## SD Card Setup
 
-The 512 Mb of RAM should be fine, but I bumped mine up to 4096 (1/4 of what my
-system's max was). I figured it would need it for the process or whatever. Give
-it what you can spare. This is only a temporary image. Go to the next step.
+1. If you have the SD card inserted, remove it. We'll insert it later.
 
-On the next step, I created a virtual hard drive. I left it at the 8.0 Gb
-default.
+1. Open up the terminal and enter the following to download and unzip the disk
+  image:
 
-For the Hard Drive File Type, I just left it as default.
+  ```shell
+  # Downloads the latest disk image from intel
+  wget http://iotdk.intel.com/images/iot-devkit-latest-mmcblkp0.direct.bz2
+  # unzips it
+  bunzip2 iot-devkit-latest-mmcblkp0.direct.bz2
+  ```
 
-For the Storage of physical Hard Drive, I left it at Dynamically allocated.
+1. Find out which disk number the system assigns to the SD card.
 
-On the next step, I left everything and clicked on Create.
+  ```shell
+  # Lists all of the mounted disks and stuff
+  df -h
+  ```
 
----
+  Should output something like this:
 
-Next, you'll want to attach the Ubuntu .iso to the new virtual machine.
+  ```shell
+  Filesystem      Size   Used  Avail Capacity  iused    ifree %iused  Mounted on
+  /dev/disk1     233Gi   68Gi  164Gi    30% 17885624 43099718   29%   /
+  devfs          184Ki  184Ki    0Bi   100%      636        0  100%   /dev
+  map -hosts       0Bi    0Bi    0Bi   100%        0        0  100%   /net
+  map auto_home    0Bi    0Bi    0Bi   100%        0        0  100%   /home
+  ```
 
-Select the Ubuntu virtual machine you just created and click on Settings.
+  Now insert the SD card and run `df -h` again. Notice the last item listed. It
+  may show something like:
 
-Under the Storage Tab, Click on the "Controller: IDE" text, then click on the
-"Add CD/DVD Device" symbol (looks like a round CD with a plus symbol).
+  ```shell
+  /dev/disk2s1
+  /dev/disk2s2
+  ```
 
-Click on "Choose Disk", and select the Ubuntu .iso that you downloaded earlier.
+  in the `Filesystem` column. Just remember the `/dev/diskN` where `N` is the
+  number you need to remember.
 
-Click on Ok to exit the settings, then you can click on start.
+1. Unmount the SD card. This does **not** mean eject. Do not eject. If you
+  eject, you'll need to repeat the last step to make sure you have the write
+  `/dev/diskN` number.
 
-It will open up the virtual machine in a new window. It may be small. Let it
-run and it will eventually get to a screen where you can choose to Try Ubuntu
-or Install Ubuntu. Click Install Ubuntu. On the next screen, select Download
-updates while installing, then click Continue. The next screen will ask to
-erase disk and install ubuntu. That's what we want (because this is just a
-virtual image, it won't actually delete any of your files), so click install
-now. It will say something about it's partitions, and just click continue all
-the way through, fill out your user info and such, until it goes through the
-installation.
+  To unmount, run the following command (be sure to replace the `N` with the
+  number you remembered from the previous step):
 
-After installation, it will reboot, but it will throw an error telling you to
-remove the installation disk. Just close the window (select "Power off the
-machine").
+  ```shell
+  diskutil unmountDisk /dev/diskN
+  ```
 
----
+1. Write the disk image to the SD card.
 
-Now that that's ready, we'll need to set up our SD card to be mounted within the
-Ubuntu machine we just created. This is was a lot more complicated than I
-thought it would be, and it is because Mac's treat the SD slot differently than
-USB slots.
+  Enter the following command to write the disk image to the SD card be sure to
+  replace the `N` with the number you remembered from the previous step. If you
+  use the wrong one, you could destroy your entire system):
 
-First, open up Disk Utility. You should see your SD card there, along with the
-two Volumes. Unmount both of the Volumes (don't eject). Keep this window open
-because Mac will automatically mount the image everyone once in a while. Just
-unmount it if it mounts again, no bit deal, no need to restart (at least before
-it mounts in Ubuntu)
+  ```shell
+  dd bs=8m if=dd bs=8m if=iot-devkit-latest-mmcblkp0.direct of=/dev/diskN
+  ```
 
-For good measure, find the `/dev/diskN` thing again for the SD card.
+  This may take a while. It took about 10 minutes to finish, and it doesn't have
+  any sort of output telling you its progress.
 
-Now we need to make the virtual disk that is linked to the SD card. VirtualBox
-has a command to do that for us! I would `cd` into the `VirtualBox VMs` folder,
-so you can keep track of the new file.
+1. Prepare SD card to be seen by Ubuntu. From what I've read, the newer versions
+  of OS X don't make the SD card slot available like it used to, so we'll need
+  to do some custom linking to make it available to VirtualBox.
 
-```bash
-cd ~/VirtualBox\ VMs
-sudo VBoxManage internalcommands createrawvmdk -filename ./sd-card.vmdk -rawdisk /dev/diskN
-```
+  Run the following to create a virtual disk image that is linked to the SD
+  card (remember to replace the `N` with the number from previous steps):
 
-Remember to replace the N with the number you got.
+  ```shell
+  sudo VBoxManage internalcommands createrawvmdk -filename ./sd-card.vmdk -rawdisk /dev/diskN
+  # changes the permissions so VirtualBox can access them.
+  sudo chmod 777 /dev/diskN
+  sudo chmod 777 ./sd-card.vmdk
+  ```
 
-Now we need to change the permissions on the `/dev/diskN` and the 'file' we just
-created so that VirtualBox can access them.
+  Now in VirtualBox click on your Ubuntu Image, then click Settings > Storage.
+  Click on 'Controller: SATA' and click on the 'Add Hard Disk' icon. Select
+  'Choose existing Disk' and select the `sd-card.vmdk`, wherever it might be.
 
-```bash
-sudo chmod 777 /dev/diskN
-sudo chmod 777 ./sd-card.vmdk
-```
+  Then click all of the `OK` and other confirmation buttons until you get out.
 
-Be sure to unmount the Volumes if they mounted again.
+1. Resize the disk image. The disk image that you just got is only about 1 Gb,
+  of that, the system files take up about 900 Mb. The remaining space is not
+  enough to do anything with.
 
-Now in VirtualBox, select the Ubuntu machine, and click on Settings. Go to the
-Storage tab. Select "Controller: SATA", and click on the "Add Hard Disk" icon
-(the rectangle with the plus symbol). Click on "Choose existing disk" and select
-that `sd-card.vmdk`. Click all the "Open"s, "Ok"s and such until you get back to
-the main Virtual Box screen.
+  Before you boot up Ubuntu, you'll need to unmount all of the partitions of the
+  SD card (be sure to replace the `N` with the number from previous steps):
 
-Be sure to unmount the Volumes if they mounted again.
+  ```shell
+  diskutil unmountDisk /dev/diskN
+  ```
 
-Now start the Ubuntu image. Login, and open up the Terminal. To open the
-terminal, click on the big square in the top left, and type in Terminal. Select
-Terminal from the list.
+  Boot up the Ubuntu image in VirtualBox and login. Once you're logged in, open
+  up the terminal and run:
 
-When the Terminal opens, type in `sudo apt-get install gparted` and continue to
-install gparted (the disk repartitioning tool).
+  ```shell
+  sudo apt-get install gparted
+  ```
 
-When that opens, select the SD drive in the top right corner, then select the
-second partition, which should be around 1 GB. Figure out the software to make
-it fill the rest of the SD card, or at least a good portion of it. That part
-will take a while, maybe even an hour or two. Once it's done, safely shut down
-the ubuntu machine.
+  Once that's installed, run:
 
----
+  ```shell
+  sudo gparted
+  ```
 
-You can now eject the SD card (whew!).
+  That should start up a GUI that will allow you to resize the linux partition
+  to fill the rest of the SD card. In the top right corner, select the second
+  option, which should be your SD card. You'll notice a small partition
+  (something around 50 Mb), and another one (just over 1 Gb). Select the 1 Gb
+  partition and click on the resize icon. In the dialog, drag that second
+  partition all the way to the edge, then click "Resize/Move", then click on the
+  checkmark icon to apply the changes. This process takes a while, maybe around
+  30 minutes to an hour.
 
-Make sure that the power cord is unplugged from the Galileo. Insert the MicroSD
-into the Galileo. Connect the Ethernet Cable from the Galileo to the network.
+  Once that is done, safely shut down Ubuntu. You can now go into the settings
+  and remove that extra `sd-card.vmdk` from the SATA controllers. You can also
+  delete the sd-card.vmdk file and eject (finally) the SD card.
 
-Connect the Power Cable. After about 30 seconds to a minute, connect to your
-router (192.168.1.x or 10.0.1.x) or wherever your router is located. Try to find
-out the ip address of the galileo (hostname should be `galileo`). If you can't
-find it, you could try ping all of the addresses in the block to try and find
-it.
+## Galileo initialization
 
-Once you find it, login to it by typing the following (replacing the ip address
-with the one that you found):
+Now that you have your SD card all setup for the Galileo, we need to get all of
+the software setup on the Galileo itself.
 
-```bash
-ssh root@192.168.1.115
-```
+1. Connect Ethernet Cable from your router to the Galileo. Make sure the power
+  cable for the Galileo is unplugged.
 
-Woo hoo! You're logged in.
+1. Insert Micro SD card into Galileo.
 
----
+1. Plug the power into the Galileo.
 
-This next process takes a really (really) long time. Several hours long. It's
-because you're going to build PostgreSQL from source on really low grade
-hardware (compared to most computers nowadays).
+1. Find out the ip address of the Galileo. Most routers will let you login to
+  their interface and look up a DHCP table with all of the connected clients.
+  Mine happened to have a DHCP lookup table, but not for non-wireless clients.
 
-First, download the latest version of Postgres. Find the latest version from
-[here](http://www.postgresql.org/ftp/source/), click on the link, then on the
-version that ends in `.tar.gz`, right click and copy the link address.
+  I've used software just as [Bonjour Browser][bonjour], which lets you see
+  other clients available over your network. The Galileo would should up under
+  the 'SSH' section.
 
-While still logged into the galileo, type in `wget ` (that's a space at the end)
-and paste in the link address. You'll want to arrow over to the beginning of the
-url where is says `https` and replace it with `http` so that wget can download
-it. There's probably a better way to do it so that it's more secure, but this
-is how I downloaded it.
+  There are many other tools out there, but if worse comes to worst, you could
+  always try pinging every local ip until you get to one that isn't one of your
+  wireless ones.
 
-Once that's downloaded, you'll want to untar it by typing (replacing the
-filename with the one that you just downloaded):
+1. `ssh` into the Galileo using the ip address found in the previous step
+  (replace `[ip address]` with the one found).
 
-```bash
-tar -zxvf postgres-9.4.1.tar.gz
-```
+  ```shell
+  ssh root@[ip address]
+  ```
 
-Now move to the directory that was just extracted.
+If it times out trying to ssh into the Galileo, or it never shows up in your
+router's DHCP table, that means that it didn't boot, and something is wrong with
+the SD card installation. If that's the case, you may need to start over. I've
+been able to reproduce the installation process many times over without any
+issues, so follow those steps to the T. If you still have issues, submit an
+issue with your system information and any and all input/output from your
+terminal (without including sensitive information) relating to your process.
 
-```bash
-cd postgres-9.4.1
-```
+## Galileo Setup
 
-This is where it gets time consuming. Type in the following commands one by one
-and wait for the other ones to finish. Make sure your computer is set up to not
-fall asleep, because you'll probably want to leave it for long periods of time.
-So to be clear, don't just copy this next block and run it. Run each command
-by itself, and wait for it to return to the command prompt.
+Now that we're up and running with the Galileo, we have the software that needs
+to be installed, namely [PostgreSQL][postgres] (database) and [OpenCV][opencv]
+(webcam interactions). OpenCV is supposedly already installed in some manner,
+but not in a way that the node module we're using can interact with.
 
-```bash
-./configure
-make
-su
-make install
-adduser postgres # this one will make you set a password. Remember this password
-mkdir /usr/local/pgsql/data
-chown postgres /usr/local/pgsql/data
-su - postgres
-/usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data
-/usr/local/pgsql/bin/postgres -D /usr/local/pgsql/data >logfile 2>&1 &
-/usr/local/pgsql/bin/createdb survey
-exit
-exit
-```
+1. **OpenCV** - This will by far take the most amount of time. You will need to
+  build OpenCV from source using the very light hardware that the Galileo
+  provied. This process took upwards of 18 hours for me, and the first time, it
+  failed. You'll want to have this run while you're at school or work and
+  overnight.
 
-Takes a little while, doesn't it?
+  While logged into the Galileo, download OpenCV:
 
----
+  ```shell
+  wget http://downloads.sourceforge.net/project/opencvlibrary/opencv-unix/2.4.11/opencv-2.4.11.zip
+  unzip opencv-2.4.11.zip
+  rm opencv-2.4.11.zip
+  ```
 
-Now let's update `npm` and such.
+  Now, we'll need to setup the installation:
 
-```bash
-npm install -g npm
-npm install -g node-gyp
-```
+  ```shell
+  cd opencv-2.4.11
+  mkdir release
+  cd release
+  cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..
+  ```
 
-Get back to the home directory
+  That last command is setting up that `release/` directory to begin the
+  installation process. That command should take a little bit to finish. Once
+  that is done, I recommend rebooting the Galileo. The times that the next step
+  has failed has been because it has run out of memory. Better to reboot now
+  just to make sure the installation process won't run out of memory 12 hours
+  in.
 
-```bash
-cd ~
-```
+  ```shell
+  reboot now
+  ```
 
-Clone the repository
+  After about a minute, you should be able to ssh into the machine again.
 
-```bash
-git clone https://github.com/UVU-DigitalMedia/DGM-Survey-Dispenser.git
-```
+  ```shell
+  ssh root@[ip address]
+  ```
 
-After that's done, it might be a good thing to reboot the machine. I've run into
-several 'out of memory' issues when installing all of the rest of the
-dependencies.
+  Now move into the release directory again
 
-Move to the repository directory
+  ```shell
+  cd opencv-2.4.11/release
+  ```
 
-```bash
-cd DGM-Survey-Dispenser
-```
+  This next command is the one that will take forever to run. Make sure that
+  your computer doesn't lose the ssh connection or you'll never know when it
+  will be done. Adjust your power saving settings to make sure your computer
+  won't go to sleep, and inform anyone with access to the computer to not close
+  the lid or shutdown or anything to the computer. For the overnight part, I
+  just turned the display brightness all the way down, as well as the keyboard
+  backlight. Anyway, you get the picture. Here we go:
 
-Install the node modules. This will also take a long time. If it fails, delete
-the `node_modules` directory and try again. You may need to reboot every once in
-a while if you have to run `npm install` multiple times.
+  ```shell
+  make
+  ```
 
-```bash
-npm install
-```
+  That command (thankfully) will give you a progress update, even if it seems
+  like it hangs for a while. For good memory measure, reboot again before you
+  run the next command:
 
-Next, you'll want to create your admin user. This can be done with the following
-command:
+  ```shell
+  reboot now
+  ssh root@[ip address]
+  cd opencv-2.4.11/release
+  sudo make install
+  ```
 
-```bash
-NODE_ENV=production DB=postgres://postgres:[password from before]@127.0.0.1/survey npm run seed
-```
+2. **PostgreSQL** - This process will also take a long while because you will
+  be building from source. It will take much less time than OpenCV; it will
+  probably take somewhere between 2-4 hours instead of 16-20 hours.
 
-It will prompt your for an email and password. You can run this as many times as
-you wish in order to create many admin users, but once you get the app running,
-you'll be able to create as many users as you would like.
+  It would probably be good to do another reboot:
 
-Next, you should generate the ssl certificates. It would be great to have paid
-ones, but for now, self-signed will have to do.
+  ```shell
+  reboot now
+  ssh root@[ip address]
+  ```
 
-```bash
-npm run ssl
-```
+  Next, download the zipped version of postgres:
 
-For the host, just enter in the IP address that you'll be using. When it asks
-about adding it to keychain access, just press `CTRL` + `c` to exit. That's only
-for Mac setups.
+  ```shell
+  wget https://ftp.postgresql.org/pub/source/v9.4.1/postgresql-9.4.1.tar.bz2
+  tar xvjf postgresql-9.4.1.tar.bz2
+  ```
 
----
-
-To run the server, you'll want to use environment variables to set your
-configuration options.
-
-```bash
-NODE_ENV=production DB=postgres://postres:[your postgres password]@127.0.0.1/survey HOST=https://[ip address] PORT=443 npm start
-```
-
-It will take a while to spin up, but it will come up.
-
-```bash
-/usr/local/pgsql/bin/postgres -D /usr/local/pgsql/data
-```
+  If you want the most recent version of PostgreSQL, look at their
+  [archive][postgres-files].
