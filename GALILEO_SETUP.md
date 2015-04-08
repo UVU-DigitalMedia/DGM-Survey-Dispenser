@@ -403,6 +403,7 @@ but not in a way that the node module we're using can interact with.
   In your home directory, create the `serverlog` file:
 
   ```shell
+  cd ~
   touch serverlog
   chown postgres serverlog
   ```
