@@ -382,6 +382,29 @@ but not in a way that the node module we're using can interact with.
   npm install --production
   ```
 
+  Now you need to generate the self signed ssl certificates. When it asks about
+  editing your keychain, just press `ctrl` + `c` to quit. Enter in the host
+  name, or the ip address of the Galileo when prompted:
+
+  ```shell
+  npm run ssl
+  ```
+
+  Now start up postgres so that you can add in the default admin user
+
+  ```shell
+  su - postgres
+  /usr/local/pgsql/bin/postgres -D /usr/local/pgsql/data >logfile 2>&1 &
+  exit
+  ```
+
+  Create the default admin user. The next command will prompt you for an email
+  and password. It will create the admin user for you.
+
+  ```shell
+  npm run seed
+  ```
+
 1. **Startup files**
 
   In your home directory, create the `serverlog` file:
@@ -424,3 +447,35 @@ but not in a way that the node module we're using can interact with.
 
   /home/root/DGM-Survey-Dispenser/node_modules/.bin/pm2 stop all
   ```
+
+  Change the permissions for those files so that they can be executed:
+
+  ```shell
+  chmod a+x ./start.sh ./stop.sh
+  ```
+
+  Now you'll need to set the password for the root user:
+
+  ```shell
+  passwd
+  ```
+
+  After those files are create, reboot again.
+
+  ```shell
+  reboot now
+  ```
+
+# Post-installation
+
+Now the Galileo is all setup! To start the server run the following:
+
+```shell
+ssh root@[ip address] /home/root/start.sh
+```
+
+To stop it (which you should do before you unplug anything), run the following:
+
+```shell
+ssh root@[ip address] /home/root/stop.sh
+```
