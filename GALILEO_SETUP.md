@@ -312,7 +312,7 @@ but not in a way that the node module we're using can interact with.
   sudo make install
   ```
 
-2. **PostgreSQL** - This process will also take a long while because you will
+1. **PostgreSQL** - This process will also take a long while because you will
   be building from source. It will take much less time than OpenCV; it will
   probably take somewhere between 2-4 hours instead of 16-20 hours.
 
@@ -326,9 +326,101 @@ but not in a way that the node module we're using can interact with.
   Next, download the zipped version of postgres:
 
   ```shell
-  wget https://ftp.postgresql.org/pub/source/v9.4.1/postgresql-9.4.1.tar.bz2
+  wget http://ftp.postgresql.org/pub/source/v9.4.1/postgresql-9.4.1.tar.bz2
   tar xvjf postgresql-9.4.1.tar.bz2
   ```
 
   If you want the most recent version of PostgreSQL, look at their
   [archive][postgres-files].
+
+  Now we need to configure and install it
+
+  ```shell
+  cd postgresql-9.4.1
+  ./configure
+  make
+  su # become super user
+  make install
+  adduser postgres # add postgres user
+  # Take note of the password you create for the postgres user
+  mkdir /usr/local/pgsql/data # make database directory
+  chown postgres /usr/local/pgsql/data # change ownership
+  su - postgres # assume postres user
+  /usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data # initialize database engine
+  /usr/local/pgsql/bin/postgres -D /usr/local/pgsql/data >logfile 2>&1 & # initialize postgres server
+  /usr/local/pgsql/bin/createdb survey # Create survey database
+  exit # logout of postgres user
+  exit # logout of su
+  ```
+
+  Now that that's all done, you'll probably want to restart now:
+
+  ```shell
+  reboot now
+  ssh root@[ip address]
+  ```
+
+1. **Node and App**
+
+  First, let's update `npm` and `node-gyp`:
+
+  ```shell
+  npm install -g npm
+  npm install -g node-gyp
+  ```
+
+  Now, let's clone the repo
+
+  ```shell
+  git clone https://github.com/UVU-DigitalMedia/DGM-Survey-Dispenser.git
+  cd DGM-Survey-Dispenser
+  ```
+
+  Next, we'll install the dependencies:
+
+  ```shell
+  npm install --production
+  ```
+
+1. **Startup files**
+
+  In your home directory, create the `serverlog` file:
+
+  ```shell
+  touch serverlog
+  chown postgres serverlog
+  ```
+
+  Also, create a `.profile` file:
+
+  `.profile`
+
+  ```shell
+  export NODE_ENV=production
+  export DB=postgres://postgres:[postgress password]@127.0.0.1/survey
+  export HOST=https://[ip address]
+  export PORT=443
+  export PATH=$PATH:/usr/local/pgsql/bin
+  ```
+
+  Now we'll create the start and stop scripts
+
+  `start.sh`
+
+  ```shell
+  #!/bin/sh
+
+  su postgres -c '/usr/local/pgsql/bin/pg_ctl start -D /usr/local/pgsql/data -l serverlog'
+
+  /home/root/DGM-Survey-Dispenser/node_modules/.bin/pm2 start /home/root/DGM-Survey-Dispenser/app.js
+  ```
+
+  `stop.sh`
+
+  ```shell
+  #!/bin/sh
+
+  su postgres -c '/usr/local/pgsql/bin/pg_ctl stop -D /usr/local/pgsql/data -l serverlog'
+
+  /home/root/DGM-Survey-Dispenser/node_modules/.bin/pm2 stop all
+  ```
