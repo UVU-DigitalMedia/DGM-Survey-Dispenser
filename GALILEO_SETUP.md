@@ -400,12 +400,10 @@ but not in a way that the node module we're using can interact with.
 
 1. **Startup files**
 
-  In your home directory, create the `serverlog` file:
+  Go to your home directory
 
   ```shell
   cd ~
-  touch serverlog
-  chown postgres serverlog
   ```
 
   Also, create a `.profile` file:
@@ -427,7 +425,7 @@ but not in a way that the node module we're using can interact with.
   ```shell
   #!/bin/sh
 
-  su postgres -c '/usr/local/pgsql/bin/pg_ctl start -D /usr/local/pgsql/data -l serverlog'
+  su postgres -c '/usr/local/pgsql/bin/pg_ctl start -D /usr/local/pgsql/data -l /usr/local/pgsql/data/serverlog'
 
   /home/root/DGM-Survey-Dispenser/node_modules/.bin/pm2 start /home/root/DGM-Survey-Dispenser/app.js
   ```
@@ -437,7 +435,7 @@ but not in a way that the node module we're using can interact with.
   ```shell
   #!/bin/sh
 
-  su postgres -c '/usr/local/pgsql/bin/pg_ctl stop -D /usr/local/pgsql/data -l serverlog'
+  su postgres -c '/usr/local/pgsql/bin/pg_ctl stop -D /usr/local/pgsql/data -l /usr/local/pgsql/data/serverlog'
 
   /home/root/DGM-Survey-Dispenser/node_modules/.bin/pm2 stop all
   ```
