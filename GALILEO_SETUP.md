@@ -398,13 +398,6 @@ but not in a way that the node module we're using can interact with.
   exit
   ```
 
-  Create the default admin user. The next command will prompt you for an email
-  and password. It will create the admin user for you.
-
-  ```shell
-  npm run seed
-  ```
-
 1. **Startup files**
 
   In your home directory, create the `serverlog` file:
@@ -472,6 +465,13 @@ Now the Galileo is all setup! To start the server run the following:
 
 ```shell
 ssh root@[ip address] /home/root/start.sh
+```
+
+After it's started, you'll want to seed your app with your default user:
+
+```shell
+ssh root@[ip address]
+npm run seed
 ```
 
 To stop it (which you should do before you unplug anything), run the following:
