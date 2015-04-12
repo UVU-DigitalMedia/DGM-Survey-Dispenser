@@ -5,7 +5,7 @@ var webpack = require('webpack');
 module.exports = {
   context: __dirname,
   entry: './entry.js',
-  devtool: '#inline-source-map',
+  devtool: '#source-map',
   output: {
     path: __dirname,
     filename: 'app.min.js'
